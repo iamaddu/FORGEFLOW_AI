@@ -104,14 +104,14 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Precision Sheet Metal Cutting Image (Authentic Factory Imagery) */}
+        {/* Precision Metal Fabrication Image (Authentic Factory Imagery) */}
         <div className="absolute inset-0 flex items-stretch pointer-events-none">
           <div className="flex-1" />
           <div className="w-full sm:w-7/12 relative">
             <div className="absolute inset-y-0 left-0 w-36 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
             <img
-              src="/laser-cutting-sheet.jpg"
-              alt="Precision Fiber Laser Sheet Metal Fabrication"
+              src="/cnc-metal-turning.jpg"
+              alt="Precision CNC Metal Machining & Fabrication"
               className="w-full h-full object-cover object-center opacity-85"
               style={{ maxHeight: 260 }}
             />

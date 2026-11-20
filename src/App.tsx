@@ -37,10 +37,22 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#4A3482] via-[#523D8A] to-[#3B2668] text-[#1E1638] flex flex-row antialiased relative selection:bg-[#F5A636]/30">
-      {/* Ambient PPT Radial Glows */}
-      <div className="fixed top-0 right-1/4 w-96 h-96 bg-[#F5A636]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 left-1/3 w-96 h-96 bg-[#F8C8BE]/12 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen text-[#1E1638] flex flex-row antialiased relative selection:bg-[#F5A636]/30 overflow-x-hidden">
+      {/* ── Classy Glassy Manufacturing Background Image ── */}
+      <div
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
+        style={{
+          backgroundImage: "url('/glassy-factory-bg.jpg')",
+          filter: 'brightness(0.75) contrast(1.15)',
+        }}
+      />
+
+      {/* Royal Purple PPT Glassmorphism Gradient Overlay */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-br from-[#452F7D]/92 via-[#523D8A]/88 to-[#351F5E]/94 backdrop-blur-[6px] pointer-events-none" />
+
+      {/* Ambient PPT Soft Mango & Peach Glows */}
+      <div className="fixed -top-24 right-1/4 w-[520px] h-[520px] bg-[#F5A636]/15 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="fixed -bottom-24 left-1/4 w-[520px] h-[520px] bg-[#F8C8BE]/18 rounded-full blur-[140px] pointer-events-none z-0" />
 
       <div className="relative z-10 flex flex-row w-full min-h-screen">
         <Sidebar />

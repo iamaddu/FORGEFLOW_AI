@@ -57,10 +57,22 @@ export const Login: React.FC = () => {
   const features = selectedRole === 'buyer' ? buyerFeatures : sellerFeatures;
 
   return (
-    <div className="min-h-screen bg-[#523D8A] text-white flex flex-col justify-between relative overflow-hidden select-none">
+    <div className="min-h-screen text-white flex flex-col justify-between relative overflow-hidden select-none">
+      {/* Classy Glassy Manufacturing Background Image */}
+      <div
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
+        style={{
+          backgroundImage: "url('/glassy-factory-bg.jpg')",
+          filter: 'brightness(0.7) contrast(1.15)',
+        }}
+      />
+
+      {/* Royal Purple PPT Glassmorphism Gradient Overlay */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-br from-[#452F7D]/92 via-[#523D8A]/88 to-[#351F5E]/94 backdrop-blur-[6px] pointer-events-none" />
+
       {/* PPT Ambient Radial Glows */}
-      <div className="absolute top-[-80px] right-[-80px] w-96 h-96 rounded-full bg-white/5 pointer-events-none" />
-      <div className="absolute bottom-[-100px] left-[-60px] w-80 h-80 rounded-full bg-white/5 pointer-events-none" />
+      <div className="fixed top-[-80px] right-[-80px] w-96 h-96 rounded-full bg-[#F5A636]/15 blur-3xl pointer-events-none z-0" />
+      <div className="fixed bottom-[-100px] left-[-60px] w-80 h-80 rounded-full bg-[#F8C8BE]/15 blur-3xl pointer-events-none z-0" />
 
       {/* Header */}
       <header className="px-6 py-5 flex items-center justify-between border-b border-white/15 relative z-10 max-w-7xl mx-auto w-full">
@@ -131,11 +143,11 @@ export const Login: React.FC = () => {
             ))}
           </div>
 
-          {/* Authentic Fiber Laser Cutting Sheet Metal Photo Card */}
+          {/* Authentic Fabrication & Steel Supply Photo Card */}
           <div className="relative rounded-3xl overflow-hidden h-40 max-w-md border-2 border-white/20 shadow-xl">
             <img
-              src="/laser-cutting-sheet.jpg"
-              alt="Precision Fiber Laser Sheet Metal Fabrication"
+              src={selectedRole === 'buyer' ? "/cnc-metal-turning.jpg" : "/steel-warehouse-coils.jpg"}
+              alt="Precision Metal Fabrication & Raw Material Supply"
               className="w-full h-full object-cover opacity-85"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/75 to-transparent flex items-center px-6">

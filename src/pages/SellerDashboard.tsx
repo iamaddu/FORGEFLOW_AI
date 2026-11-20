@@ -46,8 +46,14 @@ export const SellerDashboard: React.FC = () => {
         <div className="absolute inset-0 flex items-stretch pointer-events-none">
           <div className="flex-1" />
           <div className="w-full sm:w-6/12 relative">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] to-transparent z-10" />
-            <img src="/laser-cutting-sheet.jpg" alt="Supplier Manufacturing Facility" className="w-full h-full object-cover opacity-80" style={{ maxHeight: 240 }} />
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
+            <img
+              src="/steel-warehouse-coils.jpg"
+              alt="Raw Steel Material Depot & Coils"
+              className="w-full h-full object-cover opacity-85 object-center"
+              style={{ maxHeight: 240 }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3E296C]/80 via-transparent to-transparent" />
           </div>
         </div>
       </div>
