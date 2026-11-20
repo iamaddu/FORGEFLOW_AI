@@ -46,21 +46,16 @@ export const RaviStoryModal: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
             {/* Panel 1: Meet Ravi (Big Hero Card) */}
             <div className="md:col-span-5 bg-white text-[#1E1638] rounded-3xl p-5 shadow-card flex flex-col justify-between border-2 border-white">
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#FEF3D6] to-[#EFEBF8] p-5 flex flex-col items-center justify-center min-h-[220px]">
-                <div className="w-20 h-20 rounded-full bg-[#F5A636] flex items-center justify-center shadow-md mb-3 text-3xl">
-                  👨🏽‍🏭
-                </div>
-                <div className="text-center">
-                  <div className="font-heading font-black text-xl text-[#1E1638]">
-                    Ravi's Fabrication Unit
-                  </div>
-                  <div className="text-xs text-slate-600 mt-1 font-medium">
-                    Bhosari Industrial Estate, Pune • Precision Sheet Metal
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center gap-2 text-xs bg-white px-3.5 py-1.5 rounded-full text-slate-800 font-bold shadow-sm">
-                  <Truck className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span>Raw material arriving at Gate 2</span>
+              <div className="relative rounded-2xl overflow-hidden min-h-[220px]">
+                <img
+                  src="/ravi-workshop.jpg"
+                  alt="Ravi's fabrication workshop"
+                  className="w-full h-full object-cover object-center rounded-2xl"
+                  style={{ minHeight: 220, maxHeight: 260 }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 rounded-b-2xl">
+                  <div className="text-white font-heading font-black text-sm">Ravi's Fabrication Unit</div>
+                  <div className="text-white/80 text-[11px] font-medium">Bhosari MIDC, Pune • Precision Sheet Metal</div>
                 </div>
               </div>
 
