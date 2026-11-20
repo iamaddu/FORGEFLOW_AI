@@ -51,6 +51,11 @@ export const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#523D8A] text-white flex flex-col relative overflow-hidden select-none">
+      {/* Background Illustrated Texture matching PPT Slide */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-25 bg-bottom bg-no-repeat bg-cover z-0" 
+        style={{ backgroundImage: "url('/slide1-bg.png')" }} 
+      />
 
       {/* Background texture circles */}
       <div className="absolute top-[-80px] right-[-80px] w-96 h-96 rounded-full bg-white/5 pointer-events-none" />

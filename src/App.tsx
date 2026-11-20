@@ -37,27 +37,35 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-slate-100 flex flex-row antialiased">
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#0F172A]">
-        <Header />
-        <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
-          {/* Buyer pages */}
-          {currentPage === 'dashboard' && <Dashboard />}
-          {currentPage === 'procurement' && <Procurement />}
-          {currentPage === 'costing' && <Costing />}
-          {currentPage === 'quotations' && <Quotations />}
-          {currentPage === 'invoices' && <Invoices />}
-          {currentPage === 'suppliers' && <Suppliers />}
-          {currentPage === 'reports' && <Reports />}
-          {currentPage === 'settings' && <Settings />}
-          {/* Seller pages */}
-          {currentPage === 'seller-dashboard' && <SellerDashboard />}
-          {currentPage === 'seller-catalog' && <SellerCatalog />}
-          {currentPage === 'seller-rfq' && <SellerRFQ />}
-          {currentPage === 'seller-orders' && <SellerOrders />}
-          {currentPage === 'seller-analytics' && <SellerAnalytics />}
-        </main>
+    <div className="min-h-screen bg-gradient-to-br from-[#402D6E]/95 via-[#523D8A]/90 to-[#37235E]/95 text-slate-900 flex flex-row antialiased relative">
+      {/* Background Illustrated Texture matching PPT Slide */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-25 bg-bottom bg-no-repeat bg-cover z-0" 
+        style={{ backgroundImage: "url('/slide1-bg.png')" }} 
+      />
+
+      <div className="relative z-10 flex flex-row w-full min-h-screen">
+        <Sidebar />
+        <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+          <Header />
+          <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
+            {/* Buyer pages */}
+            {currentPage === 'dashboard' && <Dashboard />}
+            {currentPage === 'procurement' && <Procurement />}
+            {currentPage === 'costing' && <Costing />}
+            {currentPage === 'quotations' && <Quotations />}
+            {currentPage === 'invoices' && <Invoices />}
+            {currentPage === 'suppliers' && <Suppliers />}
+            {currentPage === 'reports' && <Reports />}
+            {currentPage === 'settings' && <Settings />}
+            {/* Seller pages */}
+            {currentPage === 'seller-dashboard' && <SellerDashboard />}
+            {currentPage === 'seller-catalog' && <SellerCatalog />}
+            {currentPage === 'seller-rfq' && <SellerRFQ />}
+            {currentPage === 'seller-orders' && <SellerOrders />}
+            {currentPage === 'seller-analytics' && <SellerAnalytics />}
+          </main>
+        </div>
       </div>
       <Toast />
       <RaviStoryModal />

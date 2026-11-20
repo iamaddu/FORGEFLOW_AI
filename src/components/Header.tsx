@@ -42,7 +42,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-16 px-6 bg-[#1A1F36] border-b border-white/10 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <header className="h-16 px-6 bg-[#432F73]/90 backdrop-blur-md border-b border-white/15 flex items-center justify-between sticky top-0 z-30 shadow-md">
       {/* Search Bar - Crisp White Input */}
       <form onSubmit={handleSearchSubmit} className="relative w-72 md:w-96">
         <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />

@@ -120,7 +120,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [currentPage, setCurrentPage] = useState<PageId>(() => {
     const saved = localStorage.getItem(`${STORAGE_KEY_PREFIX}page`) as PageId;
-    return saved || 'dashboard';
+    const validPages: PageId[] = [
+      'login','dashboard','procurement','costing','quotations','invoices',
+      'suppliers','reports','settings','seller-dashboard','seller-catalog',
+      'seller-rfq','seller-orders','seller-analytics'
+    ];
+    return validPages.includes(saved) ? saved : 'dashboard';
   });
 
   const [user, setUser] = useState<UserProfile>(() => {

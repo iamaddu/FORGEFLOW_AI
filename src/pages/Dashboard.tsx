@@ -45,28 +45,28 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-5 pb-10">
 
       {/* ── HERO BANNER ───────────────────────────────────────────── */}
-      <div className="relative rounded-3xl overflow-hidden min-h-[220px] flex items-center bg-[#101827]">
+      <div className="relative rounded-3xl overflow-hidden min-h-[220px] flex items-center bg-gradient-to-r from-[#3B2868] via-[#4F3987] to-[#3B2868] border border-white/20 shadow-xl">
         {/* Dark overlay + content */}
         <div className="relative z-10 p-8 max-w-lg">
-          <p className="text-white/60 text-sm font-medium mb-1">Welcome back, {user?.name?.split(' ')[0] ?? 'Ravi'} 👋</p>
+          <p className="text-[#F8C8BE] text-sm font-bold mb-1">Welcome back, {user?.name?.split(' ')[0] ?? 'Ravi'} 👋</p>
           <h1 className="font-heading font-black text-4xl sm:text-5xl text-white leading-tight">
             Build Smarter.<br />
-            <span className="text-[#1A957E]">Grow Stronger.</span>
+            <span className="text-[#F5A636]">Grow Stronger.</span>
           </h1>
-          <p className="text-white/60 text-sm mt-3 max-w-xs leading-relaxed">
+          <p className="text-white/80 text-sm mt-3 max-w-xs leading-relaxed font-medium">
             Your AI-powered manufacturing partner for raw material procurement, job costing &amp; quotation margins.
           </p>
           <div className="flex flex-wrap gap-3 mt-5">
             <button
               onClick={() => setCurrentPage('procurement')}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1A957E] hover:bg-[#15806B] text-white text-sm font-heading font-bold transition-all"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-md"
             >
               <ShoppingCart className="w-4 h-4" />
               Compare Supplier Quotes
             </button>
             <button
               onClick={() => setCurrentPage('costing')}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-heading font-bold transition-all border border-white/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-heading font-bold transition-all border border-white/25"
             >
               <Calculator className="w-4 h-4" />
               Create Production Cost Sheet
@@ -79,14 +79,14 @@ export const Dashboard: React.FC = () => {
           <div className="flex-1" />
           <div className="w-1/2 relative">
             {/* Gradient fade to left */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#101827] to-transparent z-10" />
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#4F3987] to-transparent z-10" />
             <img
               src="/ravi-workshop.jpg"
               alt="Ravi's fabrication workshop"
-              className="w-full h-full object-cover object-center opacity-70"
+              className="w-full h-full object-cover object-center opacity-85"
               style={{ maxHeight: 240 }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#101827]/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3B2868]/70 via-transparent to-transparent" />
           </div>
         </div>
       </div>

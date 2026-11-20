@@ -25,20 +25,20 @@ export const SellerDashboard: React.FC = () => {
     <div className="space-y-5 pb-10">
 
       {/* Hero */}
-      <div className="relative rounded-2xl overflow-hidden min-h-[200px] flex items-center bg-[#1A1F36] border border-white/10">
+      <div className="relative rounded-3xl overflow-hidden min-h-[200px] flex items-center bg-gradient-to-r from-[#3B2868] via-[#4F3987] to-[#3B2868] border border-white/20 shadow-xl">
         <div className="relative z-10 p-8 max-w-lg">
-          <p className="text-white/50 text-sm mb-1">Supplier Portal</p>
+          <p className="text-[#F8C8BE] text-sm font-bold mb-1">Supplier Portal</p>
           <h1 className="font-heading font-black text-3xl sm:text-4xl text-white leading-tight">
-            Welcome, <span className="text-[#1A957E]">Apex Steel</span>
+            Welcome, <span className="text-[#F5A636]">Apex Steel</span>
           </h1>
-          <p className="text-white/60 text-sm mt-2 max-w-xs">Your supplier performance at a glance. 7 new RFQs waiting.</p>
+          <p className="text-white/80 text-sm mt-2 max-w-xs font-medium">Your supplier performance at a glance. 7 new RFQs waiting.</p>
           <div className="flex flex-wrap gap-3 mt-5">
             <button onClick={() => setCurrentPage('seller-catalog')}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1A957E] hover:bg-[#15806b] text-white text-sm font-heading font-bold transition-all">
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1A957E] hover:bg-[#15806b] text-white text-sm font-heading font-bold transition-all shadow-md">
               <Package className="w-4 h-4" /> Add Material
             </button>
             <button onClick={() => setCurrentPage('seller-rfq')}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-bold transition-all">
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-md">
               <Inbox className="w-4 h-4" /> View RFQs
             </button>
           </div>
@@ -46,8 +46,8 @@ export const SellerDashboard: React.FC = () => {
         <div className="absolute inset-0 flex items-stretch">
           <div className="flex-1" />
           <div className="w-5/12 relative">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#1A1F36] to-transparent z-10" />
-            <img src="/ravi-workshop.jpg" alt="Supplier workshop" className="w-full h-full object-cover opacity-50" style={{ maxHeight: 220 }} />
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#4F3987] to-transparent z-10" />
+            <img src="/ravi-workshop.jpg" alt="Supplier workshop" className="w-full h-full object-cover opacity-60" style={{ maxHeight: 220 }} />
           </div>
         </div>
       </div>
