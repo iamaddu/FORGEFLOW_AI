@@ -42,35 +42,35 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-16 px-6 bg-[#392A62]/90 backdrop-blur-md border-b border-[#4E3C80] flex items-center justify-between sticky top-0 z-30 shadow-md">
-      {/* Search Bar */}
+    <header className="h-16 px-6 bg-[#1A957E] border-b border-black/10 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+      {/* Search Bar - Crisp White Input */}
       <form onSubmit={handleSearchSubmit} className="relative w-72 md:w-96">
-        <Search className="w-4 h-4 text-[#D4C8EE] absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search materials, orders, suppliers, invoices..."
-          className="w-full bg-[#2E2052] border border-[#4E3C80] text-sm text-white placeholder:text-[#D4C8EE]/60 pl-9 pr-4 py-2 rounded-2xl focus:outline-none focus:border-[#FAD5C8] focus:ring-1 focus:ring-[#FAD5C8] transition-all"
+          className="w-full bg-white border border-transparent text-sm text-[#1E1638] placeholder:text-slate-400 pl-9 pr-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#523D8A] shadow-sm font-medium"
         />
       </form>
 
       {/* Right Controls */}
       <div className="flex items-center gap-3">
-        {/* Storyboard Button: A Day with ForgeFlow */}
+        {/* Storyboard Button: A Day with ForgeFlow (Mango Yellow Button) */}
         <button
           onClick={() => setIsStoryModalOpen(true)}
-          className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-heading font-bold transition-all shadow-md"
+          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-xs font-heading font-black transition-all shadow-md"
         >
-          <BookOpen className="w-3.5 h-3.5" />
+          <BookOpen className="w-4 h-4" />
           <span>A Day with ForgeFlow</span>
         </button>
 
-        {/* Reset Demo Data quick pill */}
+        {/* Reset Sample Data Pill */}
         <button
           onClick={resetToSampleData}
-          className="p-2 rounded-xl text-[#D4C8EE] hover:text-white hover:bg-[#4E3C80] transition-colors border border-transparent hover:border-[#4E3C80]"
-          title="Reset Data"
+          className="p-2 rounded-2xl bg-white/20 hover:bg-white text-white hover:text-[#1A957E] transition-all shadow-sm"
+          title="Reset Sample Data"
         >
           <RotateCcw className="w-4 h-4" />
         </button>
@@ -79,33 +79,33 @@ export const Header: React.FC = () => {
         <div className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className="p-2 rounded-xl text-[#D4C8EE] hover:text-white hover:bg-[#4E3C80] transition-colors relative border border-transparent hover:border-[#4E3C80]"
+            className="p-2 rounded-2xl bg-white/20 hover:bg-white text-white hover:text-[#1A957E] transition-all relative shadow-sm"
             aria-label="Notifications"
           >
             <Bell className="w-4 h-4" />
             {unreadAlerts.length > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-[#392A62]" />
+              <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white" />
             )}
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-[#2E2052] border border-[#4E3C80] rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="p-3.5 border-b border-[#4E3C80] flex items-center justify-between">
+            <div className="absolute right-0 mt-2 w-80 bg-white border-2 border-slate-100 rounded-3xl shadow-cardLg overflow-hidden z-50 text-[#1E1638] animate-in fade-in zoom-in-95 duration-150">
+              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-[#F8C8BE]">
                 <div className="flex items-center gap-2">
-                  <span className="font-heading font-bold text-sm text-white">Notifications</span>
-                  <span className="text-xs bg-[#FAD5C8] text-[#1E1736] px-2 py-0.5 rounded-full font-bold">
+                  <span className="font-heading font-black text-sm text-[#1E1638]">Notifications</span>
+                  <span className="text-xs bg-[#523D8A] text-white px-2 py-0.5 rounded-full font-bold">
                     {unreadAlerts.length} new
                   </span>
                 </div>
                 <button
                   onClick={() => alerts.forEach(a => markAlertRead(a.id))}
-                  className="text-[11px] text-[#D4C8EE] hover:text-white transition-colors"
+                  className="text-xs text-[#523D8A] font-bold hover:underline"
                 >
                   Mark all read
                 </button>
               </div>
 
-              <div className="max-h-80 overflow-y-auto divide-y divide-[#4E3C80]/60">
+              <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
                 {alerts.map((alert) => (
                   <div
                     key={alert.id}
@@ -114,21 +114,21 @@ export const Header: React.FC = () => {
                       if (alert.linkPage) setCurrentPage(alert.linkPage as any);
                       setShowNotifications(false);
                     }}
-                    className={`p-3 text-xs cursor-pointer transition-colors ${
-                      alert.read ? 'opacity-60 hover:opacity-100 hover:bg-[#392A62]' : 'bg-white/5 hover:bg-[#392A62]'
+                    className={`p-3.5 text-xs cursor-pointer transition-colors ${
+                      alert.read ? 'opacity-60 hover:opacity-100 hover:bg-slate-50' : 'bg-emerald-50/50 hover:bg-emerald-50'
                     }`}
                   >
                     <div className="flex items-start gap-2.5">
-                      {alert.type === 'danger' && <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />}
-                      {alert.type === 'warning' && <AlertTriangle className="w-4 h-4 text-[#F9C349] shrink-0 mt-0.5" />}
+                      {alert.type === 'danger' && <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />}
+                      {alert.type === 'warning' && <AlertTriangle className="w-4 h-4 text-[#F5A636] shrink-0 mt-0.5" />}
                       {alert.type === 'success' && <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />}
-                      {alert.type === 'info' && <Info className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />}
+                      {alert.type === 'info' && <Info className="w-4 h-4 text-sky-500 shrink-0 mt-0.5" />}
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <span className="font-medium text-white">{alert.title}</span>
-                          <span className="text-[10px] text-[#D4C8EE]">{alert.timestamp}</span>
+                          <span className="font-bold text-slate-900">{alert.title}</span>
+                          <span className="text-[10px] text-slate-400">{alert.timestamp}</span>
                         </div>
-                        <p className="text-[#D4C8EE] text-[11px] mt-1 leading-snug">
+                        <p className="text-slate-600 text-[11px] mt-1 leading-snug font-medium">
                           {alert.description}
                         </p>
                       </div>
@@ -140,67 +140,67 @@ export const Header: React.FC = () => {
           )}
         </div>
 
-        {/* User Profile Badge (Ravi Sharma) */}
+        {/* User Profile Badge (Ravi) */}
         <div className="relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-2xl hover:bg-[#4E3C80] transition-colors border border-transparent hover:border-[#4E3C80]"
+            className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-2xl bg-white text-[#1E1638] shadow-sm hover:bg-slate-50 transition-colors"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#FAD5C8] to-[#F9C349] flex items-center justify-center text-[#1E1736] text-xs font-black shadow-sm">
+            <div className="w-8 h-8 rounded-xl bg-[#523D8A] text-white flex items-center justify-center text-xs font-black">
               {user.avatarInitials}
             </div>
             <div className="text-left hidden md:block">
-              <span className="text-xs font-bold text-white block leading-tight">{user.name}</span>
-              <span className="text-[10px] text-[#D4C8EE] block leading-tight">Ravi Fabrication</span>
+              <span className="text-xs font-bold text-slate-900 block leading-tight">{user.name}</span>
+              <span className="text-[10px] text-slate-500 font-medium block leading-tight">Ravi Fabrication</span>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-[#D4C8EE]" />
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
           </button>
 
           {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-64 bg-[#2E2052] border border-[#4E3C80] rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="p-3.5 border-b border-[#4E3C80]">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-xl bg-[#FAD5C8] text-[#1E1736] flex items-center justify-center font-bold">
+            <div className="absolute right-0 mt-2 w-64 bg-white border-2 border-slate-100 rounded-3xl shadow-cardLg overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150 text-[#1E1638]">
+              <div className="p-4 border-b border-slate-100 bg-[#F8C8BE]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-[#523D8A] text-white flex items-center justify-center font-black">
                     {user.avatarInitials}
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-xs text-white">{user.name}</h5>
-                    <p className="text-[11px] text-[#D4C8EE]">{user.email}</p>
+                    <h5 className="font-heading font-black text-xs text-slate-900">{user.name}</h5>
+                    <p className="text-[11px] text-slate-700 font-medium">{user.email}</p>
                   </div>
                 </div>
-                <div className="mt-2.5 pt-2 border-t border-[#4E3C80]/60 flex items-center gap-1.5 text-[11px] text-[#D4C8EE]">
-                  <Building2 className="w-3.5 h-3.5 text-[#FAD5C8]" />
+                <div className="mt-2 pt-2 border-t border-slate-200 flex items-center gap-1.5 text-[11px] text-slate-700 font-mono">
+                  <Building2 className="w-3.5 h-3.5 text-[#523D8A]" />
                   <span>GSTIN: {user.gstin}</span>
                 </div>
               </div>
 
-              <div className="p-1.5 space-y-1 text-xs">
+              <div className="p-2 space-y-1 text-xs font-medium">
                 <button
                   onClick={() => {
                     setShowUserMenu(false);
                     setCurrentPage('settings');
                   }}
-                  className="w-full text-left px-3 py-2 rounded-xl text-white hover:bg-[#392A62] transition-colors"
+                  className="w-full text-left px-3 py-2 rounded-xl text-slate-800 hover:bg-slate-100 transition-colors"
                 >
-                  Plant & GST Settings
+                  Workshop Settings
                 </button>
                 <button
                   onClick={() => {
                     setShowUserMenu(false);
                     resetToSampleData();
                   }}
-                  className="w-full text-left px-3 py-2 rounded-xl text-white hover:bg-[#392A62] flex items-center gap-2 transition-colors"
+                  className="w-full text-left px-3 py-2 rounded-xl text-slate-800 hover:bg-slate-100 flex items-center gap-2 transition-colors"
                 >
-                  <RotateCcw className="w-3.5 h-3.5 text-[#F9C349]" />
+                  <RotateCcw className="w-3.5 h-3.5 text-[#F5A636]" />
                   <span>Reset Sample Data</span>
                 </button>
-                <div className="border-t border-[#4E3C80]/60 my-1" />
+                <div className="border-t border-slate-100 my-1" />
                 <button
                   onClick={() => {
                     setShowUserMenu(false);
                     logout();
                   }}
-                  className="w-full text-left px-3 py-2 rounded-xl text-rose-300 hover:bg-rose-500/20 flex items-center gap-2 transition-colors"
+                  className="w-full text-left px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors font-bold"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Sign Out</span>

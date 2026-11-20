@@ -20,7 +20,7 @@ import {
   Calculator,
   Receipt,
   BookOpen,
-  Truck
+  Check
 } from 'lucide-react';
 import {
   AreaChart,
@@ -34,7 +34,6 @@ import {
 import { useApp } from '../context/AppContext';
 import { PROFITABILITY_TREND_DATA } from '../data/mockData';
 
-// Mini Sparkline SVG component for the 4 metric cards
 const MiniSparkline: React.FC<{ color: string; path: string }> = ({ color, path }) => (
   <svg className="w-24 h-8 overflow-visible" viewBox="0 0 100 32" fill="none">
     <path
@@ -61,145 +60,148 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-12">
-      {/* 1. Hero Header Banner matching Ravi's Storyboard Theme */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#392A62] via-[#4E3C80] to-[#5D4996] border-2 border-white/20 shadow-2xl p-6 sm:p-8 text-white">
-        {/* Soft sunlight background radial orb */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[#F9C349]/15 rounded-full blur-3xl pointer-events-none" />
+      {/* 1. Slide 2 Style Top Header Bar: "Start local. Scale across manufacturing clusters." */}
+      <div className="bg-white rounded-3xl p-5 shadow-card text-center relative overflow-hidden border-2 border-white/60">
+        <h2 className="font-heading font-black text-xl sm:text-2xl text-[#1E1638] tracking-tight">
+          Start local. Scale across manufacturing clusters.
+        </h2>
+        <div className="w-48 h-1 bg-[#1A957E] mx-auto mt-2 rounded-full" />
+      </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-xl">
-            <div className="flex items-center gap-2">
-              <span className="bg-[#FAD5C8] text-[#1E1736] px-3 py-1 rounded-full text-xs font-bold font-heading">
-                Ravi's Fabrication Unit
-              </span>
-              <span className="text-xs text-[#E8E2F6]">MIDC Bhosari, Pune</span>
+      {/* 2. Hero Row: Big Metric Card (7.16 crore style) + Pilot/Expand/Scale Steps */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Left: 7.16 crore / Workshop Reality Card (lg:col-span-6) */}
+        <div className="lg:col-span-6 p-8 rounded-3xl bg-white shadow-card border-2 border-white/60 flex flex-col justify-between">
+          <div>
+            <div className="font-heading font-black text-5xl sm:text-6xl text-[#523D8A] tracking-tight">
+              7.16 crore
             </div>
-
-            <h1 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight leading-tight">
-              Build Smarter. <br />
-              <span className="text-[#FAD5C8]">Grow Profitably.</span>
-            </h1>
-
-            <p className="text-sm text-[#E8E2F6] leading-relaxed">
-              Real-time landed cost comparison, deterministic job costing, and automated invoice verification for your workshop.
+            <p className="text-sm font-semibold text-slate-700 mt-2 leading-relaxed">
+              registered MSMEs in India, reported Feb 2026. <br />
+              <span className="text-slate-500 font-normal">Market context: helping fabricators eliminate hidden purchasing leakages.</span>
             </p>
+          </div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                onClick={() => setCurrentPage('procurement')}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] font-heading font-bold text-xs transition-all shadow-md"
-              >
-                <ShoppingCart className="w-3.5 h-3.5" />
-                <span>Compare Supplier Bids</span>
-              </button>
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+            <span className="italic">Source: Business Today, Feb 2026</span>
+            <button
+              onClick={() => setCurrentPage('procurement')}
+              className="text-[#523D8A] font-bold hover:underline flex items-center gap-1"
+            >
+              <span>Explore MSME Landed Engine</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
 
-              <button
-                onClick={() => setCurrentPage('costing')}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold transition-all"
-              >
-                <Calculator className="w-3.5 h-3.5 text-[#F9C349]" />
-                <span>Create Cost Sheet</span>
-              </button>
-
-              <button
-                onClick={() => setIsStoryModalOpen(true)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#F9C349] hover:bg-[#eab33a] text-[#1E1736] text-xs font-heading font-bold transition-all shadow-md"
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>A Day with ForgeFlow</span>
-              </button>
+        {/* Right: Slide 2 Peach List (Pilot / Expand / Scale) (lg:col-span-6) */}
+        <div className="lg:col-span-6 space-y-3 flex flex-col justify-between">
+          {/* Step 1: Pilot */}
+          <div className="p-4 rounded-3xl bg-[#F8C8BE] text-[#1E1638] shadow-card flex items-center gap-4 border border-[#F5C5B8]">
+            <div className="w-10 h-10 rounded-full bg-black text-white font-bold flex items-center justify-center text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h4 className="font-heading font-black text-base text-[#1E1638]">Pilot</h4>
+              <p className="text-xs text-slate-700 font-medium mt-0.5">
+                Selected MSMEs in one cluster (Ravi's fabrication unit in Bhosari MIDC, Pune)
+              </p>
             </div>
           </div>
 
-          {/* Right Visual Badge: Ravi Character / Story Teaser */}
-          <div
-            onClick={() => setIsStoryModalOpen(true)}
-            className="bg-white text-[#1E1736] rounded-2xl p-4 shadow-xl border-2 border-slate-100 flex items-center gap-4 cursor-pointer hover:scale-105 transition-transform shrink-0"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-[#FEF3D6] flex items-center justify-center text-3xl shadow-sm">
-              👨🏽‍🏭
+          {/* Step 2: Expand */}
+          <div className="p-4 rounded-3xl bg-[#F8C8BE] text-[#1E1638] shadow-card flex items-center gap-4 border border-[#F5C5B8]">
+            <div className="w-10 h-10 rounded-full bg-black text-white font-bold flex items-center justify-center text-sm shrink-0">
+              2
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold text-[#4E3C80] tracking-wider block">
-                Illustrative Scenario
-              </span>
-              <div className="font-heading font-black text-sm text-[#1E1736]">
-                Ravi's Workflow
-              </div>
-              <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
-                <span>See 6-step journey</span>
-                <ArrowRight className="w-3 h-3" />
-              </span>
+              <h4 className="font-heading font-black text-base text-[#1E1638]">Expand</h4>
+              <p className="text-xs text-slate-700 font-medium mt-0.5">
+                Through engineering associations, supplier networks, and metal trade partners
+              </p>
+            </div>
+          </div>
+
+          {/* Step 3: Scale */}
+          <div className="p-4 rounded-3xl bg-[#F8C8BE] text-[#1E1638] shadow-card flex items-center gap-4 border border-[#F5C5B8]">
+            <div className="w-10 h-10 rounded-full bg-black text-white font-bold flex items-center justify-center text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h4 className="font-heading font-black text-base text-[#1E1638]">Scale</h4>
+              <p className="text-xs text-slate-700 font-medium mt-0.5">
+                Across Indian manufacturing clusters (Chakan, Coimbatore, Peenya, Manesar)
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. Top 4 Metric Cards (Crisp White / Lavender Style) */}
+      {/* 3. Operational Manufacturing Metrics (Spend ₹4.8L, Suppliers 12, Orders 8, Margin 24%) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Spend */}
         <div
           onClick={() => setCurrentPage('procurement')}
-          className="p-5 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card hover:border-[#4E3C80] transition-all cursor-pointer flex flex-col justify-between"
+          className="p-5 rounded-3xl bg-white text-[#1E1638] shadow-card hover:border-[#523D8A] border-2 border-white transition-all cursor-pointer flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#E8E2F6] text-[#4E3C80]">
+            <div className="p-2.5 rounded-2xl bg-[#EFEBF8] text-[#523D8A]">
               <Coins className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
-              <ArrowUpRight className="w-3 h-3" />
+            <span className="flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+              <ArrowUpRight className="w-3.5 h-3.5" />
               <span>12%</span>
             </span>
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <div className="font-heading font-black text-2xl text-[#1E1736]">₹4.8L</div>
+              <div className="font-heading font-black text-2xl text-[#1E1638]">₹4.8L</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">Total Procurement Spend</div>
             </div>
-            <MiniSparkline color="#4E3C80" path="M0 24 Q 25 18, 50 22 T 100 8" />
+            <MiniSparkline color="#523D8A" path="M0 24 Q 25 18, 50 22 T 100 8" />
           </div>
         </div>
 
         {/* Card 2: Active Suppliers */}
         <div
           onClick={() => setCurrentPage('suppliers')}
-          className="p-5 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card hover:border-[#4E3C80] transition-all cursor-pointer flex flex-col justify-between"
+          className="p-5 rounded-3xl bg-white text-[#1E1638] shadow-card hover:border-[#523D8A] border-2 border-white transition-all cursor-pointer flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#FEF3D6] text-[#D97706]">
+            <div className="p-2.5 rounded-2xl bg-[#FEF3D6] text-amber-700">
               <Users className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
-              <ArrowUpRight className="w-3 h-3" />
+            <span className="flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">
+              <ArrowUpRight className="w-3.5 h-3.5" />
               <span>1</span>
             </span>
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <div className="font-heading font-black text-2xl text-[#1E1736]">12</div>
+              <div className="font-heading font-black text-2xl text-[#1E1638]">12</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">Active Suppliers</div>
             </div>
-            <MiniSparkline color="#F59E0B" path="M0 26 Q 30 20, 60 24 T 100 10" />
+            <MiniSparkline color="#F5A636" path="M0 26 Q 30 20, 60 24 T 100 10" />
           </div>
         </div>
 
         {/* Card 3: Orders in Progress */}
         <div
           onClick={() => setCurrentPage('costing')}
-          className="p-5 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card hover:border-[#4E3C80] transition-all cursor-pointer flex flex-col justify-between"
+          className="p-5 rounded-3xl bg-white text-[#1E1638] shadow-card hover:border-[#523D8A] border-2 border-white transition-all cursor-pointer flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#FDECE6] text-[#EA580C]">
+            <div className="p-2.5 rounded-2xl bg-[#F8C8BE] text-orange-900">
               <ClipboardList className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">
-              <ArrowUpRight className="w-3 h-3" />
+            <span className="flex items-center gap-1 text-xs font-bold text-orange-700 bg-orange-50 px-2.5 py-0.5 rounded-full">
+              <ArrowUpRight className="w-3.5 h-3.5" />
               <span>2</span>
             </span>
           </div>
           <div className="mt-4 flex items-end justify-between">
             <div>
-              <div className="font-heading font-black text-2xl text-[#1E1736]">8</div>
+              <div className="font-heading font-black text-2xl text-[#1E1638]">8</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">Orders in Progress</div>
             </div>
             <MiniSparkline color="#EA580C" path="M0 28 Q 35 15, 70 20 T 100 12" />
@@ -209,14 +211,14 @@ export const Dashboard: React.FC = () => {
         {/* Card 4: Estimated Profit Margin */}
         <div
           onClick={() => setCurrentPage('costing')}
-          className="p-5 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card hover:border-[#4E3C80] transition-all cursor-pointer flex flex-col justify-between"
+          className="p-5 rounded-3xl bg-white text-[#1E1736] shadow-card hover:border-[#523D8A] border-2 border-white transition-all cursor-pointer flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#D1FAE5] text-[#059669]">
+            <div className="p-2.5 rounded-2xl bg-emerald-100 text-emerald-800">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
-              <ArrowUpRight className="w-3 h-3" />
+            <span className="flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+              <ArrowUpRight className="w-3.5 h-3.5" />
               <span>3%</span>
             </span>
           </div>
@@ -230,23 +232,23 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. Middle Section: Chart + Smart Insight + Alerts */}
+      {/* 4. Middle Section: Chart + Smart Insight Card + Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left: Order Profitability Trend (lg:col-span-5) */}
-        <div className="lg:col-span-5 p-6 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card flex flex-col justify-between">
+        <div className="lg:col-span-5 p-6 rounded-3xl bg-white text-[#1E1638] shadow-card flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-xl bg-[#E8E2F6] text-[#4E3C80]">
+              <div className="p-1.5 rounded-xl bg-[#EFEBF8] text-[#523D8A]">
                 <TrendingUp className="w-4 h-4" />
               </div>
-              <h3 className="font-heading font-bold text-sm text-[#1E1736]">
+              <h3 className="font-heading font-black text-sm text-[#1E1638]">
                 Order Profitability Trend
               </h3>
             </div>
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="bg-[#F3F0FA] border border-[#D2C6EA] text-xs text-slate-700 rounded-xl px-2.5 py-1 focus:outline-none font-medium"
+              className="bg-slate-100 border border-slate-200 text-xs text-slate-700 rounded-xl px-2.5 py-1 focus:outline-none font-bold"
             >
               <option>Last 6 Months</option>
               <option>Last 3 Months</option>
@@ -254,10 +256,10 @@ export const Dashboard: React.FC = () => {
             </select>
           </div>
 
-          <div className="flex items-center gap-4 text-xs mb-2 px-1 text-slate-500">
+          <div className="flex items-center gap-4 text-xs mb-2 px-1 text-slate-500 font-medium">
             <span className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-[#4E3C80]" />
-              <span className="font-semibold text-slate-700">Ravi's Margin</span>
+              <span className="w-3 h-3 rounded-full bg-[#523D8A]" />
+              <span className="font-bold text-slate-800">Ravi's Margin</span>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-0.5 bg-slate-400 border-t border-dashed" />
@@ -269,27 +271,27 @@ export const Dashboard: React.FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={PROFITABILITY_TREND_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="purpleGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#4E3C80" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#4E3C80" stopOpacity={0.0} />
+                  <linearGradient id="purpleGradBright" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#523D8A" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#523D8A" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="month" stroke="#94A3B8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94A3B8" fontSize={11} tickFormatter={(v) => `${v}%`} domain={[0, 35]} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#D2C6EA', borderRadius: '16px', fontSize: '11px', color: '#1E1736', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
+                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '16px', fontSize: '11px', color: '#1E1638', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}
                   formatter={(val: any) => [`${val}%`, 'Margin']}
                 />
                 <ReferenceLine y={20} stroke="#94A3B8" strokeDasharray="3 3" />
                 <Area
                   type="monotone"
                   dataKey="margin"
-                  stroke="#4E3C80"
+                  stroke="#523D8A"
                   strokeWidth={3}
                   fillOpacity={1}
-                  fill="url(#purpleGradient)"
-                  dot={{ stroke: '#4E3C80', strokeWidth: 2, r: 4, fill: '#FFFFFF' }}
-                  activeDot={{ r: 6, fill: '#FAD5C8', stroke: '#4E3C80' }}
+                  fill="url(#purpleGradBright)"
+                  dot={{ stroke: '#523D8A', strokeWidth: 2, r: 4, fill: '#FFFFFF' }}
+                  activeDot={{ r: 6, fill: '#F5A636', stroke: '#523D8A' }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -297,47 +299,47 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Middle: Smart Insight Card (Peach / Coral Theme - lg:col-span-4) */}
-        <div className="lg:col-span-4 p-6 rounded-3xl bg-[#FAD5C8] text-[#1E1736] border-2 border-[#F8C4B4] shadow-card flex flex-col justify-between relative overflow-hidden">
+        <div className="lg:col-span-4 p-6 rounded-3xl bg-[#F8C8BE] text-[#1E1638] shadow-card flex flex-col justify-between border border-[#F5C5B8]">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-2xl bg-white text-[#4E3C80] shadow-sm">
+              <div className="p-2 rounded-2xl bg-white text-[#523D8A] shadow-sm">
                 <Lightbulb className="w-4 h-4" />
               </div>
-              <span className="font-heading font-black text-xs text-[#4E3C80] tracking-wide uppercase">
+              <span className="font-heading font-black text-xs text-[#523D8A] tracking-wider uppercase">
                 Smart Procurement Insight
               </span>
             </div>
 
             <h3 className="font-heading font-black text-lg text-[#1E1736] leading-snug">
-              Your current supplier quote is <span className="underline decoration-2 decoration-[#4E3C80]">8% higher</span> than the lowest offer.
+              Your current supplier quote is <span className="underline decoration-2 decoration-[#523D8A]">8% higher</span> than the lowest offer.
             </h3>
-            <p className="text-xs text-slate-700 leading-relaxed">
+            <p className="text-xs text-slate-800 leading-relaxed font-medium">
               Jindal Alloys quoted ₹48/kg for <strong>MS Sheet 3mm</strong>, but charges ₹1,500 freight. Apex Steel’s lower delivery charge yields a lower true landed cost!
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-[#1E1736]/10 flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-black/10 flex items-center justify-between">
             <button
               onClick={() => setCurrentPage('procurement')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#4E3C80] hover:bg-[#3B2C63] text-white text-xs font-heading font-bold transition-all shadow-md"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#523D8A] hover:bg-[#3E2C6B] text-white text-xs font-heading font-black transition-all shadow-md"
             >
               <span>View Landed Comparison</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
-            <span className="text-[11px] font-bold text-[#4E3C80]">Save ₹2,400</span>
+            <span className="text-[11px] font-bold text-[#523D8A]">Save ₹2,400</span>
           </div>
         </div>
 
         {/* Right: Alerts (lg:col-span-3) */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card flex flex-col justify-between">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white text-[#1E1638] shadow-card flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Bell className="w-4 h-4 text-[#F59E0B]" />
-              <h3 className="font-heading font-bold text-sm text-[#1E1736]">Alerts</h3>
+              <Bell className="w-4 h-4 text-[#F5A636]" />
+              <h3 className="font-heading font-black text-sm text-[#1E1638]">Alerts</h3>
             </div>
             <button
               onClick={() => setCurrentPage('invoices')}
-              className="text-xs font-bold text-[#4E3C80] hover:underline"
+              className="text-xs font-bold text-[#523D8A] hover:underline"
             >
               View All
             </button>
@@ -347,7 +349,7 @@ export const Dashboard: React.FC = () => {
             {/* Alert 1 */}
             <div
               onClick={() => setCurrentPage('invoices')}
-              className="p-2.5 rounded-2xl bg-[#FEF2F2] border border-rose-200 hover:border-rose-300 transition-colors cursor-pointer flex items-start gap-2.5"
+              className="p-2.5 rounded-2xl bg-[#FEF2F2] border border-rose-200 transition-colors cursor-pointer flex items-start gap-2.5"
             >
               <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
@@ -362,7 +364,7 @@ export const Dashboard: React.FC = () => {
             {/* Alert 2 */}
             <div
               onClick={() => setCurrentPage('procurement')}
-              className="p-2.5 rounded-2xl bg-[#FEF3D6] border border-amber-200 hover:border-amber-300 transition-colors cursor-pointer flex items-start gap-2.5"
+              className="p-2.5 rounded-2xl bg-[#FEF3D6] border border-amber-200 transition-colors cursor-pointer flex items-start gap-2.5"
             >
               <Calendar className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
@@ -377,7 +379,7 @@ export const Dashboard: React.FC = () => {
             {/* Alert 3 */}
             <div
               onClick={() => setCurrentPage('quotations')}
-              className="p-2.5 rounded-2xl bg-[#D1FAE5] border border-emerald-200 hover:border-emerald-300 transition-colors cursor-pointer flex items-start gap-2.5"
+              className="p-2.5 rounded-2xl bg-emerald-50 border border-emerald-200 transition-colors cursor-pointer flex items-start gap-2.5"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
@@ -392,117 +394,58 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. Bottom Section: Recent Activity + Story Teaser + Recent Invoices */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Left: Recent Activity (lg:col-span-4) */}
-        <div className="lg:col-span-4 p-6 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card flex flex-col justify-between">
-          <div className="flex items-center gap-2 mb-3">
-            <Zap className="w-4 h-4 text-[#F59E0B]" />
-            <h3 className="font-heading font-bold text-sm text-[#1E1736]">Recent Activity</h3>
-          </div>
-
-          <div className="space-y-3">
-            {activities.slice(0, 3).map((act) => (
-              <div key={act.id} className="flex items-start gap-3 text-xs">
-                <div className="p-2 rounded-xl bg-[#F3F0FA] text-[#4E3C80] shrink-0 mt-0.5">
-                  {act.iconType === 'cart' && <ShoppingCart className="w-3.5 h-3.5" />}
-                  {act.iconType === 'calculator' && <Calculator className="w-3.5 h-3.5" />}
-                  {act.iconType === 'invoice' && <Receipt className="w-3.5 h-3.5" />}
-                  {act.iconType === 'supplier' && <Users className="w-3.5 h-3.5" />}
-                  {act.iconType === 'alert' && <AlertCircle className="w-3.5 h-3.5" />}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-slate-900 font-semibold leading-snug">{act.title}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    by {act.actor} • {act.timeAgo}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Middle: A Day with ForgeFlow Visual Comic Card (lg:col-span-4) */}
-        <div
-          onClick={() => setIsStoryModalOpen(true)}
-          className="lg:col-span-4 rounded-3xl bg-gradient-to-br from-[#FEF3D6] to-[#FAD5C8] border-2 border-[#FAD5C8] shadow-card p-6 flex flex-col justify-between cursor-pointer hover:shadow-2xl transition-all group"
-        >
+      {/* 5. Bottom Row: Three Slide 2 Style Cards ([SEGMENTS], [ALTERNATIVES TODAY], [PRICING HYPOTHESIS]) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Card 1: SEGMENTS */}
+        <div className="bg-white rounded-3xl p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] uppercase font-mono font-bold text-[#4E3C80] tracking-wider">
-                Illustrated Journey
-              </span>
-              <span className="bg-[#4E3C80] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">
-                6 Steps
-              </span>
-            </div>
-
-            <h3 className="font-heading font-black text-xl text-[#1E1736]">
-              A day with ForgeFlow
-            </h3>
-            <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              How Ravi receives 3 quotes on WhatsApp, compares landed costs, and sends margin-safe quotes with zero surprises.
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#523D8A] text-white text-[10px] font-heading font-black uppercase tracking-wider mb-3">
+              SEGMENTS
+            </span>
+            <p className="text-sm font-bold text-[#1E1638] leading-relaxed">
+              Metal fabrication, precision CNC machining, sheet metal works, and automotive component makers.
             </p>
           </div>
-
-          <div className="mt-4 flex items-center justify-between bg-white/70 backdrop-blur-sm p-3 rounded-2xl">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">👨🏽‍🏭</span>
-              <span className="text-xs font-bold text-[#1E1736]">Ravi's Fabrication Unit</span>
-            </div>
-            <span className="flex items-center gap-1 text-xs font-bold text-[#4E3C80] group-hover:translate-x-1 transition-transform">
-              <span>Read Story</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </span>
+          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1A957E]">
+            <span>Active in Bhosari, Pune</span>
+            <span>✓ Verified</span>
           </div>
         </div>
 
-        {/* Right: Recent Invoices (lg:col-span-4) */}
-        <div className="lg:col-span-4 p-6 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#4E3C80]" />
-              <h3 className="font-heading font-bold text-sm text-[#1E1736]">Recent Invoices</h3>
-            </div>
-            <button
-              onClick={() => setCurrentPage('invoices')}
-              className="text-xs font-bold text-[#4E3C80] hover:underline"
-            >
-              View All
-            </button>
+        {/* Card 2: ALTERNATIVES TODAY */}
+        <div className="bg-white rounded-3xl p-6 shadow-card flex flex-col justify-between">
+          <div>
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#523D8A] text-white text-[10px] font-heading font-black uppercase tracking-wider mb-3">
+              ALTERNATIVES TODAY
+            </span>
+            <p className="text-sm font-bold text-[#1E1638] leading-relaxed">
+              WhatsApp and unorganized Excel sheets, standalone accounting software, and bulky expensive ERPs.
+            </p>
           </div>
+          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
+            <span>High manual error rate</span>
+            <span>8% profit leak</span>
+          </div>
+        </div>
 
-          <div className="space-y-2.5">
-            {invoices.slice(0, 3).map((inv) => (
-              <div
-                key={inv.id}
-                onClick={() => setCurrentPage('invoices')}
-                className="p-3 rounded-2xl bg-[#F3F0FA] hover:bg-[#E8E2F6] transition-colors cursor-pointer flex items-center justify-between text-xs"
-              >
-                <div>
-                  <span className="font-mono font-bold text-[#1E1736] block">{inv.invoiceNumber}</span>
-                  <span className="text-[10px] text-slate-500 block">{inv.invoiceDate}</span>
-                </div>
-
-                <div>
-                  {inv.status === 'Extracted' && (
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#D1FAE5] text-emerald-800">
-                      Extracted
-                    </span>
-                  )}
-                  {inv.status === 'Verified' && (
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E8E2F6] text-[#4E3C80]">
-                      Verified
-                    </span>
-                  )}
-                  {inv.status === 'Pending' && (
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#FEF3D6] text-amber-800">
-                      Pending
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
+        {/* Card 3: PRICING HYPOTHESIS */}
+        <div className="bg-white rounded-3xl p-6 shadow-card flex flex-col justify-between">
+          <div>
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#523D8A] text-white text-[10px] font-heading font-black uppercase tracking-wider mb-3">
+              PRICING HYPOTHESIS
+            </span>
+            <p className="text-sm font-bold text-[#1E1638] leading-relaxed">
+              Affordable monthly subscription per manufacturing unit plus premium modules for multi-plant costing.
+            </p>
+          </div>
+          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#523D8A]">
+            <span>Tailored for Indian MSMEs</span>
+            <button
+              onClick={() => setIsStoryModalOpen(true)}
+              className="hover:underline flex items-center gap-1"
+            >
+              <span>See Story →</span>
+            </button>
           </div>
         </div>
       </div>

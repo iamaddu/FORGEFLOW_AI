@@ -30,12 +30,12 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#4E3C80] text-[#1E1736] flex flex-row">
+    <div className="min-h-screen bg-[#1A957E] text-[#1E1638] flex flex-row antialiased">
       {/* Sidebar Navigation */}
       <Sidebar />
 
-      {/* Main Content Area with rich royal purple background */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#4E3C80]">
+      {/* Main Content Area in Bright Teal Canvas */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#1A957E]">
         <Header />
 
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">

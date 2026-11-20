@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background-color: #4E3C80;
-    color: #1E1736;
+    background-color: #1A957E;
+    color: #1E1638;
     font-family: 'Inter', sans-serif;
   }
 
@@ -16,21 +16,21 @@
 
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #392A62;
+  background: #147A67;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5D4996;
-  border-radius: 4px;
+  background: #F8C8BE;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FAD5C8;
+  background: #F5A636;
 }
 
 /* Print Stylesheet for Customer Quotation PDF/Printout */

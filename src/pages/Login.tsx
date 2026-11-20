@@ -8,7 +8,8 @@ import {
   BarChart3,
   CheckCircle2,
   Lock,
-  BookOpen
+  BookOpen,
+  Check
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
@@ -36,23 +37,19 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#4E3C80] text-[#1E1736] flex flex-col justify-between relative overflow-hidden select-none">
-      {/* Background soft lavender & peach glowing orbs */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#FAD5C8]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#F9C349]/10 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen bg-[#523D8A] text-[#1E1638] flex flex-col justify-between relative overflow-hidden select-none">
       {/* Top Navbar */}
-      <header className="px-6 py-5 flex items-center justify-between border-b border-white/10 relative z-10 max-w-7xl mx-auto w-full">
+      <header className="px-6 py-5 flex items-center justify-between border-b border-white/15 relative z-10 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FAD5C8] to-[#F9C349] flex items-center justify-center shadow-lg text-[#1E1736] font-heading font-black text-2xl tracking-tighter">
+          <div className="w-10 h-10 rounded-2xl bg-[#F5A636] flex items-center justify-center shadow-md text-[#1E1638] font-heading font-black text-2xl tracking-tighter">
             <span>F</span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-heading font-black text-xl text-white">ForgeFlow</span>
-              <span className="text-[#FAD5C8] font-heading font-black text-xl">AI</span>
+              <span className="text-[#F8C8BE] font-heading font-black text-xl">AI</span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-[#D4C8EE] font-medium block -mt-1">
+            <span className="text-[10px] uppercase tracking-wider text-[#F8C8BE] font-bold block -mt-1">
               MSME Smart Procurement & Costing
             </span>
           </div>
@@ -60,71 +57,83 @@ export const Login: React.FC = () => {
 
         <button
           onClick={() => setIsStoryModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FAD5C8] text-[#1E1736] text-xs font-heading font-bold shadow-md hover:bg-[#f6c6b6] transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#F8C8BE] text-[#1E1638] text-xs font-heading font-black shadow-md hover:bg-[#f3b5a8] transition-all"
         >
-          <BookOpen className="w-3.5 h-3.5" />
+          <BookOpen className="w-3.5 h-3.5 text-[#523D8A]" />
           <span>A Day with ForgeFlow</span>
         </button>
       </header>
 
-      {/* Center Content */}
+      {/* Center Content: Matching Slide 1 & Slide 2 Aesthetic Exactly */}
       <main className="max-w-6xl mx-auto px-6 py-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 flex-1">
-        {/* Left Column: Hero & Product Identity */}
+        {/* Left Column: Direct Slide 1 Layout */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAD5C8]/20 border border-[#FAD5C8]/40 text-[#FAD5C8] text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5 text-[#F9C349]" />
-            <span>Built for Indian MSME Fabricators & Machining Units</span>
+          <div className="inline-block bg-[#F8C8BE] text-[#1E1638] px-5 py-1.5 rounded-2xl text-xs font-heading font-black tracking-wider uppercase shadow-sm">
+            THE IMPACT
           </div>
 
           <h1 className="font-heading font-black text-4xl sm:text-6xl text-white leading-tight">
-            Buy Smarter. <br />
-            Quote Better. <br />
-            <span className="text-[#FAD5C8]">Grow Profitably.</span>
+            Every purchase should <br />
+            protect profit
           </h1>
 
-          <p className="text-base sm:text-lg text-[#E8E2F6] max-w-xl leading-relaxed">
-            Eliminate hidden freight surprises, calculate production costs accurately with deterministic formulas, and send margin-aware quotations in minutes.
-          </p>
-
-          {/* Storyboard Callout Card */}
-          <div
-            onClick={() => setIsStoryModalOpen(true)}
-            className="p-4 rounded-2xl bg-[#392A62] border-2 border-[#5D4996] hover:border-[#FAD5C8] transition-all cursor-pointer flex items-center justify-between text-white group shadow-xl"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#FAD5C8] text-[#1E1736] flex items-center justify-center font-black text-2xl shrink-0 shadow-md">
-                👨🏽‍🏭
+          {/* Three White Rounded Pills with Green Checkmark Circles from Slide 1 */}
+          <div className="space-y-3 pt-2 max-w-md">
+            <div className="bg-white text-[#1E1638] px-4 py-3 rounded-full flex items-center gap-3 shadow-md">
+              <div className="w-7 h-7 rounded-full bg-[#10B981] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                <Check className="w-4 h-4 stroke-[3]" />
               </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-[#FAD5C8] tracking-wider block">
-                  Interactive Story
-                </span>
-                <h4 className="font-heading font-bold text-sm text-white group-hover:text-[#FAD5C8] transition-colors">
-                  How Ravi saves 8% on steel & stops profit leaks
-                </h4>
-              </div>
+              <span className="font-heading font-bold text-base text-[#1E1638]">
+                Smarter purchasing
+              </span>
             </div>
-            <ArrowRight className="w-5 h-5 text-[#FAD5C8] group-hover:translate-x-1 transition-transform" />
+
+            <div className="bg-white text-[#1E1638] px-4 py-3 rounded-full flex items-center gap-3 shadow-md">
+              <div className="w-7 h-7 rounded-full bg-[#10B981] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                <Check className="w-4 h-4 stroke-[3]" />
+              </div>
+              <span className="font-heading font-bold text-base text-[#1E1638]">
+                More accurate quotations
+              </span>
+            </div>
+
+            <div className="bg-white text-[#1E1638] px-4 py-3 rounded-full flex items-center gap-3 shadow-md">
+              <div className="w-7 h-7 rounded-full bg-[#10B981] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                <Check className="w-4 h-4 stroke-[3]" />
+              </div>
+              <span className="font-heading font-bold text-base text-[#1E1638]">
+                Better records
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-[#D4C8EE]">
-            <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-            <span>Ready-to-use sample dataset with MS steel sheets & CNC components</span>
+          {/* Slide 1 Mango CTA Button */}
+          <div className="pt-2">
+            <button
+              onClick={() => handleQuickPersona('owner')}
+              className="px-8 py-4 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] font-heading font-black text-lg transition-all shadow-button flex items-center gap-3"
+            >
+              <span>Buy smarter. Build profit.</span>
+              <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+            </button>
+            <span className="text-xs text-white/70 italic mt-2 block">
+              Intended outcomes, not guarantees.
+            </span>
           </div>
         </div>
 
-        {/* Right Column: Clean White Card Login matching the image style */}
+        {/* Right Column: Crisp Pure White Login Box */}
         <div className="lg:col-span-5">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-cardDeep border-4 border-slate-100 relative text-[#1E1736]">
+          <div className="bg-white rounded-3xl p-8 shadow-cardLg border-4 border-white/60 relative text-[#1E1638]">
             <div className="mb-6">
-              <span className="text-[10px] uppercase font-bold text-[#4E3C80] tracking-wider block mb-1">
-                MSME Workspace Login
+              <span className="text-[10px] uppercase font-bold text-[#523D8A] tracking-wider block mb-1">
+                Workshop Access
               </span>
               <h2 className="font-heading font-black text-2xl text-[#1E1736]">
                 Welcome to ForgeFlow
               </h2>
               <p className="text-xs text-slate-500 mt-1">
-                Enter your workshop details or select a persona to explore.
+                Select your role or enter credentials to open the factory dashboard.
               </p>
             </div>
 
@@ -133,8 +142,8 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleQuickPersona('owner')}
-                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
-                  role === 'owner' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-black transition-all ${
+                  role === 'owner' ? 'bg-[#523D8A] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
                 Ravi (Owner)
@@ -142,8 +151,8 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleQuickPersona('procurement')}
-                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
-                  role === 'procurement' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-black transition-all ${
+                  role === 'procurement' ? 'bg-[#523D8A] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
                 Procurement
@@ -151,11 +160,11 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleQuickPersona('costing')}
-                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
-                  role === 'costing' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-black transition-all ${
+                  role === 'costing' ? 'bg-[#523D8A] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
-                Costing Eng.
+                Costing
               </button>
             </div>
 
@@ -169,7 +178,7 @@ export const Login: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#4E3C80] font-medium"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#523D8A] font-medium"
                 />
               </div>
 
@@ -183,7 +192,7 @@ export const Login: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#4E3C80] font-medium"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#523D8A] font-medium"
                   />
                   <Lock className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
                 </div>
@@ -191,20 +200,20 @@ export const Login: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-2xl bg-[#4E3C80] hover:bg-[#3B2C63] text-white font-heading font-black text-sm transition-all shadow-glowPurple flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-2xl bg-[#523D8A] hover:bg-[#3E2C6B] text-white font-heading font-black text-sm transition-all shadow-md flex items-center justify-center gap-2"
               >
                 <span>Enter Workspace</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
 
-            <div className="mt-5 pt-4 border-t border-slate-200 text-center">
+            <div className="mt-5 pt-4 border-t border-slate-100 text-center">
               <button
                 type="button"
                 onClick={() => handleQuickPersona('owner')}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl bg-[#F8C8BE] hover:bg-[#f3b5a8] text-[#1E1736] text-xs font-heading font-black flex items-center justify-center gap-2 transition-all shadow-sm"
               >
-                <span>Instant Sign In as Ravi (Factory Owner)</span>
+                <span>Instant Login as Ravi (Plant Owner)</span>
               </button>
             </div>
           </div>
@@ -212,14 +221,14 @@ export const Login: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="px-6 py-4 border-t border-white/10 text-center text-xs text-[#D4C8EE] relative z-10 flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto w-full">
-        <span>© 2026 ForgeFlow AI • Helping Indian Fabrication MSMEs Grow Profitably</span>
-        <div className="flex items-center gap-4 mt-2 sm:mt-0 text-white/80">
-          <span>Landed Cost Engine</span>
+      <footer className="px-6 py-4 border-t border-white/15 text-center text-xs text-white/80 relative z-10 flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto w-full">
+        <span>© 2026 ForgeFlow AI • Protecting MSME Manufacturing Margins</span>
+        <div className="flex items-center gap-4 mt-2 sm:mt-0 font-medium">
+          <span>Landed Cost Comparison</span>
           <span>•</span>
           <span>Deterministic Costing</span>
           <span>•</span>
-          <span>GST Document Intelligence</span>
+          <span>GST Intelligence</span>
         </div>
       </footer>
     </div>
