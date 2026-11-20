@@ -84,18 +84,17 @@ interface AppContextType {
   toast: { message: string; type: 'success' | 'info' | 'warning' | 'error' } | null;
   showToast: (message: string, type?: 'success' | 'info' | 'warning' | 'error') => void;
 
-  // Hackathon Judge Tour
-  isJudgeTourOpen: boolean;
-  setIsJudgeTourOpen: (open: boolean) => void;
+  // Story modal state: "A Day with ForgeFlow (Ravi's Story)"
+  isStoryModalOpen: boolean;
+  setIsStoryModalOpen: (open: boolean) => void;
   resetToSampleData: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const STORAGE_KEY_PREFIX = 'forgeflow_v1_';
+const STORAGE_KEY_PREFIX = 'forgeflow_v2_';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Authentication & Navigation
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem(`${STORAGE_KEY_PREFIX}auth`) === 'true';
   });
@@ -110,7 +109,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return saved ? JSON.parse(saved) : INITIAL_USER;
   });
 
-  // Data states with localStorage persistence
   const [suppliers, setSuppliers] = useState<Supplier[]>(() => {
     const saved = localStorage.getItem(`${STORAGE_KEY_PREFIX}suppliers`);
     return saved ? JSON.parse(saved) : INITIAL_SUPPLIERS;
@@ -151,11 +149,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return saved ? JSON.parse(saved) : INITIAL_ACTIVITIES;
   });
 
-  // UI state
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' | 'warning' | 'error' } | null>(null);
-  const [isJudgeTourOpen, setIsJudgeTourOpen] = useState(false);
+  const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
 
-  // Sync to local storage
   useEffect(() => {
     localStorage.setItem(`${STORAGE_KEY_PREFIX}auth`, String(isAuthenticated));
   }, [isAuthenticated]);
@@ -209,7 +205,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setUser(prev => ({ ...prev, email }));
     }
     setCurrentPage('dashboard');
-    showToast('Welcome to ForgeFlow AI! Demo session initialized.', 'success');
+    showToast(`Welcome back, ${user.name}! Workspace synchronized.`, 'success');
   };
 
   const logout = () => {
@@ -229,12 +225,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActivities(prev => [newAct, ...prev.slice(0, 9)]);
   };
 
-  // Supplier Actions
   const addSupplier = (s: Omit<Supplier, 'id'>) => {
-    const newSup: Supplier = {
-      ...s,
-      id: `sup-${Date.now()}`
-    };
+    const newSup: Supplier = { ...s, id: `sup-${Date.now()}` };
     setSuppliers(prev => [newSup, ...prev]);
     addActivity(`Added new supplier: ${s.name}`, 'supplier');
     showToast(`Supplier "${s.name}" added successfully.`);
@@ -250,7 +242,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Supplier removed.', 'info');
   };
 
-  // Procurement & Quotes Actions
   const addMaterialRequirement = (req: Omit<MaterialRequirement, 'id' | 'createdDate' | 'status'>): string => {
     const newId = `req-${Date.now()}`;
     const newReq: MaterialRequirement = {
@@ -297,7 +288,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Quotation deleted.', 'info');
   };
 
-  // Costing Orders
   const addCostingOrder = (orderData: Omit<CostingOrder, 'id' | 'createdDate' | 'totalProductionCost' | 'costPerUnit' | 'suggestedSellingPrice' | 'unitSellingPrice' | 'estimatedGrossProfit' | 'estimatedProfitMargin'>): string => {
     const calculations = calculateOrderCosting({
       quantity: orderData.quantity,
@@ -320,7 +310,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setCostingOrders(prev => [newOrder, ...prev]);
     addActivity(`Calculated costing for: ${orderData.productName}`, 'calculator');
-    showToast(`Order costing calculated for ${orderData.productName}. Suggested Price: ₹${calculations.suggestedSellingPrice.toLocaleString('en-IN')}`);
+    showToast(`Cost sheet computed for ${orderData.productName}`);
     return newId;
   };
 
@@ -339,10 +329,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           scrapRecoveryValue: merged.scrapRecoveryValue,
           targetMarginPercent: merged.targetMarginPercent
         });
-        return {
-          ...merged,
-          ...recalculated
-        };
+        return { ...merged, ...recalculated };
       })
     );
     showToast('Order costing recomputed.');
@@ -353,16 +340,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Costing order removed.', 'info');
   };
 
-  // Customer Quotations
   const addQuotation = (quotationData: Omit<CustomerQuotation, 'id'>): string => {
     const newId = `quot-${Date.now()}`;
-    const newQuot: CustomerQuotation = {
-      ...quotationData,
-      id: newId
-    };
+    const newQuot: CustomerQuotation = { ...quotationData, id: newId };
     setQuotations(prev => [newQuot, ...prev]);
-    addActivity(`Generated quotation ${quotationData.quoteNumber} for ${quotationData.customer.company}`, 'invoice');
-    showToast(`Quotation ${quotationData.quoteNumber} created successfully!`);
+    addActivity(`Generated quote ${quotationData.quoteNumber} for ${quotationData.customer.company}`, 'invoice');
+    showToast(`Quotation ${quotationData.quoteNumber} created!`);
     return newId;
   };
 
@@ -376,16 +359,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Quotation deleted.', 'info');
   };
 
-  // Invoice Intelligence
   const addInvoice = (inv: Omit<InvoiceDocument, 'id' | 'uploadDate'>) => {
     const newId = `inv-${Date.now()}`;
     const newInvoice: InvoiceDocument = {
       ...inv,
       id: newId,
-      uploadDate: new Date().toLocaleString('en-IN', {
-        dateStyle: 'medium',
-        timeStyle: 'short'
-      })
+      uploadDate: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
     };
     setInvoices(prev => [newInvoice, ...prev]);
     addActivity(`Processed invoice ${inv.invoiceNumber} from ${inv.supplierName}`, 'invoice');
@@ -394,19 +373,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateInvoice = (id: string, updates: Partial<InvoiceDocument>) => {
     setInvoices(prev => prev.map(inv => (inv.id === id ? { ...inv, ...updates } : inv)));
-    showToast('Invoice document records updated.');
+    showToast('Invoice updated.');
   };
 
   const deleteInvoice = (id: string) => {
     setInvoices(prev => prev.filter(inv => inv.id !== id));
-    showToast('Invoice record deleted.', 'info');
+    showToast('Invoice deleted.', 'info');
   };
 
   const markAlertRead = (id: string) => {
     setAlerts(prev => prev.map(a => (a.id === id ? { ...a, read: true } : a)));
   };
 
-  // Reset to sample data
   const resetToSampleData = () => {
     localStorage.removeItem(`${STORAGE_KEY_PREFIX}suppliers`);
     localStorage.removeItem(`${STORAGE_KEY_PREFIX}mat_reqs`);
@@ -426,7 +404,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setAlerts(INITIAL_ALERTS);
     setActivities(INITIAL_ACTIVITIES);
 
-    showToast('Demo dataset reset to initial state.', 'info');
+    showToast('Workspace reset to factory sample data.', 'info');
   };
 
   return (
@@ -466,8 +444,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addActivity,
         toast,
         showToast,
-        isJudgeTourOpen,
-        setIsJudgeTourOpen,
+        isStoryModalOpen,
+        setIsStoryModalOpen,
         resetToSampleData
       }}
     >

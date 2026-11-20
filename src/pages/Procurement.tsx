@@ -29,16 +29,13 @@ export const Procurement: React.FC = () => {
     setCurrentPage
   } = useApp();
 
-  // Active selected requirement
   const [selectedReqId, setSelectedReqId] = useState<string>(
     materialRequirements[0]?.id || 'req-101'
   );
 
-  // Modals state
   const [showAddReqModal, setShowAddReqModal] = useState(false);
   const [showAddQuoteModal, setShowAddQuoteModal] = useState(false);
 
-  // Dynamic simulation slider (overrides base quantity to demonstrate how volume changes the landed winner!)
   const [simulationQty, setSimulationQty] = useState<number>(500);
   const [useSimulation, setUseSimulation] = useState<boolean>(false);
 
@@ -48,7 +45,7 @@ export const Procurement: React.FC = () => {
   const [reqQty, setReqQty] = useState('500');
   const [reqUnit, setReqUnit] = useState('kg');
   const [reqSpec, setReqSpec] = useState('IS 2062 Grade B, 3mm Thickness');
-  const [reqLocation, setReqLocation] = useState('Bhosari Industrial Estate, Pune (Factory Gate 2)');
+  const [reqLocation, setReqLocation] = useState('Bhosari Industrial Area, Pune (Gate 2)');
 
   // Form states for New Quote
   const [quoteSupplierId, setQuoteSupplierId] = useState(suppliers[0]?.id || '');
@@ -60,11 +57,7 @@ export const Procurement: React.FC = () => {
   const [quoteNotes, setQuoteNotes] = useState('Standard payment terms apply.');
 
   const currentReq = materialRequirements.find(r => r.id === selectedReqId) || materialRequirements[0];
-
-  // Filter quotes for selected requirement
   const rawReqQuotes = quotes.filter(q => q.materialReqId === currentReq?.id);
-
-  // Recalculate with simulation quantity if active
   const effectiveQty = useSimulation ? simulationQty : currentReq?.quantity || 500;
 
   const displayQuotes = rawReqQuotes.map(q => {
@@ -81,14 +74,12 @@ export const Procurement: React.FC = () => {
     };
   });
 
-  // Determine true best offer (lowest effective landed cost per unit)
   const minEffectiveLanded = displayQuotes.length > 0 ? Math.min(...displayQuotes.map(q => q.effectiveCostPerUnit)) : 0;
   const enrichedQuotes = displayQuotes.map(q => ({
     ...q,
     isBestOffer: Math.abs(q.effectiveCostPerUnit - minEffectiveLanded) < 0.05
   }));
 
-  // Identify who has the lowest headline unit price (to highlight the classic MSME trap!)
   const minUnitPrice = displayQuotes.length > 0 ? Math.min(...displayQuotes.map(q => q.unitPrice)) : 0;
   const lowestUnitPriceQuote = displayQuotes.find(q => Math.abs(q.unitPrice - minUnitPrice) < 0.01);
   const bestLandedQuote = enrichedQuotes.find(q => q.isBestOffer);
@@ -139,12 +130,12 @@ export const Procurement: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-heading font-bold text-2xl text-white">Smart Procurement</h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#16B8A5]/20 text-[#16B8A5] border border-[#16B8A5]/30 uppercase">
-              Core Engine (PS 4.1)
+            <h1 className="font-heading font-black text-3xl text-white">Smart Procurement</h1>
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#FAD5C8] text-[#1E1736]">
+              Landed Cost Engine
             </span>
           </div>
-          <p className="text-xs text-slate-300 mt-1">
+          <p className="text-xs text-[#E8E2F6] mt-1">
             Compare supplier quotations and calculate actual landed costs with freight, GST & lead-time parity.
           </p>
         </div>
@@ -152,14 +143,14 @@ export const Procurement: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowAddReqModal(true)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#132032] hover:bg-[#182940] border border-[#1C2E46] text-slate-200 text-xs font-semibold transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-[#1E1736] hover:bg-[#F3F0FA] text-xs font-bold transition-all shadow-md"
           >
-            <Plus className="w-4 h-4 text-[#16B8A5]" />
+            <Plus className="w-4 h-4 text-[#4E3C80]" />
             <span>New Requirement</span>
           </button>
           <button
             onClick={() => setShowAddQuoteModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] text-xs font-heading font-bold transition-all shadow-glow"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-heading font-black transition-all shadow-md"
           >
             <Plus className="w-4 h-4" />
             <span>Add Supplier Quote</span>
@@ -168,9 +159,9 @@ export const Procurement: React.FC = () => {
       </div>
 
       {/* Requirement Selector Bar */}
-      <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl p-4 shadow-card border-2 border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3 overflow-x-auto pb-1 md:pb-0">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
             Active Material:
           </span>
           {materialRequirements.map(req => (
@@ -180,15 +171,15 @@ export const Procurement: React.FC = () => {
                 setSelectedReqId(req.id);
                 setSimulationQty(req.quantity);
               }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2 ${
                 req.id === selectedReqId
-                  ? 'bg-[#16B8A5] text-white shadow-glow font-semibold'
-                  : 'bg-[#132032] text-slate-300 hover:text-white border border-[#1C2E46]'
+                  ? 'bg-[#4E3C80] text-white shadow-md'
+                  : 'bg-[#F3F0FA] text-slate-700 hover:text-black border border-[#D2C6EA]'
               }`}
             >
               <span>{req.title}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                req.id === selectedReqId ? 'bg-[#0A111D]/30 text-white' : 'bg-slate-800 text-slate-400'
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
+                req.id === selectedReqId ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
               }`}>
                 {req.quantity} {req.unit}
               </span>
@@ -196,53 +187,48 @@ export const Procurement: React.FC = () => {
           ))}
         </div>
 
-        {/* Selected Requirement Metadata pill */}
         {currentReq && (
-          <div className="text-xs text-slate-400 flex items-center gap-4 shrink-0 bg-[#0A111D] px-3 py-1.5 rounded-xl border border-[#1C2E46]/60">
+          <div className="text-xs text-slate-600 flex items-center gap-4 shrink-0 bg-[#F3F0FA] px-3.5 py-2 rounded-2xl border border-[#D2C6EA]">
             <div>
-              <span className="text-slate-400">Spec: </span>
-              <span className="text-slate-200 font-medium">{currentReq.gradeSpec}</span>
-            </div>
-            <div>
-              <span className="text-slate-400">Location: </span>
-              <span className="text-slate-200 font-medium">{currentReq.deliveryLocation.split(',')[0]}</span>
+              <span className="text-slate-500">Spec: </span>
+              <span className="font-bold text-slate-900">{currentReq.gradeSpec}</span>
             </div>
           </div>
         )}
       </div>
 
       {/* Dynamic Quantity & Freight Sensitivity Interactive Playground */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#132032] via-[#0F1E30] to-[#132032] border border-[#16B8A5]/30 shadow-card">
+      <div className="p-5 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-[#16B8A5]/20 text-[#16B8A5]">
-              <Sliders className="w-4 h-4" />
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-2xl bg-[#E8E2F6] text-[#4E3C80]">
+              <Sliders className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-heading font-semibold text-xs text-white">
+              <h4 className="font-heading font-black text-sm text-[#1E1736]">
                 Interactive Landed Cost Sensitivity Simulator
               </h4>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-xs text-slate-500">
                 Drag the order quantity to see how delivery charges and taxes shift the best deal between Supplier A, B & C!
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
               <input
                 type="checkbox"
                 checked={useSimulation}
                 onChange={(e) => setUseSimulation(e.target.checked)}
-                className="rounded accent-[#16B8A5] w-4 h-4 cursor-pointer"
+                className="rounded accent-[#4E3C80] w-4 h-4 cursor-pointer"
               />
               <span>Enable Volume Simulation</span>
             </label>
 
             {useSimulation && (
-              <div className="flex items-center gap-2 bg-[#0A111D] px-3 py-1 rounded-xl border border-[#1C2E46]">
-                <span className="text-xs text-slate-400">Batch:</span>
-                <span className="font-heading font-bold text-sm text-[#16B8A5]">
+              <div className="flex items-center gap-2 bg-[#FAD5C8] px-3.5 py-1.5 rounded-2xl">
+                <span className="text-xs font-bold text-slate-700">Batch:</span>
+                <span className="font-heading font-black text-sm text-[#4E3C80]">
                   {simulationQty} {currentReq?.unit || 'kg'}
                 </span>
               </div>
@@ -251,8 +237,8 @@ export const Procurement: React.FC = () => {
         </div>
 
         {useSimulation && (
-          <div className="mt-4 pt-3 border-t border-[#1C2E46]/60 flex items-center gap-4">
-            <span className="text-xs text-slate-400 w-12 text-right">100 kg</span>
+          <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-4">
+            <span className="text-xs font-bold text-slate-500 w-12 text-right">100 kg</span>
             <input
               type="range"
               min="100"
@@ -260,131 +246,128 @@ export const Procurement: React.FC = () => {
               step="50"
               value={simulationQty}
               onChange={(e) => setSimulationQty(Number(e.target.value))}
-              className="flex-1 accent-[#16B8A5] cursor-pointer"
+              className="flex-1 accent-[#4E3C80] cursor-pointer h-2 bg-slate-200 rounded-lg"
             />
-            <span className="text-xs text-slate-400 w-16">2,500 kg</span>
+            <span className="text-xs font-bold text-slate-500 w-16">2,500 kg</span>
           </div>
         )}
       </div>
 
-      {/* The Landed Cost Trap Alert Banner (Notice for Hackathon Judges!) */}
+      {/* The Landed Cost Trap Alert Banner */}
       {isTrapScenario && (
-        <div className="p-4 rounded-2xl bg-amber-500/10 border border-[#E5A84B]/40 flex items-start gap-3 text-xs shadow-glowAmber">
-          <AlertTriangle className="w-5 h-5 text-[#E5A84B] shrink-0 mt-0.5" />
+        <div className="p-5 rounded-3xl bg-[#FEF3D6] border-2 border-[#F9C349] flex items-start gap-3.5 text-xs shadow-md">
+          <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
           <div className="flex-1">
-            <h5 className="font-heading font-bold text-sm text-white">
+            <h5 className="font-heading font-black text-sm text-slate-900">
               The "Cheapest Unit Rate" Illusion Detected:
             </h5>
-            <p className="text-slate-300 mt-1 leading-relaxed">
+            <p className="text-slate-700 mt-1 leading-relaxed">
               <strong>{lowestUnitPriceQuote?.supplierName}</strong> quotes the lowest base price at <strong>₹{lowestUnitPriceQuote?.unitPrice}/kg</strong>, but charges <strong>₹{lowestUnitPriceQuote?.deliveryCharges.toLocaleString('en-IN')}</strong> freight.
-              Meanwhile, <strong>{bestLandedQuote?.supplierName}</strong> charges ₹{bestLandedQuote?.unitPrice}/kg with lower/free freight, resulting in a lower true landed cost of <strong>₹{bestLandedQuote?.effectiveCostPerUnit.toFixed(2)}/kg</strong>.
+              Meanwhile, <strong>{bestLandedQuote?.supplierName}</strong> quotes ₹{bestLandedQuote?.unitPrice}/kg with lower/free freight, giving you a cheaper true landed cost of <strong>₹{bestLandedQuote?.effectiveCostPerUnit.toFixed(2)}/kg</strong>.
             </p>
           </div>
         </div>
       )}
 
       {/* Main Quotations Comparison Table */}
-      <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl shadow-card overflow-hidden">
-        <div className="p-5 border-b border-[#1C2E46] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="bg-white text-[#1E1736] rounded-3xl shadow-card border-2 border-slate-100 overflow-hidden">
+        <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 className="font-heading font-bold text-base text-white flex items-center gap-2">
+            <h3 className="font-heading font-black text-lg text-[#1E1736] flex items-center gap-2">
               Supplier Comparison Matrix
-              <span className="text-xs text-slate-400 font-normal">
+              <span className="text-xs text-slate-500 font-normal">
                 ({enrichedQuotes.length} quotes for {effectiveQty} {currentReq?.unit})
               </span>
             </h3>
-            <span className="text-[11px] text-slate-400 block mt-0.5">
-              *All figures shown are illustrative demo values for hackathon simulation.
+            <span className="text-xs text-slate-500 block mt-0.5">
+              Includes base unit rate, delivery freight, and applicable 18% GST.
             </span>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span>Recommended Landed Value</span>
-            </span>
-          </div>
+          <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+            ✓ Recommended Landed Deal Highlighted
+          </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0D1624] text-slate-400 border-b border-[#1C2E46] uppercase font-semibold text-[10px] tracking-wider">
+            <thead className="bg-[#F3F0FA] text-slate-700 border-b border-slate-200 uppercase font-bold text-[10px] tracking-wider">
               <tr>
-                <th className="py-3.5 px-4">Supplier</th>
-                <th className="py-3.5 px-4">Specification</th>
-                <th className="py-3.5 px-4 text-right">Unit Price</th>
-                <th className="py-3.5 px-4 text-right">Delivery / Freight</th>
-                <th className="py-3.5 px-4 text-right">GST Rate</th>
-                <th className="py-3.5 px-4 text-right">Total Landed Cost</th>
-                <th className="py-3.5 px-4 text-right font-bold text-slate-200">Effective Cost / Unit</th>
-                <th className="py-3.5 px-4 text-center">Delivery Time</th>
-                <th className="py-3.5 px-4 text-center">Verdict</th>
-                <th className="py-3.5 px-4 text-center">Action</th>
+                <th className="py-4 px-4">Supplier</th>
+                <th className="py-4 px-4">Specification</th>
+                <th className="py-4 px-4 text-right">Unit Price</th>
+                <th className="py-4 px-4 text-right">Delivery / Freight</th>
+                <th className="py-4 px-4 text-right">GST Rate</th>
+                <th className="py-4 px-4 text-right">Total Landed Cost</th>
+                <th className="py-4 px-4 text-right font-black text-slate-900">Effective Cost / Unit</th>
+                <th className="py-4 px-4 text-center">Delivery Time</th>
+                <th className="py-4 px-4 text-center">Verdict</th>
+                <th className="py-4 px-4 text-center">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1C2E46]/60">
+            <tbody className="divide-y divide-slate-100">
               {enrichedQuotes.map((q) => {
                 const isBest = q.isBestOffer;
                 return (
                   <tr
                     key={q.id}
                     className={`transition-colors ${
-                      isBest ? 'bg-[#16B8A5]/5 hover:bg-[#16B8A5]/10' : 'hover:bg-[#132032]'
+                      isBest ? 'bg-[#D1FAE5]/30 hover:bg-[#D1FAE5]/50' : 'hover:bg-[#F3F0FA]'
                     }`}
                   >
                     {/* Supplier Name */}
-                    <td className="py-4 px-4 font-medium text-white">
+                    <td className="py-4 px-4 font-bold text-slate-900">
                       <div className="flex items-center gap-2">
                         {isBest && (
-                          <div className="p-1 rounded bg-[#16B8A5]/20 text-[#16B8A5]">
-                            <Award className="w-3.5 h-3.5" />
+                          <div className="p-1 rounded-lg bg-emerald-100 text-emerald-700">
+                            <Award className="w-4 h-4" />
                           </div>
                         )}
                         <div>
-                          <span className="block font-semibold text-slate-100">{q.supplierName}</span>
-                          <span className="text-[10px] text-slate-400 block">Quote #{q.id.slice(0, 10)}</span>
+                          <span className="block font-bold text-slate-900">{q.supplierName}</span>
+                          <span className="text-[10px] text-slate-500 font-normal">Quote #{q.id.slice(0, 10)}</span>
                         </div>
                       </div>
                     </td>
 
                     {/* Specification */}
-                    <td className="py-4 px-4 text-slate-300 max-w-xs truncate" title={q.materialSpec}>
+                    <td className="py-4 px-4 text-slate-700 max-w-xs truncate" title={q.materialSpec}>
                       {q.materialSpec}
                     </td>
 
                     {/* Unit Base Price */}
-                    <td className="py-4 px-4 text-right font-mono text-slate-200">
+                    <td className="py-4 px-4 text-right font-mono font-medium text-slate-900">
                       ₹{q.unitPrice.toFixed(2)}/{q.unit}
                     </td>
 
                     {/* Delivery Freight */}
                     <td className="py-4 px-4 text-right font-mono">
                       {q.deliveryCharges === 0 ? (
-                        <span className="text-emerald-400 font-semibold">FREE</span>
+                        <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">FREE</span>
                       ) : (
-                        <span className="text-slate-300">₹{q.deliveryCharges.toLocaleString('en-IN')}</span>
+                        <span className="text-slate-800">₹{q.deliveryCharges.toLocaleString('en-IN')}</span>
                       )}
                     </td>
 
                     {/* Taxes */}
-                    <td className="py-4 px-4 text-right font-mono text-slate-400">
+                    <td className="py-4 px-4 text-right font-mono text-slate-600">
                       {q.taxRatePercent}% GST
-                      <span className="block text-[10px] text-slate-500">
+                      <span className="block text-[10px] text-slate-400">
                         (₹{q.taxAmount.toLocaleString('en-IN')})
                       </span>
                     </td>
 
                     {/* Total Landed Cost */}
-                    <td className="py-4 px-4 text-right font-mono font-bold text-white">
+                    <td className="py-4 px-4 text-right font-mono font-black text-slate-900 text-sm">
                       {formatINR(q.totalLandedCost)}
                     </td>
 
                     {/* Effective Cost Per Unit */}
                     <td className="py-4 px-4 text-right font-mono">
-                      <div className={`inline-block px-2 py-1 rounded-lg font-bold text-sm ${
+                      <div className={`inline-block px-2.5 py-1 rounded-xl font-black text-sm ${
                         isBest
-                          ? 'bg-[#16B8A5]/20 text-[#16B8A5] border border-[#16B8A5]/40'
-                          : 'text-slate-200'
+                          ? 'bg-[#10B981] text-white shadow-sm'
+                          : 'text-slate-900'
                       }`}>
                         ₹{q.effectiveCostPerUnit.toFixed(2)}/{q.unit}
                       </div>
@@ -392,8 +375,8 @@ export const Procurement: React.FC = () => {
 
                     {/* Delivery Time */}
                     <td className="py-4 px-4 text-center">
-                      <div className="inline-flex items-center gap-1 text-[11px] text-slate-300 bg-[#0A111D] px-2 py-1 rounded-lg border border-[#1C2E46]">
-                        <Clock className="w-3 h-3 text-[#E5A84B]" />
+                      <div className="inline-flex items-center gap-1 text-[11px] text-slate-700 bg-slate-100 px-2.5 py-1 rounded-xl">
+                        <Clock className="w-3 h-3 text-amber-600" />
                         <span>{q.deliveryTimeDays} days</span>
                       </div>
                     </td>
@@ -401,16 +384,16 @@ export const Procurement: React.FC = () => {
                     {/* Verdict */}
                     <td className="py-4 px-4 text-center">
                       {isBest ? (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center gap-1">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center justify-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>Best Landed Deal</span>
                         </span>
                       ) : q.unitPrice === minUnitPrice ? (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-500/15 text-[#E5A84B] border border-amber-500/30" title="Low unit price wiped out by freight">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300" title="Low unit price wiped out by freight">
                           Misleading Low Rate
                         </span>
                       ) : (
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-slate-500 font-mono">
                           +{(q.effectiveCostPerUnit - minEffectiveLanded).toFixed(2)}/kg
                         </span>
                       )}
@@ -418,15 +401,13 @@ export const Procurement: React.FC = () => {
 
                     {/* Action */}
                     <td className="py-4 px-4 text-center">
-                      <div className="flex items-center justify-center gap-1.5">
-                        <button
-                          onClick={() => deleteQuote(q.id)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
-                          title="Delete Quote"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => deleteQuote(q.id)}
+                        className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                        title="Delete Quote"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </td>
                   </tr>
                 );
@@ -438,47 +419,42 @@ export const Procurement: React.FC = () => {
 
       {/* Strategic Recommendation Breakdown Card */}
       {bestLandedQuote && (
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-[#132032] via-[#0E2235] to-[#132032] border border-[#16B8A5]/40 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-[#16B8A5]">
-              <Sparkles className="w-4 h-4" />
-              <span className="text-xs font-heading font-semibold uppercase tracking-wider">
-                Procurement Decision Recommendation
-              </span>
-            </div>
-            <h3 className="font-heading font-bold text-xl text-white">
+        <div className="p-6 rounded-3xl bg-[#FAD5C8] text-[#1E1736] border-2 border-[#F8C4B4] shadow-card flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#4E3C80] block">
+              Strategic Procurement Recommendation
+            </span>
+            <h3 className="font-heading font-black text-2xl text-[#1E1736]">
               Procure from {bestLandedQuote.supplierName}
             </h3>
-            <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
-              Total landed spend for <strong>{effectiveQty} {currentReq.unit}</strong> will be <strong>{formatINR(bestLandedQuote.totalLandedCost)}</strong> (effective ₹{bestLandedQuote.effectiveCostPerUnit.toFixed(2)}/{currentReq.unit}).
-              Expected delivery in <strong>{bestLandedQuote.deliveryTimeDays} days</strong> with eligible GST ITC credit of <strong>{formatINR(bestLandedQuote.taxAmount)}</strong>.
+            <p className="text-xs text-slate-800 max-w-xl leading-relaxed">
+              Total landed spend for <strong>{effectiveQty} {currentReq.unit}</strong> is <strong>{formatINR(bestLandedQuote.totalLandedCost)}</strong> (effective ₹{bestLandedQuote.effectiveCostPerUnit.toFixed(2)}/{currentReq.unit}).
+              Includes eligible GST ITC credit of <strong>{formatINR(bestLandedQuote.taxAmount)}</strong>.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              onClick={() => setCurrentPage('costing')}
-              className="px-5 py-3 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] font-heading font-bold text-xs transition-all shadow-glow flex items-center gap-2"
-            >
-              <span>Transfer to Production Costing</span>
-              <ExternalLink className="w-4 h-4" />
-            </button>
-          </div>
+          <button
+            onClick={() => setCurrentPage('costing')}
+            className="px-5 py-3 rounded-2xl bg-[#4E3C80] hover:bg-[#3B2C63] text-white font-heading font-black text-xs transition-all shadow-md flex items-center gap-2 shrink-0"
+          >
+            <span>Transfer to Costing</span>
+            <ExternalLink className="w-4 h-4" />
+          </button>
         </div>
       )}
 
       {/* Modal: New Material Requirement */}
       {showAddReqModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-6 max-w-lg w-full shadow-2xl relative">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1C2E46]">
-              <h3 className="font-heading font-bold text-base text-white flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4 text-[#16B8A5]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in">
+          <div className="bg-white text-[#1E1736] rounded-3xl p-6 max-w-lg w-full shadow-2xl relative border-4 border-slate-100">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+              <h3 className="font-heading font-black text-lg text-[#1E1736] flex items-center gap-2">
+                <ShoppingCart className="w-5 h-5 text-[#4E3C80]" />
                 <span>Create Material Requirement</span>
               </h3>
               <button
                 onClick={() => setShowAddReqModal(false)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-slate-400 hover:text-black text-base"
               >
                 ✕
               </button>
@@ -486,34 +462,34 @@ export const Procurement: React.FC = () => {
 
             <form onSubmit={handleCreateRequirement} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Material Name & Thickness</label>
+                <label className="block text-slate-700 font-bold mb-1">Material Name & Thickness</label>
                 <input
                   type="text"
                   required
                   value={reqTitle}
                   onChange={(e) => setReqTitle(e.target.value)}
                   placeholder="e.g. MS Steel Sheet (3mm IS 2062 Grade B)"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Quantity</label>
+                  <label className="block text-slate-700 font-bold mb-1">Quantity</label>
                   <input
                     type="number"
                     required
                     value={reqQty}
                     onChange={(e) => setReqQty(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Unit</label>
+                  <label className="block text-slate-700 font-bold mb-1">Unit</label>
                   <select
                     value={reqUnit}
                     onChange={(e) => setReqUnit(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   >
                     <option value="kg">kg</option>
                     <option value="tonnes">tonnes</option>
@@ -524,38 +500,36 @@ export const Procurement: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Grade / Technical Specification</label>
+                <label className="block text-slate-700 font-bold mb-1">Grade / Technical Specification</label>
                 <input
                   type="text"
                   value={reqSpec}
                   onChange={(e) => setReqSpec(e.target.value)}
-                  placeholder="e.g. IS 2062 Grade B, Mill Test Certificate required"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Delivery Destination</label>
+                <label className="block text-slate-700 font-bold mb-1">Delivery Destination</label>
                 <input
                   type="text"
                   value={reqLocation}
                   onChange={(e) => setReqLocation(e.target.value)}
-                  placeholder="e.g. Bhosari Industrial Area, Pune"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#1C2E46] flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddReqModal(false)}
-                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white"
+                  className="px-4 py-2 rounded-xl text-slate-600 hover:text-black font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] font-bold shadow-glow"
+                  className="px-5 py-2.5 rounded-2xl bg-[#4E3C80] text-white font-bold shadow-md"
                 >
                   Create Requirement
                 </button>
@@ -567,16 +541,16 @@ export const Procurement: React.FC = () => {
 
       {/* Modal: Add Supplier Quote */}
       {showAddQuoteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-6 max-w-lg w-full shadow-2xl relative">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1C2E46]">
-              <h3 className="font-heading font-bold text-base text-white flex items-center gap-2">
-                <Plus className="w-4 h-4 text-[#16B8A5]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in">
+          <div className="bg-white text-[#1E1736] rounded-3xl p-6 max-w-lg w-full shadow-2xl relative border-4 border-slate-100">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+              <h3 className="font-heading font-black text-lg text-[#1E1736] flex items-center gap-2">
+                <Plus className="w-5 h-5 text-[#4E3C80]" />
                 <span>Add Supplier Quotation</span>
               </h3>
               <button
                 onClick={() => setShowAddQuoteModal(false)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-slate-400 hover:text-black text-base"
               >
                 ✕
               </button>
@@ -584,11 +558,11 @@ export const Procurement: React.FC = () => {
 
             <form onSubmit={handleCreateQuote} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Select Supplier</label>
+                <label className="block text-slate-700 font-bold mb-1">Select Supplier</label>
                 <select
                   value={quoteSupplierId}
                   onChange={(e) => setQuoteSupplierId(e.target.value)}
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 >
                   {suppliers.map(s => (
                     <option key={s.id} value={s.id}>
@@ -600,7 +574,7 @@ export const Procurement: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">
+                  <label className="block text-slate-700 font-bold mb-1">
                     Unit Base Price (₹/{currentReq?.unit || 'kg'})
                   </label>
                   <input
@@ -609,11 +583,11 @@ export const Procurement: React.FC = () => {
                     required
                     value={quoteUnitPrice}
                     onChange={(e) => setQuoteUnitPrice(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-mono font-medium focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">
+                  <label className="block text-slate-700 font-bold mb-1">
                     Delivery / Freight (₹ total)
                   </label>
                   <input
@@ -621,18 +595,18 @@ export const Procurement: React.FC = () => {
                     value={quoteDelivery}
                     onChange={(e) => setQuoteDelivery(e.target.value)}
                     placeholder="0 if free"
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-mono font-medium focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">GST Tax Rate</label>
+                  <label className="block text-slate-700 font-bold mb-1">GST Tax Rate</label>
                   <select
                     value={quoteTaxRate}
                     onChange={(e) => setQuoteTaxRate(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   >
                     <option value="18">18% (Standard Ferrous / Non-Ferrous)</option>
                     <option value="12">12%</option>
@@ -641,49 +615,37 @@ export const Procurement: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Lead Time (Days)</label>
+                  <label className="block text-slate-700 font-bold mb-1">Lead Time (Days)</label>
                   <input
                     type="number"
                     value={quoteLeadDays}
                     onChange={(e) => setQuoteLeadDays(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Material Quality / Brand Grade</label>
+                <label className="block text-slate-700 font-bold mb-1">Material Quality / Brand Grade</label>
                 <input
                   type="text"
                   value={quoteSpec}
                   onChange={(e) => setQuoteSpec(e.target.value)}
-                  placeholder="e.g. Tata Steel Prime, IS 2062 Grade B"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 />
               </div>
 
-              <div>
-                <label className="block text-slate-300 font-medium mb-1">Commercial Notes</label>
-                <input
-                  type="text"
-                  value={quoteNotes}
-                  onChange={(e) => setQuoteNotes(e.target.value)}
-                  placeholder="e.g. Valid for 7 days, 30 days credit"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
-                />
-              </div>
-
-              <div className="pt-3 border-t border-[#1C2E46] flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddQuoteModal(false)}
-                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white"
+                  className="px-4 py-2 rounded-xl text-slate-600 hover:text-black font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] font-bold shadow-glow"
+                  className="px-5 py-2.5 rounded-2xl bg-[#4E3C80] text-white font-bold shadow-md"
                 >
                   Save & Evaluate Landed Cost
                 </button>

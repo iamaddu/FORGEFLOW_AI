@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { formatINR } from '../utils/calculations';
-import { InvoiceDocument } from '../types';
 
 export const Invoices: React.FC = () => {
   const {
@@ -42,13 +41,12 @@ export const Invoices: React.FC = () => {
 
   const activeInvoice = invoices.find(inv => inv.id === selectedInvoiceId) || invoices[0];
 
-  // Simulated File Upload and OCR Parser Flow
   const handleSimulateUpload = (sampleType: 'apex' | 'jindal' | 'mittal' | 'custom', customFile?: File) => {
     setIsScanning(true);
-    setScanProgress(15);
+    setScanProgress(20);
 
-    const timer1 = setTimeout(() => setScanProgress(45), 300);
-    const timer2 = setTimeout(() => setScanProgress(75), 650);
+    const timer1 = setTimeout(() => setScanProgress(55), 300);
+    const timer2 = setTimeout(() => setScanProgress(85), 650);
     const timer3 = setTimeout(() => {
       setScanProgress(100);
       setIsScanning(false);
@@ -128,7 +126,7 @@ export const Invoices: React.FC = () => {
       }
 
       showToast('Document uploaded & OCR metadata extracted successfully!');
-    }, 1000);
+    }, 900);
   };
 
   const filteredInvoices = invoices.filter(inv => {
@@ -146,27 +144,21 @@ export const Invoices: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-heading font-bold text-2xl text-white">Invoice Intelligence</h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#16B8A5]/20 text-[#16B8A5] border border-[#16B8A5]/30 uppercase">
+            <h1 className="font-heading font-black text-3xl text-white">Invoice Intelligence</h1>
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#FAD5C8] text-[#1E1736]">
               OCR & GST Assistant
             </span>
           </div>
-          <p className="text-xs text-slate-300 mt-1">
-            Extract supplier metadata, HSN tax breakdowns, and identify missing E-Way bills or GSTR-2B reconciliation mismatches.
+          <p className="text-xs text-[#E8E2F6] mt-1">
+            Extract supplier metadata, HSN tax breakdowns, and identify missing E-Way bills or reconciliation gaps.
           </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] text-slate-400 bg-[#0A111D] px-3 py-1.5 rounded-xl border border-[#1C2E46] hidden sm:inline">
-            Demonstration OCR Flow
-          </span>
         </div>
       </div>
 
       {/* Upload Zone & Quick Sample Triggers */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Drag & Drop Upload Zone (lg:col-span-8) */}
-        <div className="lg:col-span-8 p-6 rounded-2xl bg-[#101B2B] border-2 border-dashed border-[#1C2E46] hover:border-[#16B8A5]/50 transition-all flex flex-col items-center justify-center text-center relative group">
+        {/* Drag & Drop Upload Zone */}
+        <div className="lg:col-span-8 p-6 rounded-3xl bg-white border-2 border-dashed border-[#D2C6EA] hover:border-[#4E3C80] transition-all flex flex-col items-center justify-center text-center relative group shadow-card">
           <input
             type="file"
             accept=".pdf,.png,.jpg,.jpeg"
@@ -179,29 +171,29 @@ export const Invoices: React.FC = () => {
             disabled={isScanning}
           />
 
-          <div className="w-14 h-14 rounded-2xl bg-[#16B8A5]/15 text-[#16B8A5] flex items-center justify-center shadow-glow mb-3 group-hover:scale-110 transition-transform">
+          <div className="w-14 h-14 rounded-2xl bg-[#E8E2F6] text-[#4E3C80] flex items-center justify-center shadow-md mb-3 group-hover:scale-105 transition-transform">
             <Upload className="w-6 h-6" />
           </div>
 
-          <h3 className="font-heading font-bold text-base text-white">
+          <h3 className="font-heading font-black text-base text-[#1E1736]">
             Upload Supplier Invoice or Purchase Bill
           </h3>
-          <p className="text-xs text-slate-400 max-w-md mt-1">
-            Drag and drop your PDF or image file (PDF, PNG, JPG up to 10MB). System will extract GSTIN, HSN items & tax credits.
+          <p className="text-xs text-slate-500 max-w-md mt-1">
+            Drag and drop your PDF or image file (PDF, PNG, JPG). System will extract GSTIN, HSN items & tax credits.
           </p>
 
           {isScanning && (
             <div className="mt-4 w-full max-w-xs space-y-2">
-              <div className="flex items-center justify-between text-xs text-slate-300">
-                <span className="flex items-center gap-1.5 text-[#16B8A5]">
+              <div className="flex items-center justify-between text-xs text-slate-700 font-bold">
+                <span className="flex items-center gap-1.5 text-[#4E3C80]">
                   <Sparkles className="w-3.5 h-3.5 animate-spin" />
                   <span>Extracting document metadata...</span>
                 </span>
                 <span className="font-mono">{scanProgress}%</span>
               </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-[#16B8A5] to-[#E5A84B] h-full transition-all duration-300"
+                  className="bg-gradient-to-r from-[#4E3C80] to-[#FAD5C8] h-full transition-all duration-300"
                   style={{ width: `${scanProgress}%` }}
                 />
               </div>
@@ -209,16 +201,16 @@ export const Invoices: React.FC = () => {
           )}
         </div>
 
-        {/* Quick Demo Preloaded Invoices (lg:col-span-4) */}
-        <div className="lg:col-span-4 p-5 rounded-2xl bg-[#101B2B] border border-[#1C2E46] shadow-card flex flex-col justify-between space-y-3">
+        {/* Quick Sample Triggers */}
+        <div className="lg:col-span-4 p-6 rounded-3xl bg-white text-[#1E1736] border-2 border-slate-100 shadow-card flex flex-col justify-between space-y-3">
           <div>
-            <span className="text-xs font-heading font-semibold text-[#E5A84B] uppercase tracking-wider block mb-1">
-              Hackathon Judge Testing
+            <span className="text-xs font-bold text-[#4E3C80] uppercase tracking-wider block mb-1">
+              Sample Document Scans
             </span>
-            <h4 className="font-heading font-bold text-sm text-white">
-              Instant OCR Simulation Tests
+            <h4 className="font-heading font-black text-base text-[#1E1736]">
+              Instant OCR Ingestion
             </h4>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Click any sample below to simulate instant invoice ingestion & discrepancy detection:
             </p>
           </div>
@@ -227,40 +219,39 @@ export const Invoices: React.FC = () => {
             <button
               onClick={() => handleSimulateUpload('apex')}
               disabled={isScanning}
-              className="w-full p-2.5 rounded-xl bg-[#132032] hover:bg-[#182940] border border-[#1C2E46] text-left text-xs transition-colors flex items-center justify-between group"
+              className="w-full p-3 rounded-2xl bg-[#F3F0FA] hover:bg-[#E8E2F6] border border-[#D2C6EA] text-left text-xs transition-colors flex items-center justify-between group"
             >
               <div>
-                <span className="font-medium text-slate-200 block group-hover:text-[#16B8A5]">
+                <span className="font-bold text-slate-900 block group-hover:text-[#4E3C80]">
                   Apex Steel (INV-1042)
                 </span>
-                <span className="text-[10px] text-rose-400 block">Trigger: Missing E-Way Bill</span>
+                <span className="text-[10px] text-rose-600 font-bold block">Trigger: Missing E-Way Bill</span>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-black" />
             </button>
 
             <button
               onClick={() => handleSimulateUpload('jindal')}
               disabled={isScanning}
-              className="w-full p-2.5 rounded-xl bg-[#132032] hover:bg-[#182940] border border-[#1C2E46] text-left text-xs transition-colors flex items-center justify-between group"
+              className="w-full p-3 rounded-2xl bg-[#F3F0FA] hover:bg-[#E8E2F6] border border-[#D2C6EA] text-left text-xs transition-colors flex items-center justify-between group"
             >
               <div>
-                <span className="font-medium text-slate-200 block group-hover:text-[#16B8A5]">
+                <span className="font-bold text-slate-900 block group-hover:text-[#4E3C80]">
                   Jindal Alloys (Clean Invoice)
                 </span>
-                <span className="text-[10px] text-emerald-400 block">Trigger: 100% Verified</span>
+                <span className="text-[10px] text-emerald-700 font-bold block">Trigger: 100% Verified</span>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-black" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Invoice Documents List & Details Review Split */}
+      {/* Invoices Stack & Details View */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Invoices List & Filters (lg:col-span-5) */}
+        {/* Left Column: Invoices List */}
         <div className="lg:col-span-5 space-y-4">
-          {/* Search & Filter Header */}
-          <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-4 space-y-3">
+          <div className="bg-white rounded-3xl p-4 shadow-card border-2 border-slate-100 space-y-3">
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -268,7 +259,7 @@ export const Invoices: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search invoice number, supplier or GSTIN..."
-                className="w-full bg-[#132032] border border-[#1C2E46] text-xs text-white placeholder:text-slate-500 pl-9 pr-3 py-2 rounded-xl focus:outline-none focus:border-[#16B8A5]"
+                className="w-full bg-[#F3F0FA] border border-[#D2C6EA] text-xs text-[#1E1736] placeholder:text-slate-500 pl-9 pr-3 py-2.5 rounded-xl focus:outline-none"
               />
             </div>
 
@@ -277,10 +268,10 @@ export const Invoices: React.FC = () => {
                 <button
                   key={status}
                   onClick={() => setStatusFilter(status)}
-                  className={`px-3 py-1 rounded-lg transition-colors whitespace-nowrap ${
+                  className={`px-3 py-1 rounded-xl transition-colors whitespace-nowrap font-bold ${
                     statusFilter === status
-                      ? 'bg-[#16B8A5] text-white font-semibold'
-                      : 'bg-[#132032] text-slate-400 hover:text-white'
+                      ? 'bg-[#4E3C80] text-white'
+                      : 'bg-[#F3F0FA] text-slate-700 hover:text-black'
                   }`}
                 >
                   {status}
@@ -289,7 +280,6 @@ export const Invoices: React.FC = () => {
             </div>
           </div>
 
-          {/* Invoices Stack */}
           <div className="space-y-2.5">
             {filteredInvoices.map(inv => {
               const isSelected = inv.id === selectedInvoiceId;
@@ -297,51 +287,51 @@ export const Invoices: React.FC = () => {
                 <div
                   key={inv.id}
                   onClick={() => setSelectedInvoiceId(inv.id)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                  className={`p-4 rounded-3xl border-2 cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-[#132032] border-[#16B8A5] shadow-glow'
-                      : 'bg-[#101B2B] border-[#1C2E46] hover:border-slate-600'
+                      ? 'bg-white border-[#4E3C80] shadow-cardDeep'
+                      : 'bg-white/95 border-slate-100 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-heading font-bold text-sm text-white font-mono">
+                        <span className="font-heading font-black text-sm text-[#1E1736] font-mono">
                           {inv.invoiceNumber}
                         </span>
                         {inv.status === 'Extracted' && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#D1FAE5] text-emerald-800">
                             Extracted
                           </span>
                         )}
                         {inv.status === 'Verified' && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/20 text-sky-400">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#E8E2F6] text-[#4E3C80]">
                             Verified
                           </span>
                         )}
                         {inv.status === 'Pending' && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#E5A84B]/20 text-[#E5A84B]">
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FEF3D6] text-amber-800">
                             Pending
                           </span>
                         )}
                       </div>
-                      <h4 className="font-medium text-xs text-slate-300 mt-1">
+                      <h4 className="font-bold text-xs text-slate-800 mt-1">
                         {inv.supplierName}
                       </h4>
                     </div>
 
                     <div className="text-right">
-                      <span className="font-heading font-bold text-sm text-white font-mono block">
+                      <span className="font-heading font-black text-sm text-slate-900 font-mono block">
                         {formatINR(inv.totalAmount)}
                       </span>
-                      <span className="text-[10px] text-slate-400 block mt-0.5">
+                      <span className="text-[10px] text-slate-500 block mt-0.5">
                         {inv.invoiceDate}
                       </span>
                     </div>
                   </div>
 
                   {inv.discrepancies.length > 0 && (
-                    <div className="mt-2.5 pt-2 border-t border-[#1C2E46]/60 flex items-center gap-1.5 text-[11px] text-[#E5A84B]">
+                    <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[11px] text-amber-700 font-medium">
                       <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                       <span className="truncate">{inv.discrepancies[0]}</span>
                     </div>
@@ -352,20 +342,20 @@ export const Invoices: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Editable Review Screen & HSN Breakdown (lg:col-span-7) */}
+        {/* Right Column: Editable Review Screen */}
         {activeInvoice && (
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-6 shadow-card space-y-5">
-              <div className="flex items-center justify-between pb-4 border-b border-[#1C2E46]">
+            <div className="bg-white rounded-3xl p-6 shadow-card border-2 border-slate-100 space-y-5 text-[#1E1736]">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-[#16B8A5]/15 text-[#16B8A5]">
+                  <div className="p-2.5 rounded-2xl bg-[#E8E2F6] text-[#4E3C80]">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-heading font-bold text-base text-white">
+                    <h3 className="font-heading font-black text-base text-[#1E1736]">
                       Extracted Document Review
                     </h3>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-slate-500">
                       File: {activeInvoice.fileName} ({activeInvoice.fileSize})
                     </p>
                   </div>
@@ -377,14 +367,14 @@ export const Invoices: React.FC = () => {
                       updateInvoice(activeInvoice.id, { status: 'Verified', discrepancies: [] });
                       showToast('Invoice marked as Verified & GST reconciled.');
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-xs font-semibold border border-emerald-500/30 flex items-center gap-1.5 transition-colors"
+                    className="px-3.5 py-2 rounded-2xl bg-[#D1FAE5] text-emerald-800 text-xs font-bold hover:bg-emerald-200 transition-colors flex items-center gap-1.5 shadow-sm"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Approve & Verify</span>
                   </button>
                   <button
                     onClick={() => deleteInvoice(activeInvoice.id)}
-                    className="p-1.5 rounded-xl text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                    className="p-2 rounded-2xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -393,12 +383,12 @@ export const Invoices: React.FC = () => {
 
               {/* Discrepancies Alert Box */}
               {activeInvoice.discrepancies.length > 0 && (
-                <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 space-y-1.5">
-                  <div className="flex items-center gap-2 text-rose-400 text-xs font-semibold">
+                <div className="p-4 rounded-2xl bg-[#FEF2F2] border-2 border-rose-200 space-y-1.5">
+                  <div className="flex items-center gap-2 text-rose-700 text-xs font-bold">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>Automated Discrepancy Warnings</span>
                   </div>
-                  <ul className="list-disc list-inside text-xs text-slate-300 space-y-1 pl-1">
+                  <ul className="list-disc list-inside text-xs text-slate-700 space-y-1 pl-1">
                     {activeInvoice.discrepancies.map((disc, idx) => (
                       <li key={idx}>{disc}</li>
                     ))}
@@ -409,122 +399,114 @@ export const Invoices: React.FC = () => {
               {/* Editable Fields Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block text-slate-400 mb-1">Supplier Name</label>
+                  <label className="block text-slate-600 font-bold mb-1">Supplier Name</label>
                   <input
                     type="text"
                     value={activeInvoice.supplierName}
                     onChange={(e) => updateInvoice(activeInvoice.id, { supplierName: e.target.value })}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white font-medium focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1">Supplier GSTIN</label>
+                  <label className="block text-slate-600 font-bold mb-1">Supplier GSTIN</label>
                   <input
                     type="text"
                     value={activeInvoice.supplierGstin}
                     onChange={(e) => updateInvoice(activeInvoice.id, { supplierGstin: e.target.value })}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-mono focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1">Invoice Number</label>
+                  <label className="block text-slate-600 font-bold mb-1">Invoice Number</label>
                   <input
                     type="text"
                     value={activeInvoice.invoiceNumber}
                     onChange={(e) => updateInvoice(activeInvoice.id, { invoiceNumber: e.target.value })}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-mono focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1">Invoice Date</label>
+                  <label className="block text-slate-600 font-bold mb-1">Invoice Date</label>
                   <input
                     type="date"
                     value={activeInvoice.invoiceDate}
                     onChange={(e) => updateInvoice(activeInvoice.id, { invoiceDate: e.target.value })}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] focus:outline-none"
                   />
                 </div>
               </div>
 
-              {/* Financial Taxes & Subtotal Card */}
-              <div className="p-4 rounded-xl bg-[#0A111D] border border-[#1C2E46] space-y-3">
-                <span className="font-heading font-semibold text-xs text-white uppercase tracking-wider block">
+              {/* Tax & ITC Breakdown */}
+              <div className="p-5 rounded-2xl bg-[#FAD5C8] border border-[#F8C4B4] space-y-3">
+                <span className="font-heading font-black text-xs text-[#4E3C80] uppercase tracking-wider block">
                   Tax Breakdown & Input Tax Credit (ITC)
                 </span>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                   <div>
-                    <span className="text-slate-400 block">Taxable Base</span>
-                    <span className="font-mono font-bold text-white text-sm">
+                    <span className="text-slate-700 block">Taxable Base</span>
+                    <span className="font-mono font-bold text-slate-900 text-sm">
                       {formatINR(activeInvoice.taxableValue)}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">CGST</span>
-                    <span className="font-mono text-slate-200">
+                    <span className="text-slate-700 block">CGST</span>
+                    <span className="font-mono text-slate-900">
                       {formatINR(activeInvoice.cgst)}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">SGST</span>
-                    <span className="font-mono text-slate-200">
+                    <span className="text-slate-700 block">SGST</span>
+                    <span className="font-mono text-slate-900">
                       {formatINR(activeInvoice.sgst)}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">IGST</span>
-                    <span className="font-mono text-slate-200">
+                    <span className="text-slate-700 block">IGST</span>
+                    <span className="font-mono text-slate-900">
                       {formatINR(activeInvoice.igst)}
                     </span>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#1C2E46]/60 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-300">Total Invoice Amount:</span>
-                  <span className="font-heading font-bold text-lg text-[#16B8A5] font-mono">
+                <div className="pt-3 border-t border-[#1E1736]/10 flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-800">Total Invoice Amount:</span>
+                  <span className="font-heading font-black text-xl text-[#4E3C80] font-mono">
                     {formatINR(activeInvoice.totalAmount)}
                   </span>
                 </div>
               </div>
 
-              {/* HSN Line Items Table */}
+              {/* HSN Table */}
               <div>
-                <span className="font-heading font-semibold text-xs text-white block mb-2">
+                <span className="font-heading font-black text-xs text-[#1E1736] block mb-2">
                   HSN / SAC Classified Line Items
                 </span>
-                <table className="w-full text-left text-xs border border-[#1C2E46] rounded-xl overflow-hidden">
-                  <thead className="bg-[#132032] text-slate-400 uppercase text-[10px]">
+                <table className="w-full text-left text-xs border border-slate-200 rounded-2xl overflow-hidden">
+                  <thead className="bg-[#F3F0FA] text-slate-700 uppercase text-[10px] font-bold">
                     <tr>
-                      <th className="p-2.5">HSN Code</th>
-                      <th className="p-2.5">Description</th>
-                      <th className="p-2.5 text-center">GST Rate</th>
-                      <th className="p-2.5 text-right">Taxable Amount</th>
+                      <th className="p-3">HSN Code</th>
+                      <th className="p-3">Description</th>
+                      <th className="p-3 text-center">GST Rate</th>
+                      <th className="p-3 text-right">Taxable Amount</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1C2E46]/60 bg-[#0D1624]">
+                  <tbody className="divide-y divide-slate-100 bg-white">
                     {activeInvoice.hsnBreakdown.map((item, idx) => (
                       <tr key={idx}>
-                        <td className="p-2.5 font-mono text-slate-300">{item.hsn}</td>
-                        <td className="p-2.5 text-white">{item.desc}</td>
-                        <td className="p-2.5 text-center font-mono text-slate-400">{item.rate}%</td>
-                        <td className="p-2.5 text-right font-mono font-medium text-white">
+                        <td className="p-3 font-mono font-medium text-slate-700">{item.hsn}</td>
+                        <td className="p-3 font-bold text-slate-900">{item.desc}</td>
+                        <td className="p-3 text-center font-mono">{item.rate}%</td>
+                        <td className="p-3 text-right font-mono font-bold text-slate-900">
                           {formatINR(item.amount)}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
-
-              {/* Legal Disclaimer Pill */}
-              <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-400 flex items-center gap-2">
-                <ShieldAlert className="w-4 h-4 text-slate-500 shrink-0" />
-                <span>
-                  *Demonstration functionality. ForgeFlow AI aids internal MSME document collation and does not perform statutory GST returns or legal filing.
-                </span>
               </div>
             </div>
           </div>

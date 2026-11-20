@@ -3,7 +3,7 @@ import { useApp } from './context/AppContext';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { Toast } from './components/Toast';
-import { JudgeTourModal } from './components/JudgeTourModal';
+import { RaviStoryModal } from './components/RaviStoryModal';
 
 // Pages
 import { Login } from './pages/Login';
@@ -19,24 +19,23 @@ import { Settings } from './pages/Settings';
 export const App: React.FC = () => {
   const { currentPage, isAuthenticated } = useApp();
 
-  // If not authenticated or on login page, display full-screen Login
   if (!isAuthenticated || currentPage === 'login') {
     return (
       <>
         <Login />
         <Toast />
-        <JudgeTourModal />
+        <RaviStoryModal />
       </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A111D] text-[#F3F5F7] flex flex-row">
+    <div className="min-h-screen bg-[#4E3C80] text-[#1E1736] flex flex-row">
       {/* Sidebar Navigation */}
       <Sidebar />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+      {/* Main Content Area with rich royal purple background */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#4E3C80]">
         <Header />
 
         <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
@@ -51,9 +50,9 @@ export const App: React.FC = () => {
         </main>
       </div>
 
-      {/* Persistent Floating Elements */}
+      {/* Persistent Toast & Storyboard Modal */}
       <Toast />
-      <JudgeTourModal />
+      <RaviStoryModal />
     </div>
   );
 };

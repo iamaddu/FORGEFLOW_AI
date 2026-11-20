@@ -7,14 +7,15 @@ import {
   Cpu,
   BarChart3,
   CheckCircle2,
-  Lock
+  Lock,
+  BookOpen
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const Login: React.FC = () => {
-  const { login, setIsJudgeTourOpen } = useApp();
-  const [email, setEmail] = useState('dhanush@apexforge.in');
-  const [password, setPassword] = useState('demo1234');
+  const { login, setIsStoryModalOpen } = useApp();
+  const [email, setEmail] = useState('ravi@ravifabrication.in');
+  const [password, setPassword] = useState('ravi1234');
   const [role, setRole] = useState<'owner' | 'procurement' | 'costing'>('owner');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,227 +23,203 @@ export const Login: React.FC = () => {
     login(email);
   };
 
-  const handleQuickDemo = (demoRole: 'owner' | 'procurement' | 'costing') => {
-    setRole(demoRole);
-    if (demoRole === 'owner') {
-      setEmail('dhanush@apexforge.in');
-    } else if (demoRole === 'procurement') {
-      setEmail('procurement@apexforge.in');
+  const handleQuickPersona = (persona: 'owner' | 'procurement' | 'costing') => {
+    setRole(persona);
+    if (persona === 'owner') {
+      setEmail('ravi@ravifabrication.in');
+    } else if (persona === 'procurement') {
+      setEmail('procurement@ravifabrication.in');
     } else {
-      setEmail('costing@apexforge.in');
+      setEmail('costing@ravifabrication.in');
     }
-    login(demoRole === 'owner' ? 'dhanush@apexforge.in' : `${demoRole}@apexforge.in`);
+    login(persona === 'owner' ? 'ravi@ravifabrication.in' : `${persona}@ravifabrication.in`);
   };
 
   return (
-    <div className="min-h-screen bg-[#0A111D] flex flex-col justify-between text-slate-100 relative overflow-hidden">
-      {/* Background radial glow effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#16B8A5]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#E5A84B]/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#4E3C80] text-[#1E1736] flex flex-col justify-between relative overflow-hidden select-none">
+      {/* Background soft lavender & peach glowing orbs */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#FAD5C8]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-[#F9C349]/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Top Navbar */}
-      <header className="px-6 py-5 flex items-center justify-between border-b border-[#1C2E46]/60 relative z-10">
+      <header className="px-6 py-5 flex items-center justify-between border-b border-white/10 relative z-10 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#16B8A5] to-[#14c7b2] flex items-center justify-center shadow-glow text-[#0B131F] font-black text-2xl tracking-tighter">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FAD5C8] to-[#F9C349] flex items-center justify-center shadow-lg text-[#1E1736] font-heading font-black text-2xl tracking-tighter">
             <span>F</span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-heading font-bold text-xl text-white">ForgeFlow</span>
-              <span className="text-[#16B8A5] font-heading font-bold text-xl">AI</span>
+              <span className="font-heading font-black text-xl text-white">ForgeFlow</span>
+              <span className="text-[#FAD5C8] font-heading font-black text-xl">AI</span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-slate-400 font-medium block -mt-1">
+            <span className="text-[10px] uppercase tracking-wider text-[#D4C8EE] font-medium block -mt-1">
               MSME Smart Procurement & Costing
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-400 hidden sm:inline">Built for Indian MSME Manufacturers</span>
-          <button
-            onClick={() => {
-              login();
-              setTimeout(() => setIsJudgeTourOpen(true), 300);
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E5A84B]/15 border border-[#E5A84B]/40 text-[#E5A84B] text-xs font-semibold hover:bg-[#E5A84B]/25 transition-all shadow-glowAmber"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Judge 1-Click Access</span>
-          </button>
-        </div>
+        <button
+          onClick={() => setIsStoryModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FAD5C8] text-[#1E1736] text-xs font-heading font-bold shadow-md hover:bg-[#f6c6b6] transition-all"
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          <span>A Day with ForgeFlow</span>
+        </button>
       </header>
 
       {/* Center Content */}
       <main className="max-w-6xl mx-auto px-6 py-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 flex-1">
-        {/* Left column: Value Proposition & Product Identity */}
+        {/* Left Column: Hero & Product Identity */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#16B8A5]/10 border border-[#16B8A5]/30 text-[#16B8A5] text-xs font-semibold">
-            <Cpu className="w-3.5 h-3.5 animate-pulse" />
-            <span>Problem Statement 4.1 Solution • Production Demo</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAD5C8]/20 border border-[#FAD5C8]/40 text-[#FAD5C8] text-xs font-bold">
+            <Sparkles className="w-3.5 h-3.5 text-[#F9C349]" />
+            <span>Built for Indian MSME Fabricators & Machining Units</span>
           </div>
 
-          <h1 className="font-heading font-bold text-4xl sm:text-5xl text-white leading-tight">
+          <h1 className="font-heading font-black text-4xl sm:text-6xl text-white leading-tight">
             Buy Smarter. <br />
             Quote Better. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16B8A5] to-[#E5A84B]">
-              Grow Profitably.
-            </span>
+            <span className="text-[#FAD5C8]">Grow Profitably.</span>
           </h1>
 
-          <p className="text-base text-slate-300 max-w-xl leading-relaxed">
-            The intelligent procurement, deterministic order costing, and quotation platform tailored for Indian manufacturing MSMEs, fabrication shops, and machining units.
+          <p className="text-base sm:text-lg text-[#E8E2F6] max-w-xl leading-relaxed">
+            Eliminate hidden freight surprises, calculate production costs accurately with deterministic formulas, and send margin-aware quotations in minutes.
           </p>
 
-          {/* 3 Core Highlights */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="p-4 rounded-xl bg-[#132032] border border-[#1C2E46] flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-[#16B8A5]/15 text-[#16B8A5] shrink-0">
-                <TrendingUp className="w-4 h-4" />
+          {/* Storyboard Callout Card */}
+          <div
+            onClick={() => setIsStoryModalOpen(true)}
+            className="p-4 rounded-2xl bg-[#392A62] border-2 border-[#5D4996] hover:border-[#FAD5C8] transition-all cursor-pointer flex items-center justify-between text-white group shadow-xl"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#FAD5C8] text-[#1E1736] flex items-center justify-center font-black text-2xl shrink-0 shadow-md">
+                👨🏽‍🏭
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white">True Landed Cost Engine</h4>
-                <p className="text-xs text-slate-400 mt-1">
-                  Exposes hidden freight charges & GST credits so you never overpay for steel.
-                </p>
+                <span className="text-[10px] uppercase font-bold text-[#FAD5C8] tracking-wider block">
+                  Interactive Story
+                </span>
+                <h4 className="font-heading font-bold text-sm text-white group-hover:text-[#FAD5C8] transition-colors">
+                  How Ravi saves 8% on steel & stops profit leaks
+                </h4>
               </div>
             </div>
-
-            <div className="p-4 rounded-xl bg-[#132032] border border-[#1C2E46] flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-[#E5A84B]/15 text-[#E5A84B] shrink-0">
-                <BarChart3 className="w-4 h-4" />
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-white">Deterministic Costing</h4>
-                <p className="text-xs text-slate-400 mt-1">
-                  Accurate material, labour, electricity, and overheads calculation with dynamic margin sliders.
-                </p>
-              </div>
-            </div>
+            <ArrowRight className="w-5 h-5 text-[#FAD5C8] group-hover:translate-x-1 transition-transform" />
           </div>
 
-          {/* Verification Badge */}
-          <div className="flex items-center gap-2 text-xs text-slate-400 pt-2">
-            <CheckCircle2 className="w-4 h-4 text-[#16B8A5]" />
-            <span>Full persistent demo dataset included • Zero setup required</span>
+          <div className="flex items-center gap-2 text-xs text-[#D4C8EE]">
+            <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
+            <span>Ready-to-use sample dataset with MS steel sheets & CNC components</span>
           </div>
         </div>
 
-        {/* Right column: Login / Instant Demo Entry Card */}
+        {/* Right Column: Clean White Card Login matching the image style */}
         <div className="lg:col-span-5">
-          <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-6 sm:p-8 shadow-card relative">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-cardDeep border-4 border-slate-100 relative text-[#1E1736]">
             <div className="mb-6">
-              <h2 className="font-heading font-bold text-xl text-white">Welcome to ForgeFlow AI</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Sign in to your manufacturing workspace or choose a demo persona below.
+              <span className="text-[10px] uppercase font-bold text-[#4E3C80] tracking-wider block mb-1">
+                MSME Workspace Login
+              </span>
+              <h2 className="font-heading font-black text-2xl text-[#1E1736]">
+                Welcome to ForgeFlow
+              </h2>
+              <p className="text-xs text-slate-500 mt-1">
+                Enter your workshop details or select a persona to explore.
               </p>
             </div>
 
-            {/* Quick Demo Persona Switcher */}
-            <div className="mb-6 p-1 bg-[#0A111D] rounded-xl border border-[#1C2E46] flex items-center justify-between text-xs">
+            {/* Quick Persona Selector */}
+            <div className="mb-5 p-1 bg-[#F3F0FA] rounded-2xl border border-[#D2C6EA] flex items-center justify-between text-xs">
               <button
                 type="button"
-                onClick={() => handleQuickDemo('owner')}
-                className={`flex-1 py-1.5 px-2 rounded-lg text-center font-medium transition-all ${
-                  role === 'owner' ? 'bg-[#16B8A5] text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                onClick={() => handleQuickPersona('owner')}
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
+                  role === 'owner' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
-                Factory Head
+                Ravi (Owner)
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickDemo('procurement')}
-                className={`flex-1 py-1.5 px-2 rounded-lg text-center font-medium transition-all ${
-                  role === 'procurement' ? 'bg-[#16B8A5] text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                onClick={() => handleQuickPersona('procurement')}
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
+                  role === 'procurement' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
                 Procurement
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickDemo('costing')}
-                className={`flex-1 py-1.5 px-2 rounded-lg text-center font-medium transition-all ${
-                  role === 'costing' ? 'bg-[#16B8A5] text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                onClick={() => handleQuickPersona('costing')}
+                className={`flex-1 py-2 px-2 rounded-xl text-center font-bold transition-all ${
+                  role === 'costing' ? 'bg-[#4E3C80] text-white shadow-md' : 'text-slate-600 hover:text-black'
                 }`}
               >
                 Costing Eng.
               </button>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1.5">
-                  Business Email
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Workshop Email
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder="name@company.com"
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-[#16B8A5] transition-all"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#4E3C80] font-medium"
                 />
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-medium text-slate-300">Password</label>
-                  <span className="text-[11px] text-[#16B8A5] cursor-pointer hover:underline">
-                    Demo Mode Active
-                  </span>
-                </div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Password
+                </label>
                 <div className="relative">
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder="••••••••"
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-[#16B8A5] transition-all"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3.5 py-2.5 text-sm text-[#1E1736] focus:outline-none focus:border-[#4E3C80] font-medium"
                   />
-                  <Lock className="w-4 h-4 text-slate-500 absolute right-3.5 top-1/2 -translate-y-1/2" />
+                  <Lock className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] font-heading font-bold text-sm transition-all shadow-glow flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-2xl bg-[#4E3C80] hover:bg-[#3B2C63] text-white font-heading font-black text-sm transition-all shadow-glowPurple flex items-center justify-center gap-2"
               >
                 <span>Enter Workspace</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
 
-            {/* Judge 1-click bypass button */}
-            <div className="mt-5 pt-5 border-t border-[#1C2E46] text-center">
+            <div className="mt-5 pt-4 border-t border-slate-200 text-center">
               <button
                 type="button"
-                onClick={() => {
-                  login('judge.evaluator@hackathon.org');
-                  setTimeout(() => setIsJudgeTourOpen(true), 400);
-                }}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#16B8A5]/20 to-[#E5A84B]/20 hover:from-[#16B8A5]/30 hover:to-[#E5A84B]/30 border border-[#16B8A5]/40 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-glow"
+                onClick={() => handleQuickPersona('owner')}
+                className="w-full py-2.5 px-4 rounded-xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-sm"
               >
-                <Sparkles className="w-4 h-4 text-[#E5A84B]" />
-                <span>Judge Quick Entry & Guided Tour</span>
+                <span>Instant Sign In as Ravi (Factory Owner)</span>
               </button>
-              <p className="text-[11px] text-slate-400 mt-2">
-                Pre-populated with MSME steel quotations, CNC costing, & GST invoices.
-              </p>
             </div>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="px-6 py-4 border-t border-[#1C2E46]/60 text-center text-xs text-slate-400 relative z-10 flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto w-full">
-        <span>© 2026 ForgeFlow AI. Built for Indian Manufacturing MSMEs.</span>
-        <div className="flex items-center gap-4 mt-2 sm:mt-0">
-          <span>Deterministic Cost Engine</span>
+      <footer className="px-6 py-4 border-t border-white/10 text-center text-xs text-[#D4C8EE] relative z-10 flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto w-full">
+        <span>© 2026 ForgeFlow AI • Helping Indian Fabrication MSMEs Grow Profitably</span>
+        <div className="flex items-center gap-4 mt-2 sm:mt-0 text-white/80">
+          <span>Landed Cost Engine</span>
           <span>•</span>
-          <span>GSTIN & E-Way Bill Extraction</span>
+          <span>Deterministic Costing</span>
           <span>•</span>
-          <span>True Landed Cost</span>
+          <span>GST Document Intelligence</span>
         </div>
       </footer>
     </div>

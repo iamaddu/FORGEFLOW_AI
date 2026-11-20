@@ -12,12 +12,12 @@ import {
 import { calculateQuoteLandedCost, calculateOrderCosting } from '../utils/calculations';
 
 export const INITIAL_USER: UserProfile = {
-  name: 'Dhanush S.',
-  role: 'Managing Director / Plant Head',
-  companyName: 'Apex Forge & Precision Works LLP',
+  name: 'Ravi Sharma',
+  role: 'Founder & Fabrication Unit Owner',
+  companyName: 'Ravi Precision Fabrication Works',
   gstin: '27AABCA1234F1Z8',
-  avatarInitials: 'DS',
-  email: 'dhanush@apexforge.in'
+  avatarInitials: 'RS',
+  email: 'ravi@ravifabrication.in'
 };
 
 export const INITIAL_SUPPLIERS: Supplier[] = [
@@ -142,7 +142,7 @@ export const INITIAL_MATERIAL_REQUIREMENTS: MaterialRequirement[] = [
   }
 ];
 
-// Initial quotes for req-101 (Illustrative sample requested by user!)
+// Initial quotes for req-101 (Comparing Supplier A, B and C landed costs)
 const baseQuoteA = {
   id: 'quote-101-a',
   materialReqId: 'req-101',

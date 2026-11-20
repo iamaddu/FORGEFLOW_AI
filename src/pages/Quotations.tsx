@@ -19,7 +19,6 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { formatINR } from '../utils/calculations';
-import { CustomerQuotation } from '../types';
 
 export const Quotations: React.FC = () => {
   const {
@@ -126,12 +125,12 @@ export const Quotations: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-heading font-bold text-2xl text-white">Quotation Generator</h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#16B8A5]/20 text-[#16B8A5] border border-[#16B8A5]/30 uppercase">
+            <h1 className="font-heading font-black text-3xl text-white">Quotation Generator</h1>
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#FAD5C8] text-[#1E1736]">
               B2B MSME Proforma
             </span>
           </div>
-          <p className="text-xs text-slate-300 mt-1">
+          <p className="text-xs text-[#E8E2F6] mt-1">
             Convert costed manufacturing orders into legally compliant, GST-ready customer quotations with 1-click PDF export.
           </p>
         </div>
@@ -139,21 +138,21 @@ export const Quotations: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#132032] hover:bg-[#182940] border border-[#1C2E46] text-slate-200 text-xs font-semibold transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-[#1E1736] hover:bg-[#F3F0FA] text-xs font-bold transition-all shadow-md"
           >
-            <Plus className="w-4 h-4 text-[#16B8A5]" />
+            <Plus className="w-4 h-4 text-[#4E3C80]" />
             <span>New Quotation</span>
           </button>
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#132032] hover:bg-[#182940] border border-[#1C2E46] text-slate-200 text-xs font-semibold transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white text-[#1E1736] hover:bg-[#F3F0FA] text-xs font-bold transition-all shadow-md"
           >
-            <Printer className="w-4 h-4 text-[#E5A84B]" />
+            <Printer className="w-4 h-4 text-[#EA580C]" />
             <span>Print</span>
           </button>
           <button
             onClick={handleDownloadPDF}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] text-xs font-heading font-bold transition-all shadow-glow"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-heading font-black transition-all shadow-md"
           >
             <Download className="w-4 h-4" />
             <span>Export PDF</span>
@@ -162,24 +161,24 @@ export const Quotations: React.FC = () => {
       </div>
 
       {/* Quotation Selector Ribbon (Hidden when printing!) */}
-      <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
+      <div className="bg-white rounded-3xl p-4 shadow-card border-2 border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden">
         <div className="flex items-center gap-3 overflow-x-auto pb-1 md:pb-0">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
             Saved Quotations:
           </span>
           {quotations.map(q => (
             <button
               key={q.id}
               onClick={() => setSelectedQuoteId(q.id)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2 ${
                 q.id === selectedQuoteId
-                  ? 'bg-[#16B8A5] text-white shadow-glow font-semibold'
-                  : 'bg-[#132032] text-slate-300 hover:text-white border border-[#1C2E46]'
+                  ? 'bg-[#4E3C80] text-white shadow-md'
+                  : 'bg-[#F3F0FA] text-slate-700 hover:text-black border border-[#D2C6EA]'
               }`}
             >
               <span>{q.quoteNumber}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                q.id === selectedQuoteId ? 'bg-[#0A111D]/30 text-white' : 'bg-slate-800 text-slate-400'
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
+                q.id === selectedQuoteId ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
               }`}>
                 {q.customer.company.split(' ')[0]}
               </span>
@@ -188,37 +187,37 @@ export const Quotations: React.FC = () => {
         </div>
 
         {activeQuote && (
-          <div className="text-xs text-slate-400 flex items-center gap-4 shrink-0 bg-[#0A111D] px-3 py-1.5 rounded-xl border border-[#1C2E46]/60">
+          <div className="text-xs text-slate-600 flex items-center gap-4 shrink-0 bg-[#F3F0FA] px-4 py-2 rounded-2xl border border-[#D2C6EA]">
             <div>
-              <span className="text-slate-400">Total: </span>
-              <span className="text-white font-mono font-bold">{formatINR(activeQuote.grandTotal)}</span>
+              <span className="text-slate-500">Total: </span>
+              <span className="text-slate-900 font-mono font-black">{formatINR(activeQuote.grandTotal)}</span>
             </div>
             <div>
-              <span className="text-slate-400">Est. Profit: </span>
-              <span className="text-emerald-400 font-mono font-bold">+{formatINR(activeQuote.estimatedProfit)}</span>
+              <span className="text-slate-500">Margin: </span>
+              <span className="text-emerald-700 font-mono font-bold">+{formatINR(activeQuote.estimatedProfit)}</span>
             </div>
           </div>
         )}
       </div>
 
-      {/* Main Quotation Document Preview (Designed for high-quality screen AND print!) */}
+      {/* Main Quotation Document Preview (Crisp White Document Design) */}
       {activeQuote && (
         <div
           ref={printAreaRef}
-          className="bg-white text-slate-900 rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-300 max-w-4xl mx-auto print:shadow-none print:border-none print:p-0 print:m-0 print:max-w-none print:rounded-none"
+          className="bg-white text-slate-900 rounded-3xl p-8 sm:p-12 shadow-2xl border-4 border-slate-100 max-w-4xl mx-auto print:shadow-none print:border-none print:p-0 print:m-0 print:max-w-none print:rounded-none"
         >
           {/* Document Top Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start pb-6 border-b-2 border-slate-900 gap-6">
             <div>
               <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-9 h-9 rounded-xl bg-slate-900 text-[#16B8A5] flex items-center justify-center font-black text-xl">
+                <div className="w-10 h-10 rounded-2xl bg-[#4E3C80] text-white flex items-center justify-center font-heading font-black text-xl shadow-md">
                   F
                 </div>
                 <div>
                   <h2 className="font-heading font-black text-2xl text-slate-900 tracking-tight leading-none">
                     {user.companyName}
                   </h2>
-                  <span className="text-[11px] text-slate-600 font-medium tracking-wide">
+                  <span className="text-xs text-slate-600 font-medium tracking-wide">
                     Precision Machining & MSME Metal Fabrication
                   </span>
                 </div>
@@ -236,7 +235,7 @@ export const Quotations: React.FC = () => {
               <span className="text-xs font-heading font-bold uppercase tracking-widest text-slate-500 block mb-1">
                 Commercial Proforma Quotation
               </span>
-              <h3 className="font-heading font-black text-2xl text-[#16B8A5] font-mono">
+              <h3 className="font-heading font-black text-2xl text-[#4E3C80] font-mono">
                 {activeQuote.quoteNumber}
               </h3>
               <div className="text-xs text-slate-600 mt-2 space-y-0.5">
@@ -247,7 +246,7 @@ export const Quotations: React.FC = () => {
             </div>
           </div>
 
-          {/* Customer / Client Details (Bill To & Ship To) */}
+          {/* Customer / Client Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-slate-200 text-xs">
             <div className="space-y-1">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
@@ -258,9 +257,6 @@ export const Quotations: React.FC = () => {
               <p className="text-slate-600">{activeQuote.customer.billingAddress}</p>
               <p className="text-slate-700 font-mono">
                 <strong>GSTIN:</strong> {activeQuote.customer.gstin}
-              </p>
-              <p className="text-slate-600">
-                {activeQuote.customer.email} | {activeQuote.customer.phone}
               </p>
             </div>
 
@@ -317,20 +313,15 @@ export const Quotations: React.FC = () => {
 
           {/* Tax & Total Calculation Summary */}
           <div className="py-4 border-t-2 border-slate-900 flex flex-col sm:flex-row justify-between items-start gap-6 text-xs">
-            {/* Notes & MSME Conditions */}
             <div className="max-w-md space-y-2">
               <span className="font-bold uppercase text-[10px] tracking-wider text-slate-700 block">
                 Terms & Conditions:
               </span>
-              <div className="text-[11px] text-slate-600 leading-relaxed whitespace-pre-line bg-slate-50 p-3 rounded-xl border border-slate-200">
+              <div className="text-[11px] text-slate-600 leading-relaxed whitespace-pre-line bg-slate-50 p-3 rounded-2xl border border-slate-200">
                 {activeQuote.notes}
-              </div>
-              <div className="text-[10px] text-slate-500 pt-1">
-                Bank: HDFC Bank Ltd | A/c No: 50200098124501 | IFSC: HDFC0001824 | Branch: PCMC Bhosari
               </div>
             </div>
 
-            {/* Financial Numbers */}
             <div className="w-full sm:w-72 space-y-2">
               <div className="flex justify-between py-1 border-b border-slate-200 text-slate-700">
                 <span>Taxable Subtotal:</span>
@@ -346,12 +337,9 @@ export const Quotations: React.FC = () => {
               </div>
               <div className="flex justify-between py-2 border-b-2 border-slate-900 text-sm font-bold text-slate-900">
                 <span>Grand Total (INR):</span>
-                <span className="font-mono text-base text-[#0E7A6D]">
+                <span className="font-mono text-base text-[#4E3C80]">
                   ₹{activeQuote.grandTotal.toLocaleString('en-IN')}
                 </span>
-              </div>
-              <div className="text-[10px] text-slate-500 text-right pt-0.5">
-                (Inclusive of all applicable GST taxes)
               </div>
             </div>
           </div>
@@ -359,7 +347,7 @@ export const Quotations: React.FC = () => {
           {/* Signatory Section */}
           <div className="pt-8 mt-6 border-t border-slate-200 flex justify-between items-end text-xs">
             <div className="text-slate-500 text-[10px]">
-              Computer-generated document via ForgeFlow AI engine.
+              Computer-generated quote via ForgeFlow AI.
             </div>
             <div className="text-right space-y-8">
               <span className="font-semibold text-slate-900 block">
@@ -375,16 +363,16 @@ export const Quotations: React.FC = () => {
 
       {/* Modal: Create New Quotation */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in print:hidden">
-          <div className="bg-[#101B2B] border border-[#1C2E46] rounded-2xl p-6 max-w-xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1C2E46]">
-              <h3 className="font-heading font-bold text-base text-white flex items-center gap-2">
-                <FileSpreadsheet className="w-4 h-4 text-[#16B8A5]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in print:hidden">
+          <div className="bg-white text-[#1E1736] rounded-3xl p-6 max-w-xl w-full shadow-2xl relative border-4 border-slate-100 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+              <h3 className="font-heading font-black text-lg text-[#1E1736] flex items-center gap-2">
+                <FileSpreadsheet className="w-5 h-5 text-[#4E3C80]" />
                 <span>Create Customer Quotation</span>
               </h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-slate-400 hover:text-black text-base"
               >
                 ✕
               </button>
@@ -392,11 +380,11 @@ export const Quotations: React.FC = () => {
 
             <form onSubmit={handleCreateNewQuote} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Link to Costing Order</label>
+                <label className="block text-slate-700 font-bold mb-1">Link to Costing Order</label>
                 <select
                   value={selectedOrderId}
                   onChange={(e) => setSelectedOrderId(e.target.value)}
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 >
                   {costingOrders.map(o => (
                     <option key={o.id} value={o.id}>
@@ -408,88 +396,69 @@ export const Quotations: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Customer / Company Name</label>
+                  <label className="block text-slate-700 font-bold mb-1">Customer / Company Name</label>
                   <input
                     type="text"
                     required
                     value={custCompany}
                     onChange={(e) => setCustCompany(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Contact Person</label>
+                  <label className="block text-slate-700 font-bold mb-1">Contact Person</label>
                   <input
                     type="text"
                     required
                     value={custName}
                     onChange={(e) => setCustName(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Customer GSTIN</label>
+                  <label className="block text-slate-700 font-bold mb-1">Customer GSTIN</label>
                   <input
                     type="text"
                     value={custGstin}
                     onChange={(e) => setCustGstin(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1">Email</label>
-                  <input
-                    type="email"
-                    value={custEmail}
-                    onChange={(e) => setCustEmail(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1">Phone</label>
+                  <label className="block text-slate-700 font-bold mb-1">Phone</label>
                   <input
                     type="text"
                     value={custPhone}
                     onChange={(e) => setCustPhone(e.target.value)}
-                    className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                    className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-medium mb-1">Billing Address</label>
+                <label className="block text-slate-700 font-bold mb-1">Billing & Delivery Address</label>
                 <input
                   type="text"
                   value={custBilling}
                   onChange={(e) => setCustBilling(e.target.value)}
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
+                  className="w-full bg-[#F3F0FA] border border-[#D2C6EA] rounded-xl px-3 py-2 text-[#1E1736] font-medium focus:outline-none"
                 />
               </div>
 
-              <div>
-                <label className="block text-slate-300 font-medium mb-1">Delivery / Plant Gate</label>
-                <input
-                  type="text"
-                  value={custDelivery}
-                  onChange={(e) => setCustDelivery(e.target.value)}
-                  className="w-full bg-[#132032] border border-[#1C2E46] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#16B8A5]"
-                />
-              </div>
-
-              <div className="pt-3 border-t border-[#1C2E46] flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white"
+                  className="px-4 py-2 rounded-xl text-slate-600 hover:text-black font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] font-bold shadow-glow"
+                  className="px-5 py-2.5 rounded-2xl bg-[#4E3C80] text-white font-bold shadow-md"
                 >
                   Generate Quotation
                 </button>

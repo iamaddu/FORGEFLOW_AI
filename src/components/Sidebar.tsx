@@ -9,13 +9,13 @@ import {
   BarChart3,
   Settings,
   ArrowRight,
-  TrendingUp,
-  Sparkles
+  Sparkles,
+  BookOpen
 } from 'lucide-react';
 import { useApp, PageId } from '../context/AppContext';
 
 export const Sidebar: React.FC = () => {
-  const { currentPage, setCurrentPage, setIsJudgeTourOpen } = useApp();
+  const { currentPage, setCurrentPage, setIsStoryModalOpen } = useApp();
 
   const navigation = [
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
@@ -29,36 +29,36 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-[#0D1624] border-r border-[#1C2E46] flex flex-col justify-between shrink-0 min-h-screen text-[#8A99AD] select-none">
+    <aside className="w-64 bg-[#392A62] border-r border-[#4E3C80] flex flex-col justify-between shrink-0 min-h-screen text-[#D4C8EE] select-none shadow-2xl">
       {/* Brand Logo Header */}
       <div>
-        <div className="p-5 flex items-center gap-3 border-b border-[#1C2E46]/50">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#16B8A5] to-[#14c7b2] flex items-center justify-center shadow-glow text-[#0B131F] font-black text-xl tracking-tighter">
+        <div className="p-5 flex items-center gap-3 border-b border-[#4E3C80]/60">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FAD5C8] to-[#F9C349] flex items-center justify-center shadow-lg text-[#1E1736] font-heading font-black text-2xl tracking-tighter">
             <span>F</span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-heading font-bold text-lg text-white tracking-tight">ForgeFlow</span>
-              <span className="text-[#16B8A5] font-heading font-bold text-lg">AI</span>
+              <span className="font-heading font-black text-xl text-white tracking-tight">ForgeFlow</span>
+              <span className="text-[#FAD5C8] font-heading font-black text-xl">AI</span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-slate-400 font-medium block -mt-1">
+            <span className="text-[10px] uppercase tracking-wider text-[#D4C8EE]/80 font-medium block -mt-1">
               MSME Smart Engine
             </span>
           </div>
         </div>
 
-        {/* Hackathon Judge Quick Action */}
+        {/* Interactive Story Showcase Pill */}
         <div className="px-4 pt-4">
           <button
-            onClick={() => setIsJudgeTourOpen(true)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-gradient-to-r from-[#16B8A5]/15 to-[#E5A84B]/15 border border-[#16B8A5]/30 hover:border-[#16B8A5]/60 transition-all text-xs font-medium text-slate-200 group"
+            onClick={() => setIsStoryModalOpen(true)}
+            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD5C8]/20 to-[#F9C349]/20 border border-[#FAD5C8]/40 hover:border-[#FAD5C8] transition-all text-xs font-semibold text-white group shadow-sm"
           >
-            <span className="flex items-center gap-1.5 text-[#16B8A5]">
-              <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-              <span>Judge Tour Flow</span>
+            <span className="flex items-center gap-2 text-[#FAD5C8]">
+              <BookOpen className="w-4 h-4" />
+              <span>A Day with ForgeFlow</span>
             </span>
-            <span className="text-[10px] bg-[#16B8A5]/20 text-[#16B8A5] px-1.5 py-0.5 rounded font-mono">
-              9 Steps
+            <span className="text-[10px] bg-[#FAD5C8] text-[#1E1736] px-2 py-0.5 rounded-full font-bold">
+              Story
             </span>
           </button>
         </div>
@@ -72,13 +72,13 @@ export const Sidebar: React.FC = () => {
               <button
                 key={item.id}
                 onClick={() => setCurrentPage(item.id as PageId)}
-                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-sm font-medium transition-all ${
                   isActive
-                    ? 'bg-[#16B8A5] text-white shadow-glow font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-[#132032]'
+                    ? 'bg-[#FAD5C8] text-[#1E1736] font-bold shadow-lg shadow-[#FAD5C8]/20 translate-x-1'
+                    : 'text-[#E8E2F6] hover:text-white hover:bg-[#4E3C80]'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#8A99AD]'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-[#1E1736]' : 'text-[#D4C8EE]'}`} />
                 <span>{item.name}</span>
               </button>
             );
@@ -86,44 +86,31 @@ export const Sidebar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Bottom Promo / Value Card */}
+      {/* Bottom User Card / Plant Status */}
       <div className="p-4">
-        <div className="relative rounded-2xl p-4 overflow-hidden border border-[#1C2E46] bg-gradient-to-b from-[#132032] to-[#0A111D] group shadow-card">
-          {/* Subtle industrial background glow */}
-          <div className="absolute -top-10 -right-10 w-28 h-28 bg-[#16B8A5]/10 rounded-full blur-2xl group-hover:bg-[#16B8A5]/20 transition-all pointer-events-none" />
-          
+        <div className="rounded-2xl p-4 border border-[#4E3C80] bg-[#2E2052] shadow-card relative overflow-hidden">
           <div className="flex items-center gap-2 mb-2">
-            <div className="p-1.5 rounded-lg bg-[#16B8A5]/20 text-[#16B8A5]">
-              <TrendingUp className="w-4 h-4" />
-            </div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#16B8A5]">
-              Enterprise Tier
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#FAD5C8]">
+              Ravi's Fabrication Unit
             </span>
           </div>
 
-          <h4 className="font-heading font-semibold text-sm text-white leading-snug">
-            Smarter Decisions. <br />
-            <span className="text-slate-300">Higher Profits.</span>
+          <h4 className="font-heading font-bold text-sm text-white leading-snug">
+            Buy Smarter. <br />
+            <span className="text-[#FAD5C8]">Quote Better.</span>
           </h4>
-          <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-            Multi-plant costing & live MCX raw material API feeds.
+          <p className="text-[11px] text-[#D4C8EE] mt-1 leading-relaxed">
+            True landed cost calculations & instant margin protections.
           </p>
 
           <button
-            onClick={() => setCurrentPage('settings')}
-            className="mt-3.5 w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#16B8A5] hover:bg-[#13A291] text-[#0A111D] text-xs font-semibold transition-all shadow-glow"
+            onClick={() => setCurrentPage('procurement')}
+            className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#FAD5C8] hover:bg-[#f6c6b6] text-[#1E1736] text-xs font-bold transition-all shadow-md"
           >
-            <span>Upgrade Plan</span>
+            <span>Compare Supplier Bids</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
-        </div>
-
-        <div className="mt-3 flex items-center justify-between px-1 text-[11px] text-slate-400">
-          <span>v1.0.4-hackathon</span>
-          <span className="text-emerald-400 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Live Demo
-          </span>
         </div>
       </div>
     </aside>
