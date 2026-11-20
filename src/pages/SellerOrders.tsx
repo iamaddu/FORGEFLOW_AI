@@ -35,43 +35,43 @@ const orders = [
 ];
 
 const statusColor: Record<string, string> = {
-  'Dispatched': 'bg-blue-100 text-blue-700',
-  'Delivered': 'bg-emerald-100 text-emerald-700',
-  'Confirmed': 'bg-purple-100 text-purple-700',
-  'Order Received': 'bg-amber-100 text-amber-700',
+  'Dispatched': 'bg-blue-500/10 text-blue-400 border border-blue-500/30',
+  'Delivered': 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30',
+  'Confirmed': 'bg-purple-500/10 text-purple-400 border border-purple-500/30',
+  'Order Received': 'bg-[#E5A84B]/10 text-[#E5A84B] border border-[#E5A84B]/30',
 };
 
 export const SellerOrders: React.FC = () => {
   return (
-    <div className="space-y-5 pb-10">
+    <div className="space-y-6 pb-12">
       <div>
-        <h1 className="font-heading font-black text-2xl text-white">Orders & Delivery</h1>
-        <p className="text-white/60 text-sm mt-0.5">{orders.length} orders • {orders.filter(o => o.status === 'Delivered').length} delivered</p>
+        <h1 className="font-heading font-black text-2xl text-white">Orders &amp; Delivery Tracking</h1>
+        <p className="text-slate-400 text-sm mt-0.5">{orders.length} purchase orders • {orders.filter(o => o.status === 'Delivered').length} successfully delivered</p>
       </div>
 
       <div className="space-y-4">
         {orders.map(order => (
-          <div key={order.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div key={order.id} className="bg-[#131F33] rounded-2xl border border-[#1E2E48] shadow-lg p-5">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="flex-1">
                 {/* Header row */}
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="text-xs font-bold text-slate-400">#{order.id}</span>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${statusColor[order.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${statusColor[order.status] ?? 'bg-[#182842] text-slate-400'}`}>
                     {order.status}
                   </span>
                 </div>
-                <h3 className="font-heading font-black text-base text-[#1E1638]">{order.material}</h3>
-                <div className="flex flex-wrap gap-4 mt-1 text-xs text-slate-500">
-                  <span className="flex items-center gap-1"><Package className="w-3.5 h-3.5" />{order.buyer}</span>
-                  <span>{order.qty}</span>
-                  <span className="font-bold text-slate-800">{order.amount}</span>
-                  <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />Ordered: {order.date}</span>
-                  {order.eta !== '—' && <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5" />ETA: {order.eta}</span>}
+                <h3 className="font-heading font-black text-lg text-white">{order.material}</h3>
+                <div className="flex flex-wrap gap-4 mt-1.5 text-xs text-slate-400">
+                  <span className="flex items-center gap-1.5 text-slate-300"><Package className="w-3.5 h-3.5 text-[#16B8A5]" />{order.buyer}</span>
+                  <span className="text-slate-300 font-semibold">{order.qty}</span>
+                  <span className="font-bold text-[#E5A84B]">{order.amount}</span>
+                  <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-slate-500" />Ordered: {order.date}</span>
+                  {order.eta !== '—' && <span className="flex items-center gap-1.5 text-[#16B8A5]"><Truck className="w-3.5 h-3.5" />ETA: {order.eta}</span>}
                 </div>
 
                 {/* Progress pipeline */}
-                <div className="mt-4 flex items-center gap-0">
+                <div className="mt-5 flex items-center gap-0">
                   {order.steps.map((step, i) => {
                     const done = i <= order.currentStep;
                     const active = i === order.currentStep;
@@ -79,20 +79,20 @@ export const SellerOrders: React.FC = () => {
                     return (
                       <React.Fragment key={step}>
                         <div className="flex flex-col items-center">
-                          <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${done ? (active ? 'bg-[#523D8A]' : 'bg-emerald-500') : 'bg-slate-200'}`}>
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${done ? (active ? 'bg-[#16B8A5] text-[#0B1320] shadow-md shadow-[#16B8A5]/30' : 'bg-emerald-500 text-[#0B1320]') : 'bg-[#1E2E48] text-slate-500'}`}>
                             {done && !active
-                              ? <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                              ? <CheckCircle2 className="w-3.5 h-3.5" />
                               : active
-                                ? <span className="w-2.5 h-2.5 rounded-full bg-white" />
-                                : <span className="w-2 h-2 rounded-full bg-slate-300" />
+                                ? <span className="w-2 h-2 rounded-full bg-[#0B1320]" />
+                                : <span className="w-2 h-2 rounded-full bg-slate-600" />
                             }
                           </div>
-                          <span className={`text-[9px] font-bold mt-1 text-center max-w-[60px] leading-tight ${done ? 'text-slate-700' : 'text-slate-400'}`}>
+                          <span className={`text-[10px] font-bold mt-1.5 text-center max-w-[65px] leading-tight ${done ? 'text-slate-200' : 'text-slate-500'}`}>
                             {step}
                           </span>
                         </div>
                         {!isLast && (
-                          <div className={`h-0.5 flex-1 mx-1 mb-4 rounded-full ${i < order.currentStep ? 'bg-emerald-400' : 'bg-slate-200'}`} />
+                          <div className={`h-0.5 flex-1 mx-1 mb-4 rounded-full ${i < order.currentStep ? 'bg-[#16B8A5]' : 'bg-[#1E2E48]'}`} />
                         )}
                       </React.Fragment>
                     );
@@ -102,11 +102,11 @@ export const SellerOrders: React.FC = () => {
 
               <div className="flex flex-col gap-2 shrink-0">
                 {order.status !== 'Delivered' && (
-                  <button className="px-4 py-2 rounded-xl bg-[#1A957E] hover:bg-[#15806b] text-white text-xs font-heading font-black transition-all flex items-center gap-1.5">
+                  <button className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#16B8A5] to-[#0E9786] hover:from-[#139E8E] hover:to-[#0C8575] text-[#0B1320] text-xs font-heading font-black transition-all shadow-md shadow-[#16B8A5]/20 flex items-center justify-center gap-1.5">
                     Update Status <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 )}
-                <button className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+                <button className="px-4 py-2 rounded-xl bg-[#182842] hover:bg-[#203456] text-slate-300 text-xs font-bold transition-all border border-[#233550]">
                   View Details
                 </button>
               </div>

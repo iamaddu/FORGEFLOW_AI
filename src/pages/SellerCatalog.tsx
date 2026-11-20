@@ -12,9 +12,9 @@ const materials = [
 ];
 
 const stockStatus = (s: number) => {
-  if (s > 1000) return { label: `${(s/1000).toFixed(1)}k kg`, cls: 'bg-emerald-100 text-emerald-700' };
-  if (s > 200) return { label: `${s} kg`, cls: 'bg-amber-100 text-amber-700' };
-  return { label: `${s} kg LOW`, cls: 'bg-rose-100 text-rose-700' };
+  if (s > 1000) return { label: `${(s/1000).toFixed(1)}k kg`, cls: 'bg-[#16B8A5]/10 text-[#16B8A5] border border-[#16B8A5]/25' };
+  if (s > 200) return { label: `${s} kg`, cls: 'bg-[#E5A84B]/10 text-[#E5A84B] border border-[#E5A84B]/25' };
+  return { label: `${s} kg LOW`, cls: 'bg-rose-500/10 text-rose-400 border border-rose-500/25' };
 };
 
 export const SellerCatalog: React.FC = () => {
@@ -29,14 +29,14 @@ export const SellerCatalog: React.FC = () => {
   );
 
   return (
-    <div className="space-y-5 pb-10">
+    <div className="space-y-6 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-heading font-black text-2xl text-white">My Material Catalog</h1>
-          <p className="text-white/60 text-sm mt-0.5">{materials.length} materials listed • {materials.filter(m => m.active).length} active</p>
+          <p className="text-slate-400 text-sm mt-0.5">{materials.length} materials listed • {materials.filter(m => m.active).length} active in stock</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1A957E] hover:bg-[#15806b] text-white text-sm font-heading font-bold transition-all shrink-0">
+        <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#16B8A5] to-[#0E9786] hover:from-[#139E8E] hover:to-[#0C8575] text-[#0B1320] text-sm font-heading font-black transition-all shadow-lg shadow-[#16B8A5]/20 shrink-0">
           <Plus className="w-4 h-4" /> Add New Material
         </button>
       </div>
@@ -48,14 +48,14 @@ export const SellerCatalog: React.FC = () => {
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Search materials..."
-            className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:border-[#1A957E] font-medium"
+            placeholder="Search catalog materials..."
+            className="w-full bg-[#131F33] border border-[#1E2E48] rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#16B8A5] focus:ring-1 focus:ring-[#16B8A5] font-medium"
           />
         </div>
         <div className="flex gap-2 flex-wrap">
           {categories.map(c => (
             <button key={c} onClick={() => setCategory(c)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${category === c ? 'bg-[#523D8A] text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-[#523D8A]/50'}`}>
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${category === c ? 'bg-[#16B8A5] text-[#0B1320] font-black' : 'bg-[#131F33] text-slate-400 border border-[#1E2E48] hover:border-slate-500 hover:text-white'}`}>
               {c}
             </button>
           ))}
@@ -67,43 +67,43 @@ export const SellerCatalog: React.FC = () => {
         {filtered.map(m => {
           const st = stockStatus(m.stock);
           return (
-            <div key={m.id} className={`bg-white rounded-2xl border p-5 shadow-sm flex flex-col gap-4 ${m.active ? 'border-slate-100' : 'border-slate-100 opacity-70'}`}>
+            <div key={m.id} className={`bg-[#131F33] rounded-2xl border p-5 shadow-lg flex flex-col gap-4 ${m.active ? 'border-[#1E2E48]' : 'border-[#1E2E48] opacity-70'}`}>
               <div className="flex items-start justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{m.category}</span>
-                  <h3 className="font-heading font-black text-sm text-[#1E1638] leading-snug mt-0.5">{m.name}</h3>
+                  <h3 className="font-heading font-black text-sm text-white leading-snug mt-0.5">{m.name}</h3>
                 </div>
                 {m.active
-                  ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  : <AlertCircle className="w-4 h-4 text-slate-300 shrink-0" />
+                  ? <CheckCircle2 className="w-4 h-4 text-[#16B8A5] shrink-0" />
+                  : <AlertCircle className="w-4 h-4 text-slate-500 shrink-0" />
                 }
               </div>
 
               <div className="flex items-end justify-between">
                 <div>
-                  <div className="font-heading font-black text-2xl text-[#1A957E]">₹{m.price}<span className="text-sm font-medium text-slate-500">/{m.unit}</span></div>
-                  <div className="text-xs text-slate-500 mt-0.5">Grade: {m.grade}</div>
+                  <div className="font-heading font-black text-2xl text-[#16B8A5]">₹{m.price}<span className="text-sm font-medium text-slate-400">/{m.unit}</span></div>
+                  <div className="text-xs text-slate-400 mt-0.5">Grade: {m.grade}</div>
                 </div>
                 <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${st.cls}`}>{st.label}</span>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
-                <div className="bg-slate-50 rounded-lg px-3 py-2">
+              <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
+                <div className="bg-[#182842] rounded-xl px-3 py-2 border border-[#233550]">
                   <div className="font-bold text-slate-400 text-[10px]">MIN ORDER</div>
-                  <div className="font-semibold mt-0.5">{m.minOrder} {m.unit}</div>
+                  <div className="font-semibold text-white mt-0.5">{m.minOrder} {m.unit}</div>
                 </div>
-                <div className="bg-slate-50 rounded-lg px-3 py-2">
+                <div className="bg-[#182842] rounded-xl px-3 py-2 border border-[#233550]">
                   <div className="font-bold text-slate-400 text-[10px]">LEAD TIME</div>
-                  <div className="font-semibold mt-0.5">{m.leadDays}</div>
+                  <div className="font-semibold text-white mt-0.5">{m.leadDays}</div>
                 </div>
               </div>
 
               <div className="flex gap-2 pt-1">
-                <button className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
-                  <Edit2 className="w-3.5 h-3.5" /> Edit
+                <button className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-[#182842] hover:bg-[#203456] text-slate-200 text-xs font-bold transition-all border border-[#233550]">
+                  <Edit2 className="w-3.5 h-3.5 text-slate-400" /> Edit
                 </button>
                 <button onClick={() => setCurrentPage('seller-rfq')}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-[#EFEBF8] hover:bg-[#523D8A] hover:text-white text-[#523D8A] text-xs font-bold transition-all">
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-[#16B8A5]/15 hover:bg-[#16B8A5]/25 border border-[#16B8A5]/30 text-[#16B8A5] text-xs font-heading font-black transition-all">
                   <Inbox className="w-3.5 h-3.5" /> View RFQs
                 </button>
               </div>
