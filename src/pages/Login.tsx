@@ -62,7 +62,7 @@ export const Login: React.FC = () => {
       <div
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
         style={{
-          backgroundImage: "url('/glassy-factory-bg.jpg')",
+          backgroundImage: "url('./glassy-factory-bg.jpg')",
           filter: 'brightness(0.7) contrast(1.15)',
         }}
       />
@@ -146,7 +146,7 @@ export const Login: React.FC = () => {
           {/* Authentic Fabrication & Steel Supply Photo Card */}
           <div className="relative rounded-3xl overflow-hidden h-40 max-w-md border-2 border-white/20 shadow-xl">
             <img
-              src={selectedRole === 'buyer' ? "/cnc-metal-turning.jpg" : "/steel-warehouse-coils.jpg"}
+              src={selectedRole === 'buyer' ? "./cnc-metal-turning.jpg" : "./steel-warehouse-coils.jpg"}
               alt="Precision Metal Fabrication & Raw Material Supply"
               className="w-full h-full object-cover opacity-85"
             />

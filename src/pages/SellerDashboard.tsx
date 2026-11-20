@@ -48,7 +48,7 @@ export const SellerDashboard: React.FC = () => {
           <div className="w-full sm:w-6/12 relative">
             <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
             <img
-              src="/steel-warehouse-coils.jpg"
+              src="./steel-warehouse-coils.jpg"
               alt="Raw Steel Material Depot & Coils"
               className="w-full h-full object-cover opacity-85 object-center"
               style={{ maxHeight: 240 }}

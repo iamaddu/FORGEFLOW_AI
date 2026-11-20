@@ -48,7 +48,7 @@ export const RaviStoryModal: React.FC = () => {
             <div className="md:col-span-5 bg-white text-[#1E1638] rounded-3xl p-5 shadow-card flex flex-col justify-between border-2 border-white">
               <div className="relative rounded-2xl overflow-hidden min-h-[220px]">
                 <img
-                  src="/ravi-workshop.jpg"
+                  src="./ravi-workshop.jpg"
                   alt="Ravi's fabrication workshop"
                   className="w-full h-full object-cover object-center rounded-2xl"
                   style={{ minHeight: 220, maxHeight: 260 }}

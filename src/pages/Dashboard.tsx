@@ -110,7 +110,7 @@ export const Dashboard: React.FC = () => {
           <div className="w-full sm:w-7/12 relative">
             <div className="absolute inset-y-0 left-0 w-36 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
             <img
-              src="/cnc-metal-turning.jpg"
+              src="./cnc-metal-turning.jpg"
               alt="Precision CNC Metal Machining & Fabrication"
               className="w-full h-full object-cover object-center opacity-85"
               style={{ maxHeight: 260 }}
@@ -435,7 +435,7 @@ export const Dashboard: React.FC = () => {
           className="relative rounded-3xl overflow-hidden cursor-pointer group min-h-[160px] shadow-card border-2 border-white/80"
         >
           <img
-            src="/sheet-metal-works.jpg"
+            src="./sheet-metal-works.jpg"
             alt="Authentic Sheet Metal Manufacturing Workshop"
             className="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-105 transition-transform duration-500"
           />

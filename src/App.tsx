@@ -42,7 +42,7 @@ export const App: React.FC = () => {
       <div
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
         style={{
-          backgroundImage: "url('/glassy-factory-bg.jpg')",
+          backgroundImage: "url('./glassy-factory-bg.jpg')",
           filter: 'brightness(0.75) contrast(1.15)',
         }}
       />
