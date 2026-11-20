@@ -37,15 +37,10 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1522] text-[#F3F5F7] flex flex-row antialiased relative selection:bg-[#16B8A5]/30">
-      {/* Subtle modern industrial backdrop image */}
-      <div 
-        className="fixed inset-0 pointer-events-none opacity-10 bg-center bg-cover bg-no-repeat z-0 mix-blend-luminosity" 
-        style={{ backgroundImage: "url('/modern-factory.jpg')" }} 
-      />
-      {/* Ambient gradient glows */}
-      <div className="fixed top-0 right-1/4 w-96 h-96 bg-[#16B8A5]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-0 left-1/3 w-96 h-96 bg-[#E5A84B]/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-gradient-to-br from-[#4A3482] via-[#523D8A] to-[#3B2668] text-[#1E1638] flex flex-row antialiased relative selection:bg-[#F5A636]/30">
+      {/* Ambient PPT Radial Glows */}
+      <div className="fixed top-0 right-1/4 w-96 h-96 bg-[#F5A636]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-0 left-1/3 w-96 h-96 bg-[#F8C8BE]/12 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 flex flex-row w-full min-h-screen">
         <Sidebar />

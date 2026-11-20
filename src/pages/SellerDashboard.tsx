@@ -13,9 +13,9 @@ const revenueData = [
 ];
 
 const rfqRows = [
-  { id: 'RFQ-2847', material: 'MS Sheet 3mm', buyer: 'Ravi Precision', qty: '500 kg', location: 'Bhosari, Pune', status: 'New', statusColor: 'bg-[#16B8A5]/10 text-[#16B8A5] border border-[#16B8A5]/30', action: 'Respond', actionColor: 'bg-gradient-to-r from-[#16B8A5] to-[#0E9786] text-[#0B1320] font-black hover:opacity-90' },
-  { id: 'RFQ-2846', material: 'CRCA Coils', buyer: 'Mehta Fab Works', qty: '1,200 kg', location: 'Peenya, Bangalore', status: 'Quoted', statusColor: 'bg-purple-500/10 text-purple-400 border border-purple-500/30', action: 'View Quote', actionColor: 'bg-[#1E2D44] text-slate-200 hover:bg-[#253956]' },
-  { id: 'RFQ-2845', material: 'SS Round Bar 304', buyer: 'Kumar Engineers', qty: '300 kg', location: 'Chakan, Pune', status: 'Negotiating', statusColor: 'bg-[#E5A84B]/10 text-[#E5A84B] border border-[#E5A84B]/30', action: 'Update Quote', actionColor: 'bg-[#E5A84B]/10 text-[#E5A84B] hover:bg-[#E5A84B]/20 border border-[#E5A84B]/30' },
+  { id: 'RFQ-2847', material: 'MS Sheet 3mm', buyer: 'Ravi Precision', qty: '500 kg', location: 'Bhosari, Pune', status: 'New', statusColor: 'bg-[#EFEBF8] text-[#523D8A]', action: 'Respond', actionColor: 'bg-[#523D8A] text-white hover:bg-[#3E2C6B]' },
+  { id: 'RFQ-2846', material: 'CRCA Coils', buyer: 'Mehta Fab Works', qty: '1,200 kg', location: 'Peenya, Bangalore', status: 'Quoted', statusColor: 'bg-purple-100 text-purple-700', action: 'View Quote', actionColor: 'bg-slate-100 text-slate-700 hover:bg-slate-200' },
+  { id: 'RFQ-2845', material: 'SS Round Bar 304', buyer: 'Kumar Engineers', qty: '300 kg', location: 'Chakan, Pune', status: 'Negotiating', statusColor: 'bg-amber-100 text-amber-800', action: 'Update Quote', actionColor: 'bg-[#FEF3D6] text-amber-800 hover:bg-amber-100' },
 ];
 
 export const SellerDashboard: React.FC = () => {
@@ -24,50 +24,50 @@ export const SellerDashboard: React.FC = () => {
   return (
     <div className="space-y-6 pb-12">
 
-      {/* Hero Banner with Modern CNC Machining Photo */}
-      <div className="relative rounded-3xl overflow-hidden min-h-[220px] flex items-center bg-gradient-to-r from-[#0D1522] via-[#132034] to-[#0D1522] border border-[#1E2E48] shadow-2xl">
+      {/* Hero Banner with Authentic Precision Fiber Laser Sheet Metal Photo */}
+      <div className="relative rounded-3xl overflow-hidden min-h-[220px] flex items-center bg-gradient-to-r from-[#3E296C] via-[#523D8A] to-[#3E296C] border-2 border-white/20 shadow-2xl">
         <div className="relative z-10 p-8 sm:p-10 max-w-lg">
-          <p className="text-slate-400 text-xs sm:text-sm font-medium mb-1">Supplier Portal</p>
+          <p className="text-[#F8C8BE] text-xs sm:text-sm font-medium mb-1">Supplier Portal</p>
           <h1 className="font-heading font-black text-3xl sm:text-4xl text-white leading-tight">
-            Welcome, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16B8A5] to-[#45DFCE]">Apex Steel</span>
+            Welcome, <span className="text-[#F5A636]">Apex Steel</span>
           </h1>
-          <p className="text-slate-300 text-xs sm:text-sm mt-2 max-w-md">Your supplier performance at a glance. 7 incoming RFQs awaiting quotes.</p>
+          <p className="text-white/85 text-xs sm:text-sm mt-2 max-w-md font-medium">Your supplier quotation &amp; order performance at a glance. 7 incoming RFQs awaiting your review.</p>
           <div className="flex flex-wrap gap-3 mt-6">
             <button onClick={() => setCurrentPage('seller-catalog')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#16B8A5] to-[#0E9786] hover:from-[#139E8E] hover:to-[#0C8575] text-[#0B1320] text-sm font-heading font-black transition-all shadow-lg shadow-[#16B8A5]/20">
-              <Package className="w-4 h-4" /> Add Material
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white text-[#523D8A] text-sm font-heading font-black transition-all shadow-md hover:bg-slate-100">
+              <Package className="w-4 h-4 text-[#523D8A]" /> Add Material
             </button>
             <button onClick={() => setCurrentPage('seller-rfq')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#152238] hover:bg-[#1C2D4A] text-white text-sm font-heading font-bold transition-all border border-[#233550] shadow-sm">
-              <Inbox className="w-4 h-4 text-[#E5A84B]" /> View RFQs
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-md">
+              <Inbox className="w-4 h-4" /> View RFQs
             </button>
           </div>
         </div>
         <div className="absolute inset-0 flex items-stretch pointer-events-none">
           <div className="flex-1" />
           <div className="w-full sm:w-6/12 relative">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0D1522] via-[#0D1522]/80 to-transparent z-10" />
-            <img src="/cnc-machining.jpg" alt="Supplier Manufacturing Facility" className="w-full h-full object-cover opacity-60 mix-blend-screen" style={{ maxHeight: 240 }} />
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] to-transparent z-10" />
+            <img src="/laser-cutting-sheet.jpg" alt="Supplier Manufacturing Facility" className="w-full h-full object-cover opacity-80" style={{ maxHeight: 240 }} />
           </div>
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards (Crisp White PPT Style Cards) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Materials Listed', value: '24', delta: '+3', icon: Package, iconBg: 'bg-[#16B8A5]/10', iconColor: 'text-[#16B8A5]', deltaColor: 'text-[#16B8A5] bg-[#16B8A5]/10 border border-[#16B8A5]/20' },
-          { label: 'Active RFQs', value: '7', delta: '+2', icon: Inbox, iconBg: 'bg-purple-500/10', iconColor: 'text-purple-400', deltaColor: 'text-purple-400 bg-purple-500/10 border border-purple-500/20' },
-          { label: 'Orders Fulfilled', value: '156', delta: '+12', icon: Truck, iconBg: 'bg-[#E5A84B]/10', iconColor: 'text-[#E5A84B]', deltaColor: 'text-[#E5A84B] bg-[#E5A84B]/10 border border-[#E5A84B]/20' },
-          { label: 'Avg Response Time', value: '4.2h', delta: '↓1h', icon: Clock, iconBg: 'bg-emerald-500/10', iconColor: 'text-emerald-400', deltaColor: 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' },
+          { label: 'Materials Listed', value: '24', delta: '+3', icon: Package, iconBg: 'bg-[#EFEBF8]', iconColor: 'text-[#523D8A]', deltaColor: 'text-[#523D8A] bg-[#EFEBF8]' },
+          { label: 'Active RFQs', value: '7', delta: '+2', icon: Inbox, iconBg: 'bg-[#FEF3D6]', iconColor: 'text-amber-700', deltaColor: 'text-amber-700 bg-amber-50' },
+          { label: 'Orders Fulfilled', value: '156', delta: '+12', icon: Truck, iconBg: 'bg-[#F8C8BE]', iconColor: 'text-orange-950', deltaColor: 'text-orange-800 bg-orange-50' },
+          { label: 'Avg Response Time', value: '4.2h', delta: '↓1h', icon: Clock, iconBg: 'bg-emerald-100', iconColor: 'text-emerald-800', deltaColor: 'text-emerald-700 bg-emerald-50' },
         ].map(({ label, value, delta, icon: Icon, iconBg, iconColor, deltaColor }) => (
-          <div key={label} className="p-5 rounded-2xl bg-[#131F33] shadow-lg border border-[#1E2E48]">
+          <div key={label} className="p-5 rounded-3xl bg-white shadow-card border-2 border-white/80 text-[#1E1638]">
             <div className="flex items-center justify-between">
-              <div className={`p-2 rounded-xl ${iconBg}`}><Icon className={`w-4 h-4 ${iconColor}`} /></div>
-              <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${deltaColor}`}>{delta}</span>
+              <div className={`p-2.5 rounded-2xl ${iconBg}`}><Icon className={`w-4 h-4 ${iconColor}`} /></div>
+              <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${deltaColor}`}>{delta}</span>
             </div>
             <div className="mt-3">
-              <div className="font-heading font-black text-2xl text-white">{value}</div>
-              <div className="text-xs text-slate-400 mt-0.5">{label}</div>
+              <div className="font-heading font-black text-2xl text-[#1E1638]">{value}</div>
+              <div className="text-xs text-slate-500 mt-0.5 font-medium">{label}</div>
             </div>
           </div>
         ))}
@@ -76,37 +76,37 @@ export const SellerDashboard: React.FC = () => {
       {/* RFQ Table + Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Recent RFQs */}
-        <div className="lg:col-span-7 bg-[#131F33] rounded-2xl shadow-lg border border-[#1E2E48] overflow-hidden">
-          <div className="flex items-center justify-between p-5 border-b border-[#1E2E48]">
+        <div className="lg:col-span-7 bg-white rounded-3xl shadow-card border-2 border-white/80 overflow-hidden text-[#1E1638]">
+          <div className="flex items-center justify-between p-6 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <Inbox className="w-4 h-4 text-[#16B8A5]" />
-              <h3 className="font-heading font-black text-sm text-white">Recent RFQs</h3>
+              <Inbox className="w-4 h-4 text-[#523D8A]" />
+              <h3 className="font-heading font-black text-sm text-[#1E1638]">Recent RFQs</h3>
             </div>
-            <button onClick={() => setCurrentPage('seller-rfq')} className="text-xs font-bold text-[#16B8A5] hover:underline">View All →</button>
+            <button onClick={() => setCurrentPage('seller-rfq')} className="text-xs font-bold text-[#523D8A] hover:underline">View All →</button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
-                <tr className="bg-[#0F1826] text-slate-400 font-bold border-b border-[#1E2E48]">
-                  <th className="text-left px-4 py-3">Material</th>
-                  <th className="text-left px-4 py-3">Buyer</th>
-                  <th className="text-left px-4 py-3">Qty</th>
-                  <th className="text-left px-4 py-3">Status</th>
-                  <th className="text-left px-4 py-3">Action</th>
+                <tr className="bg-slate-50 text-slate-500 font-bold border-b border-slate-100">
+                  <th className="text-left px-5 py-3">Material</th>
+                  <th className="text-left px-5 py-3">Buyer</th>
+                  <th className="text-left px-5 py-3">Qty</th>
+                  <th className="text-left px-5 py-3">Status</th>
+                  <th className="text-left px-5 py-3">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1E2E48]">
+              <tbody className="divide-y divide-slate-100">
                 {rfqRows.map(r => (
-                  <tr key={r.id} className="hover:bg-[#182842] transition-colors">
-                    <td className="px-4 py-3 font-semibold text-white">{r.material}</td>
-                    <td className="px-4 py-3 text-slate-300">{r.buyer}</td>
-                    <td className="px-4 py-3 text-slate-300">{r.qty}</td>
-                    <td className="px-4 py-3">
+                  <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-5 py-3.5 font-semibold text-slate-900">{r.material}</td>
+                    <td className="px-5 py-3.5 text-slate-600">{r.buyer}</td>
+                    <td className="px-5 py-3.5 text-slate-600 font-medium">{r.qty}</td>
+                    <td className="px-5 py-3.5">
                       <span className={`px-2.5 py-1 rounded-full font-bold ${r.statusColor}`}>{r.status}</span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-5 py-3.5">
                       <button onClick={() => setCurrentPage('seller-rfq')}
-                        className={`px-3 py-1.5 rounded-lg font-bold transition-all ${r.actionColor}`}>
+                        className={`px-3 py-1.5 rounded-xl font-bold transition-all ${r.actionColor}`}>
                         {r.action}
                       </button>
                     </td>
@@ -118,35 +118,35 @@ export const SellerDashboard: React.FC = () => {
         </div>
 
         {/* Performance */}
-        <div className="lg:col-span-5 bg-[#131F33] rounded-2xl shadow-lg border border-[#1E2E48] p-5">
+        <div className="lg:col-span-5 bg-white rounded-3xl shadow-card border-2 border-white/80 p-6 text-[#1E1638]">
           <div className="flex items-center gap-2 mb-4">
-            <Star className="w-4 h-4 text-[#E5A84B]" />
-            <h3 className="font-heading font-black text-sm text-white">Performance Metrics</h3>
+            <Star className="w-4 h-4 text-[#F5A636]" />
+            <h3 className="font-heading font-black text-sm text-[#1E1638]">Performance Metrics</h3>
           </div>
           <div className="space-y-4">
             {[
-              { label: 'On-time Delivery', value: '97%', color: 'bg-[#16B8A5]' },
-              { label: 'Quote Win Rate', value: '68%', color: 'bg-blue-400' },
+              { label: 'On-time Delivery', value: '97%', color: 'bg-emerald-600' },
+              { label: 'Quote Win Rate', value: '68%', color: 'bg-[#523D8A]' },
             ].map(m => (
               <div key={m.label}>
-                <div className="flex justify-between text-xs font-semibold text-slate-300 mb-1">
-                  <span>{m.label}</span><span className="font-black text-white">{m.value}</span>
+                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                  <span>{m.label}</span><span className="font-black text-slate-900">{m.value}</span>
                 </div>
-                <div className="h-2 bg-[#1E2D44] rounded-full overflow-hidden">
+                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                   <div className={`h-full rounded-full ${m.color}`} style={{ width: m.value }} />
                 </div>
               </div>
             ))}
-            <div className="pt-2 border-t border-[#1E2E48] flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-medium">Avg Quote Turnaround</span>
-              <span className="text-xs font-black text-[#E5A84B] bg-[#E5A84B]/10 px-2.5 py-1 rounded-full border border-[#E5A84B]/20">4.2 hrs</span>
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs text-slate-600 font-medium">Avg Quote Turnaround</span>
+              <span className="text-xs font-black text-[#523D8A] bg-[#EFEBF8] px-2.5 py-1 rounded-full">4.2 hrs</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-medium">Buyer Rating</span>
+              <span className="text-xs text-slate-600 font-medium">Buyer Rating</span>
               <div className="flex items-center gap-1">
-                {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 text-[#E5A84B]" fill="#E5A84B" />)}
-                <span className="text-xs font-black text-white ml-1">4.8</span>
-                <span className="text-[10px] text-slate-500">(12 reviews)</span>
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 text-[#F5A636]" fill="#F5A636" />)}
+                <span className="text-xs font-black text-slate-900 ml-1">4.8</span>
+                <span className="text-[10px] text-slate-400 font-medium">(12 reviews)</span>
               </div>
             </div>
           </div>
@@ -154,30 +154,30 @@ export const SellerDashboard: React.FC = () => {
       </div>
 
       {/* Revenue Trend */}
-      <div className="bg-[#131F33] rounded-2xl shadow-lg border border-[#1E2E48] p-5">
+      <div className="bg-white rounded-3xl shadow-card border-2 border-white/80 p-6 text-[#1E1638]">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-[#16B8A5]" />
-            <h3 className="font-heading font-black text-sm text-white">Monthly Revenue Trend</h3>
+            <TrendingUp className="w-4 h-4 text-[#523D8A]" />
+            <h3 className="font-heading font-black text-sm text-[#1E1638]">Monthly Revenue Trend</h3>
           </div>
-          <span className="text-xs font-bold text-[#16B8A5] bg-[#16B8A5]/10 px-2.5 py-1 rounded-full border border-[#16B8A5]/20 flex items-center gap-1">
-            <ArrowUpRight className="w-3 h-3" /> 22% this month
+          <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full flex items-center gap-1">
+            <ArrowUpRight className="w-3.5 h-3.5" /> 22% this month
           </span>
         </div>
         <div className="h-36">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={revenueData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
               <defs>
-                <linearGradient id="tealGrad4" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#16B8A5" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#16B8A5" stopOpacity={0} />
+                <linearGradient id="purpleGradSeller" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#523D8A" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#523D8A" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="month" stroke="#475569" fontSize={10} tickLine={false} />
-              <YAxis stroke="#475569" fontSize={10} tickFormatter={v => `₹${v}L`} tickLine={false} />
-              <Tooltip contentStyle={{ backgroundColor: '#131F33', borderColor: '#233550', borderRadius: '12px', fontSize: '11px', color: '#F3F5F7' }} formatter={(v: any) => [`₹${v}L`, 'Revenue']} />
-              <Area type="monotone" dataKey="revenue" stroke="#16B8A5" strokeWidth={2.5} fill="url(#tealGrad4)"
-                dot={{ stroke: '#16B8A5', strokeWidth: 2, r: 3, fill: '#131F33' }} />
+              <XAxis dataKey="month" stroke="#94A3B8" fontSize={10} tickLine={false} />
+              <YAxis stroke="#94A3B8" fontSize={10} tickFormatter={v => `₹${v}L`} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '16px', fontSize: '11px', color: '#1E1638', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }} formatter={(v: any) => [`₹${v}L`, 'Revenue']} />
+              <Area type="monotone" dataKey="revenue" stroke="#523D8A" strokeWidth={2.5} fill="url(#purpleGradSeller)"
+                dot={{ stroke: '#523D8A', strokeWidth: 2, r: 3, fill: '#FFFFFF' }} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
