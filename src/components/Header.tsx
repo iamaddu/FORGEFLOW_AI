@@ -150,7 +150,7 @@ export const Header: React.FC = () => {
             </div>
             <div className="text-left hidden md:block">
               <span className="text-xs font-bold text-white block leading-tight">{user.name}</span>
-              <span className="text-[10px] text-slate-400 font-medium block leading-tight">{user.companyName.split(' ')[0]} Fab</span>
+              <span className="text-[10px] text-slate-400 font-medium block leading-tight truncate max-w-[130px]">{user.companyName}</span>
             </div>
             <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
           </button>

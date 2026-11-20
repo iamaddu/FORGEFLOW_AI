@@ -47,7 +47,7 @@ interface AppContextType {
   isAuthenticated: boolean;
   userRole: UserRole;
   setUserRole: (role: UserRole) => void;
-  login: (email?: string, role?: UserRole) => void;
+  login: (email?: string, role?: UserRole, customName?: string) => void;
   logout: () => void;
   user: UserProfile;
   setUser: (u: UserProfile) => void;
@@ -223,15 +223,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, 4000);
   };
 
-  const login = (email?: string, role: UserRole = 'buyer') => {
+  const login = (email?: string, role: UserRole = 'buyer', customName?: string) => {
     setIsAuthenticated(true);
     setUserRoleState(role);
     localStorage.setItem(`${STORAGE_KEY_PREFIX}role`, role);
-    if (email) {
-      setUser(prev => ({ ...prev, email }));
+
+    // Dynamically resolve user identity from name or email
+    let resolvedName = customName?.trim();
+    if (!resolvedName && email) {
+      const part = email.split('@')[0].replace(/[._-]/g, ' ');
+      resolvedName = part
+        .split(' ')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ');
     }
+    if (!resolvedName) {
+      resolvedName = role === 'seller' ? 'Apex Steel & Tubes' : 'Ravi Sharma';
+    }
+
+    const initials = resolvedName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(w => w[0].toUpperCase())
+      .join('');
+
+    const company = role === 'seller'
+      ? (resolvedName.toLowerCase().includes('steel') ? resolvedName : `${resolvedName} Metals & Tubes`)
+      : (resolvedName.toLowerCase().includes('fab') ? resolvedName : `${resolvedName} Fabrication Works`);
+
+    const updatedUser: UserProfile = {
+      name: resolvedName,
+      role: role === 'seller' ? 'Raw Material Supplier' : 'Unit Owner & Fabricator',
+      companyName: company,
+      gstin: role === 'seller' ? '27AABCA9812M1Z5' : '27AABCA1234F1Z8',
+      avatarInitials: initials || (role === 'seller' ? 'AS' : 'RS'),
+      email: email || (role === 'seller' ? 'sales@apexsteel.co.in' : 'user@forgeflow.in')
+    };
+
+    setUser(updatedUser);
+    localStorage.setItem(`${STORAGE_KEY_PREFIX}user`, JSON.stringify(updatedUser));
     setCurrentPage(role === 'seller' ? 'seller-dashboard' : 'dashboard');
-    showToast(`Welcome back, ${user.name}! Workspace synchronized.`, 'success');
+    showToast(`Welcome back, ${resolvedName}! Workspace synchronized.`, 'success');
   };
 
   const logout = () => {
