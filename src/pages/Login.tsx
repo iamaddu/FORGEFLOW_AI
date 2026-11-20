@@ -10,7 +10,6 @@ import {
   Zap,
 } from 'lucide-react';
 import { useApp, UserRole } from '../context/AppContext';
-import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
 import { Card3D } from '../components/Card3D';
 
 export const Login: React.FC = () => {
@@ -60,12 +59,12 @@ export const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col justify-between relative overflow-hidden select-none">
-      {/* Classy Glassy Manufacturing Background Image */}
+      {/* Industrial Logistics & Manufacturing Background Image (As requested) */}
       <div
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
         style={{
-          backgroundImage: "url('./glassy-factory-bg.jpg')",
-          filter: 'brightness(0.7) contrast(1.15)',
+          backgroundImage: "url('./modern-factory.jpg')",
+          filter: 'brightness(0.65) contrast(1.15)',
         }}
       />
 
@@ -145,9 +144,25 @@ export const Login: React.FC = () => {
             ))}
           </div>
 
-          {/* Interactive 3D Metal Fabrication Model */}
-          <div className="relative rounded-3xl overflow-hidden h-44 max-w-md bg-white/10 backdrop-blur-md border-2 border-white/30 shadow-2xl">
-            <Interactive3DMetalPart height={176} showTelemetry={true} />
+          {/* Authentic Indian MSME Manufacturing Workshop Card (User Attached) */}
+          <div className="relative rounded-3xl overflow-hidden h-44 max-w-md border-2 border-white/30 shadow-2xl group">
+            <img
+              src="./ravi-workshop.jpg"
+              alt="Indian MSME Manufacturing Unit & Factory Floor"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#523D8A]/90 via-[#523D8A]/60 to-transparent flex items-center px-6">
+              <div>
+                <p className="font-heading font-black text-white text-base">
+                  {selectedRole === 'buyer' ? (fullName || "Fabrication & Components Workshop") : (fullName || "Industrial Raw Material Supplier")}
+                </p>
+                <p className="text-[#F8C8BE] text-xs mt-0.5 font-medium">
+                  {selectedRole === 'buyer'
+                    ? "MIDC Industrial Cluster • Metal, Plastics & Auto Ancillaries"
+                    : "Certified Industrial Supplier • Raw Metals, Polymers & Hardware"}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

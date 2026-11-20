@@ -9,7 +9,7 @@
       radial-gradient(circle at 10% 15%, rgba(245, 166, 54, 0.15) 0%, transparent 45%),
       radial-gradient(circle at 90% 85%, rgba(248, 200, 190, 0.18) 0%, transparent 45%),
       linear-gradient(135deg, rgba(69, 47, 125, 0.92) 0%, rgba(82, 61, 138, 0.88) 50%, rgba(53, 31, 94, 0.95) 100%),
-      url('/glassy-factory-bg.jpg');
+      url('/modern-factory.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

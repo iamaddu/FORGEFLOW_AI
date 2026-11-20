@@ -38,12 +38,12 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen text-[#1E1638] flex flex-row antialiased relative selection:bg-[#F5A636]/30 overflow-x-hidden">
-      {/* ── Classy Glassy Manufacturing Background Image ── */}
+      {/* ── Industrial Logistics & Manufacturing Background Image ── */}
       <div
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none scale-105"
         style={{
-          backgroundImage: "url('./glassy-factory-bg.jpg')",
-          filter: 'brightness(0.75) contrast(1.15)',
+          backgroundImage: "url('./modern-factory.jpg')",
+          filter: 'brightness(0.68) contrast(1.15)',
         }}
       />
 

@@ -5,7 +5,6 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
 import { Card3D } from '../components/Card3D';
 
 const revenueData = [
@@ -45,12 +44,18 @@ export const SellerDashboard: React.FC = () => {
             </button>
           </div>
         </div>
-        {/* Interactive 3D Metal Component Viewport */}
-        <div className="absolute inset-0 flex items-stretch">
+        {/* Raw Steel Depot & Materials Supply Warehouse Photo */}
+        <div className="absolute inset-0 flex items-stretch pointer-events-none">
           <div className="flex-1" />
-          <div className="w-full sm:w-6/12 relative pointer-events-auto">
-            <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10 pointer-events-none" />
-            <Interactive3DMetalPart height={240} showTelemetry={true} />
+          <div className="w-full sm:w-6/12 relative">
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
+            <img
+              src="./steel-warehouse-coils.jpg"
+              alt="Raw Steel Material Depot & Coils"
+              className="w-full h-full object-cover opacity-85 object-center"
+              style={{ maxHeight: 240 }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3E296C]/80 via-transparent to-transparent" />
           </div>
         </div>
       </div>

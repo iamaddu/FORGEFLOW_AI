@@ -29,7 +29,6 @@ import {
 } from 'recharts';
 import { useApp } from '../context/AppContext';
 import { PROFITABILITY_TREND_DATA } from '../data/mockData';
-import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
 import { Card3D } from '../components/Card3D';
 
 // Premium Mini Area Sparkline with gradient fill and glow point
@@ -107,12 +106,18 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Interactive 3D Metal Fabrication Model Viewport ── */}
-        <div className="absolute inset-0 flex items-stretch">
+        {/* ── Smart Manufacturing & Industrial MSME Facility ── */}
+        <div className="absolute inset-0 flex items-stretch pointer-events-none">
           <div className="flex-1" />
-          <div className="w-full sm:w-7/12 relative pointer-events-auto">
-            <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10 pointer-events-none" />
-            <Interactive3DMetalPart height={260} showTelemetry={true} />
+          <div className="w-full sm:w-7/12 relative">
+            <div className="absolute inset-y-0 left-0 w-36 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
+            <img
+              src="./modern-factory.jpg"
+              alt="Smart Manufacturing Plant & Industrial MSME Facility"
+              className="w-full h-full object-cover object-center opacity-85"
+              style={{ maxHeight: 260 }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3E296C]/85 via-transparent to-transparent" />
           </div>
         </div>
       </div>
