@@ -16,6 +16,7 @@ import {
   ShoppingCart,
   Calculator,
   Play,
+  RotateCw,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -28,6 +29,8 @@ import {
 } from 'recharts';
 import { useApp } from '../context/AppContext';
 import { PROFITABILITY_TREND_DATA } from '../data/mockData';
+import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
+import { Card3D } from '../components/Card3D';
 
 // Premium Mini Area Sparkline with gradient fill and glow point
 const MiniSparkline: React.FC<{ id: string; color: string; path: string; areaPath: string; endY: number }> = ({
@@ -89,14 +92,14 @@ export const Dashboard: React.FC = () => {
           <div className="flex flex-wrap gap-3 mt-6">
             <button
               onClick={() => setCurrentPage('procurement')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-md"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-[0_5px_0_#b87414,0_10px_20px_rgba(245,166,54,0.35)] active:translate-y-1 active:shadow-[0_1px_0_#b87414]"
             >
               <ShoppingCart className="w-4 h-4" />
               Compare Supplier Quotes
             </button>
             <button
               onClick={() => setCurrentPage('costing')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white text-sm font-heading font-bold transition-all border border-white/30 shadow-sm"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white text-sm font-heading font-bold transition-all border border-white/30 shadow-[0_4px_0_rgba(255,255,255,0.2)] active:translate-y-1 active:shadow-none backdrop-blur-md"
             >
               <Calculator className="w-4 h-4 text-[#F8C8BE]" />
               Create Production Cost Sheet
@@ -104,34 +107,28 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Precision Metal Fabrication Image (Authentic Factory Imagery) */}
-        <div className="absolute inset-0 flex items-stretch pointer-events-none">
+        {/* ── Interactive 3D Metal Fabrication Model Viewport ── */}
+        <div className="absolute inset-0 flex items-stretch">
           <div className="flex-1" />
-          <div className="w-full sm:w-7/12 relative">
-            <div className="absolute inset-y-0 left-0 w-36 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
-            <img
-              src="./cnc-metal-turning.jpg"
-              alt="Precision CNC Metal Machining & Fabrication"
-              className="w-full h-full object-cover object-center opacity-85"
-              style={{ maxHeight: 260 }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#3E296C]/85 via-transparent to-transparent" />
+          <div className="w-full sm:w-7/12 relative pointer-events-auto">
+            <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10 pointer-events-none" />
+            <Interactive3DMetalPart height={260} showTelemetry={true} />
           </div>
         </div>
       </div>
 
-      {/* ── 4 KPI CARDS (Crisp White PPT Style Cards) ─────────────── */}
+      {/* ── 4 KPI CARDS (Interactive 3D Perspective Tilt Cards) ─────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Spend (Royal Purple) */}
-        <div
+        <Card3D
           onClick={() => setCurrentPage('procurement')}
-          className="p-5 rounded-3xl bg-white hover:bg-slate-50 shadow-card border-2 border-white/80 transition-all cursor-pointer group flex flex-col justify-between text-[#1E1638]"
+          className="p-5 bg-white/95 backdrop-blur-md shadow-[0_12px_28px_rgba(0,0,0,0.16)] border-2 border-white/80 flex flex-col justify-between text-[#1E1638]"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#EFEBF8] text-[#523D8A]">
+            <div className="p-2.5 rounded-2xl bg-[#EFEBF8] text-[#523D8A] shadow-inner">
               <Coins className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+            <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full shadow-sm">
               <ArrowUpRight className="w-3.5 h-3.5" /> 12%
             </span>
           </div>
@@ -148,18 +145,18 @@ export const Dashboard: React.FC = () => {
               endY={8}
             />
           </div>
-        </div>
+        </Card3D>
 
         {/* Card 2: Active Suppliers (Warm Mango Amber) */}
-        <div
+        <Card3D
           onClick={() => setCurrentPage('suppliers')}
-          className="p-5 rounded-3xl bg-white hover:bg-slate-50 shadow-card border-2 border-white/80 transition-all cursor-pointer group flex flex-col justify-between text-[#1E1638]"
+          className="p-5 bg-white/95 backdrop-blur-md shadow-[0_12px_28px_rgba(0,0,0,0.16)] border-2 border-white/80 flex flex-col justify-between text-[#1E1638]"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#FEF3D6] text-amber-700">
+            <div className="p-2.5 rounded-2xl bg-[#FEF3D6] text-amber-700 shadow-inner">
               <Users className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-0.5 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">
+            <span className="flex items-center gap-0.5 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full shadow-sm">
               <ArrowUpRight className="w-3.5 h-3.5" /> 1 new
             </span>
           </div>
@@ -176,18 +173,18 @@ export const Dashboard: React.FC = () => {
               endY={10}
             />
           </div>
-        </div>
+        </Card3D>
 
         {/* Card 3: Orders in Progress (Soft Peach / Orange) */}
-        <div
+        <Card3D
           onClick={() => setCurrentPage('costing')}
-          className="p-5 rounded-3xl bg-white hover:bg-slate-50 shadow-card border-2 border-white/80 transition-all cursor-pointer group flex flex-col justify-between text-[#1E1638]"
+          className="p-5 bg-white/95 backdrop-blur-md shadow-[0_12px_28px_rgba(0,0,0,0.16)] border-2 border-white/80 flex flex-col justify-between text-[#1E1638]"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-[#F8C8BE] text-orange-950">
+            <div className="p-2.5 rounded-2xl bg-[#F8C8BE] text-orange-950 shadow-inner">
               <ClipboardList className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-0.5 text-xs font-bold text-orange-700 bg-orange-50 px-2.5 py-0.5 rounded-full">
+            <span className="flex items-center gap-0.5 text-xs font-bold text-orange-700 bg-orange-50 px-2.5 py-0.5 rounded-full shadow-sm">
               <ArrowUpRight className="w-3.5 h-3.5" /> 2 active
             </span>
           </div>
@@ -204,18 +201,18 @@ export const Dashboard: React.FC = () => {
               endY={12}
             />
           </div>
-        </div>
+        </Card3D>
 
         {/* Card 4: Estimated Profit Margin (Electric Teal / Emerald) */}
-        <div
+        <Card3D
           onClick={() => setCurrentPage('costing')}
-          className="p-5 rounded-3xl bg-white hover:bg-slate-50 shadow-card border-2 border-white/80 transition-all cursor-pointer group flex flex-col justify-between text-[#1E1638]"
+          className="p-5 bg-white/95 backdrop-blur-md shadow-[0_12px_28px_rgba(0,0,0,0.16)] border-2 border-white/80 flex flex-col justify-between text-[#1E1638]"
         >
           <div className="flex items-center justify-between">
-            <div className="p-2.5 rounded-2xl bg-emerald-100 text-emerald-800">
+            <div className="p-2.5 rounded-2xl bg-emerald-100 text-emerald-800 shadow-inner">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+            <span className="flex items-center gap-0.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full shadow-sm">
               <ArrowUpRight className="w-3.5 h-3.5" /> 3% target
             </span>
           </div>
@@ -232,7 +229,7 @@ export const Dashboard: React.FC = () => {
               endY={6}
             />
           </div>
-        </div>
+        </Card3D>
       </div>
 
       {/* ── CHART + SMART INSIGHT + ALERTS ─────────────────────────── */}

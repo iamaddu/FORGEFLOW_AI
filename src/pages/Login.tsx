@@ -10,6 +10,8 @@ import {
   Zap,
 } from 'lucide-react';
 import { useApp, UserRole } from '../context/AppContext';
+import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
+import { Card3D } from '../components/Card3D';
 
 export const Login: React.FC = () => {
   const { login, setIsStoryModalOpen } = useApp();
@@ -143,29 +145,15 @@ export const Login: React.FC = () => {
             ))}
           </div>
 
-          {/* Authentic Fabrication & Steel Supply Photo Card */}
-          <div className="relative rounded-3xl overflow-hidden h-40 max-w-md border-2 border-white/20 shadow-xl">
-            <img
-              src={selectedRole === 'buyer' ? "./cnc-metal-turning.jpg" : "./steel-warehouse-coils.jpg"}
-              alt="Precision Metal Fabrication & Raw Material Supply"
-              className="w-full h-full object-cover opacity-85"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/75 to-transparent flex items-center px-6">
-              <div>
-                <p className="font-heading font-black text-white text-base">
-                  {selectedRole === 'buyer' ? (fullName || "Fabrication Workshop") : (fullName || "Metal Supplier")}
-                </p>
-                <p className="text-[#F8C8BE] text-xs mt-0.5 font-medium">
-                  {selectedRole === 'buyer' ? "MIDC Industrial Cluster • Sheet Metal & Precision Fabrication" : "Certified Raw Material Supplier • 97% On-time Rate"}
-                </p>
-              </div>
-            </div>
+          {/* Interactive 3D Metal Fabrication Model */}
+          <div className="relative rounded-3xl overflow-hidden h-44 max-w-md bg-white/10 backdrop-blur-md border-2 border-white/30 shadow-2xl">
+            <Interactive3DMetalPart height={176} showTelemetry={true} />
           </div>
         </div>
 
-        {/* Right: Crisp White Login Card matching PPT */}
+        {/* Right: Crisp White 3D Elevated Login Card matching PPT */}
         <div className="lg:col-span-6">
-          <div className="bg-white rounded-3xl p-8 shadow-cardLg border-4 border-white/60 text-[#1E1638]">
+          <Card3D className="bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.25)] border-4 border-white/80 text-[#1E1638]">
             {/* Role Toggle Selector */}
             <div className="mb-6">
               <span className="text-[10px] uppercase font-bold text-[#523D8A] tracking-wider block mb-2">
@@ -263,7 +251,7 @@ export const Login: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full mt-2 py-3.5 rounded-2xl bg-[#523D8A] hover:bg-[#3E2C6B] text-white font-heading font-black text-sm transition-all shadow-md flex items-center justify-center gap-2"
+                className="w-full mt-2 py-3.5 rounded-2xl bg-[#523D8A] hover:bg-[#3E2C6B] text-white font-heading font-black text-sm transition-all shadow-[0_5px_0_#2b1a52,0_10px_20px_rgba(82,61,138,0.35)] active:translate-y-1 active:shadow-[0_1px_0_#2b1a52] flex items-center justify-center gap-2"
               >
                 <span>Enter Workspace as {fullName || 'User'}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -275,7 +263,7 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={handleDemoAccess}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#F8C8BE] hover:bg-[#f3b5a8] text-[#1E1638] text-xs font-heading font-black flex items-center justify-center gap-2 transition-all shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl bg-[#F8C8BE] hover:bg-[#f3b5a8] text-[#1E1638] text-xs font-heading font-black flex items-center justify-center gap-2 transition-all shadow-[0_3px_0_#e59c90] active:translate-y-0.5 active:shadow-none"
               >
                 <Zap className="w-3.5 h-3.5 text-[#523D8A]" />
                 {selectedRole === 'buyer'
@@ -286,7 +274,7 @@ export const Login: React.FC = () => {
                 Type any name above or click demo to instantly evaluate.
               </p>
             </div>
-          </div>
+          </Card3D>
         </div>
       </main>
 

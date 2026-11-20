@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Interactive3DMetalPart } from '../components/Interactive3DMetalPart';
+import { Card3D } from '../components/Card3D';
 
 const revenueData = [
   { month: 'Jun', revenue: 4.2 }, { month: 'Jul', revenue: 5.1 },
@@ -34,31 +36,26 @@ export const SellerDashboard: React.FC = () => {
           <p className="text-white/85 text-xs sm:text-sm mt-2 max-w-md font-medium">Your supplier quotation &amp; order performance at a glance. 7 incoming RFQs awaiting your review.</p>
           <div className="flex flex-wrap gap-3 mt-6">
             <button onClick={() => setCurrentPage('seller-catalog')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white text-[#523D8A] text-sm font-heading font-black transition-all shadow-md hover:bg-slate-100">
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white text-[#523D8A] text-sm font-heading font-black transition-all shadow-[0_4px_0_#d1d5db,0_10px_20px_rgba(0,0,0,0.15)] active:translate-y-1 active:shadow-[0_1px_0_#d1d5db] hover:bg-slate-50">
               <Package className="w-4 h-4 text-[#523D8A]" /> Add Material
             </button>
             <button onClick={() => setCurrentPage('seller-rfq')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-md">
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-sm font-heading font-black transition-all shadow-[0_5px_0_#b87414,0_10px_20px_rgba(245,166,54,0.35)] active:translate-y-1 active:shadow-[0_1px_0_#b87414]">
               <Inbox className="w-4 h-4" /> View RFQs
             </button>
           </div>
         </div>
-        <div className="absolute inset-0 flex items-stretch pointer-events-none">
+        {/* Interactive 3D Metal Component Viewport */}
+        <div className="absolute inset-0 flex items-stretch">
           <div className="flex-1" />
-          <div className="w-full sm:w-6/12 relative">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10" />
-            <img
-              src="./steel-warehouse-coils.jpg"
-              alt="Raw Steel Material Depot & Coils"
-              className="w-full h-full object-cover opacity-85 object-center"
-              style={{ maxHeight: 240 }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#3E296C]/80 via-transparent to-transparent" />
+          <div className="w-full sm:w-6/12 relative pointer-events-auto">
+            <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#523D8A] via-[#523D8A]/80 to-transparent z-10 pointer-events-none" />
+            <Interactive3DMetalPart height={240} showTelemetry={true} />
           </div>
         </div>
       </div>
 
-      {/* KPI Cards (Crisp White PPT Style Cards) */}
+      {/* KPI Cards (Interactive 3D Perspective Tilt Cards) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'Materials Listed', value: '24', delta: '+3', icon: Package, iconBg: 'bg-[#EFEBF8]', iconColor: 'text-[#523D8A]', deltaColor: 'text-[#523D8A] bg-[#EFEBF8]' },
@@ -66,16 +63,16 @@ export const SellerDashboard: React.FC = () => {
           { label: 'Orders Fulfilled', value: '156', delta: '+12', icon: Truck, iconBg: 'bg-[#F8C8BE]', iconColor: 'text-orange-950', deltaColor: 'text-orange-800 bg-orange-50' },
           { label: 'Avg Response Time', value: '4.2h', delta: '↓1h', icon: Clock, iconBg: 'bg-emerald-100', iconColor: 'text-emerald-800', deltaColor: 'text-emerald-700 bg-emerald-50' },
         ].map(({ label, value, delta, icon: Icon, iconBg, iconColor, deltaColor }) => (
-          <div key={label} className="p-5 rounded-3xl bg-white shadow-card border-2 border-white/80 text-[#1E1638]">
+          <Card3D key={label} className="p-5 bg-white/95 backdrop-blur-md shadow-[0_12px_28px_rgba(0,0,0,0.16)] border-2 border-white/80 text-[#1E1638]">
             <div className="flex items-center justify-between">
-              <div className={`p-2.5 rounded-2xl ${iconBg}`}><Icon className={`w-4 h-4 ${iconColor}`} /></div>
-              <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${deltaColor}`}>{delta}</span>
+              <div className={`p-2.5 rounded-2xl ${iconBg} shadow-inner`}><Icon className={`w-4 h-4 ${iconColor}`} /></div>
+              <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${deltaColor} shadow-sm`}>{delta}</span>
             </div>
             <div className="mt-3">
               <div className="font-heading font-black text-2xl text-[#1E1638]">{value}</div>
               <div className="text-xs text-slate-500 mt-0.5 font-medium">{label}</div>
             </div>
-          </div>
+          </Card3D>
         ))}
       </div>
 
