@@ -42,7 +42,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-16 px-6 bg-[#1A957E] border-b border-black/10 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+    <header className="h-16 px-6 bg-[#1A1F36] border-b border-white/10 flex items-center justify-between sticky top-0 z-30 shadow-sm">
       {/* Search Bar - Crisp White Input */}
       <form onSubmit={handleSearchSubmit} className="relative w-72 md:w-96">
         <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
         {/* Storyboard Button: A Day with ForgeFlow (Mango Yellow Button) */}
         <button
           onClick={() => setIsStoryModalOpen(true)}
-          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#F5A636] hover:bg-[#e59524] text-[#1E1638] text-xs font-heading font-black transition-all shadow-md"
+          className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#1A957E] hover:bg-[#15806b] text-white text-xs font-heading font-black transition-all shadow-md"
         >
           <BookOpen className="w-4 h-4" />
           <span>A Day with ForgeFlow</span>

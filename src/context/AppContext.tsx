@@ -32,13 +32,22 @@ export type PageId =
   | 'invoices'
   | 'suppliers'
   | 'reports'
-  | 'settings';
+  | 'settings'
+  | 'seller-dashboard'
+  | 'seller-catalog'
+  | 'seller-rfq'
+  | 'seller-orders'
+  | 'seller-analytics';
+
+export type UserRole = 'buyer' | 'seller';
 
 interface AppContextType {
   currentPage: PageId;
   setCurrentPage: (page: PageId) => void;
   isAuthenticated: boolean;
-  login: (email?: string) => void;
+  userRole: UserRole;
+  setUserRole: (role: UserRole) => void;
+  login: (email?: string, role?: UserRole) => void;
   logout: () => void;
   user: UserProfile;
   setUser: (u: UserProfile) => void;
@@ -98,6 +107,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem(`${STORAGE_KEY_PREFIX}auth`) === 'true';
   });
+
+  const [userRole, setUserRoleState] = useState<UserRole>(() => {
+    return (localStorage.getItem(`${STORAGE_KEY_PREFIX}role`) as UserRole) || 'buyer';
+  });
+
+  const setUserRole = (role: UserRole) => {
+    setUserRoleState(role);
+    localStorage.setItem(`${STORAGE_KEY_PREFIX}role`, role);
+    setCurrentPage(role === 'seller' ? 'seller-dashboard' : 'dashboard');
+  };
 
   const [currentPage, setCurrentPage] = useState<PageId>(() => {
     const saved = localStorage.getItem(`${STORAGE_KEY_PREFIX}page`) as PageId;
@@ -199,12 +218,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, 4000);
   };
 
-  const login = (email?: string) => {
+  const login = (email?: string, role: UserRole = 'buyer') => {
     setIsAuthenticated(true);
+    setUserRoleState(role);
+    localStorage.setItem(`${STORAGE_KEY_PREFIX}role`, role);
     if (email) {
       setUser(prev => ({ ...prev, email }));
     }
-    setCurrentPage('dashboard');
+    setCurrentPage(role === 'seller' ? 'seller-dashboard' : 'dashboard');
     showToast(`Welcome back, ${user.name}! Workspace synchronized.`, 'success');
   };
 
@@ -413,6 +434,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         currentPage,
         setCurrentPage,
         isAuthenticated,
+        userRole,
+        setUserRole,
         login,
         logout,
         user,
